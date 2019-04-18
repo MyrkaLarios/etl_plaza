@@ -19,6 +19,8 @@ gem "sass-rails", "~> 5.0"
 gem "turbolinks", "~> 5"
 gem "uglifier", ">= 1.3.0"
 gem 'wdm', '>= 0.1.0'
+gem 'tiny_tds'
+gem 'activerecord-sqlserver-adapter'
 
 # Background Jobs Adapter
 gem "sidekiq"

@@ -25,6 +25,9 @@ Edit/Remove the following sections as you wish.
 
 ## Database Management
 
+1. Instalar freeTDS
+2.
+
 To setup database you either run:
 
     bundle exec rails db:setup
