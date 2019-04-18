@@ -24,7 +24,7 @@ default: &default
 development:
   adapter: sqlserver
   mode: dblib
-  host: 192.168.1.96
+  host: localhost
   port: 1433
   username: admin
   password: 123qwe
