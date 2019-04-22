@@ -2,7 +2,7 @@ octopus:
   environments:
     - development
   development:
-    shard_one:
+    DATAWH:
       host: localhost
       adapter: sqlserver
       mode: dblib
@@ -10,11 +10,12 @@ octopus:
       username: admin
       password: 123qwe
       port: 1433
-    shard_two:
+    MYL:
       host: localhost
-      adapter: postgresql
-      database: myrkalarios
-      username: myrkalarios
+      adapter: mysql2
+      database: social_service_development
+      username: root
+      port: 3306
     shard_three:
       host: localhost
       adapter: postgresql
