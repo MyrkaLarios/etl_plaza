@@ -22,13 +22,8 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  adapter: sqlserver
-  mode: dblib
-  host: 192.168.1.96
-  port: 1433
-  username: admin
-  password: 123qwe
-  database: DATAWH
+  <<: *default
+  database: DTWH
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

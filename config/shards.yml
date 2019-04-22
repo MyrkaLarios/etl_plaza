@@ -1,0 +1,27 @@
+octopus:
+  environments:
+    - development
+  development:
+    shard_one:
+      host: localhost
+      adapter: sqlserver
+      mode: dblib
+      database: DATAWH
+      username: admin
+      password: 123qwe
+      port: 1433
+    shard_two:
+      host: localhost
+      adapter: postgresql
+      database: myrkalarios
+      username: myrkalarios
+    shard_three:
+      host: localhost
+      adapter: postgresql
+      database: micheticket_development
+      username: myrkalarios
+    shard_four:
+      host: localhost
+      adapter: postgresql
+      database: micheticket_development
+      username: myrkalarios

@@ -47,6 +47,12 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    annotate (2.7.4)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
+    ar-octopus (0.10.2)
+      activerecord (>= 4.2.0)
+      activesupport (>= 4.2.0)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
@@ -168,6 +174,8 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    pry-nav (0.3.0)
+      pry (>= 0.9.10, < 0.13.0)
     psych (3.1.0)
     public_suffix (3.0.3)
     puma (3.12.1)
@@ -311,6 +319,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-sqlserver-adapter
+  annotate
+  ar-octopus
   awesome_print
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.3.1)
@@ -329,6 +339,7 @@ DEPENDENCIES
   minitest-rails
   pg (>= 0.18, < 2.0)
   pry
+  pry-nav
   puma (~> 3.11)
   pundit
   rails (~> 5.2.1)

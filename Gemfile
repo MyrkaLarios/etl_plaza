@@ -6,10 +6,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.5.3"
 gem "rails", "~> 5.2.1"
 gem "pg", ">= 0.18", "< 2.0"
+gem "ar-octopus"
 
 gem "bootsnap", ">= 1.1.0", require: false
 gem "devise"
-gem 'bootstrap', '~> 4.3.1'
+gem "bootstrap", "~> 4.3.1"
 gem "devise-i18n"
 gem "haml-rails"
 gem "interactor-rails"
@@ -18,8 +19,8 @@ gem "pundit"
 gem "sass-rails", "~> 5.0"
 gem "turbolinks", "~> 5"
 gem "uglifier", ">= 1.3.0"
-gem 'tiny_tds'
-gem 'activerecord-sqlserver-adapter'
+gem "tiny_tds"
+gem "activerecord-sqlserver-adapter"
 gem "jquery-rails"
 
 # Background Jobs Adapter
@@ -44,6 +45,7 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "letter_opener"
+  gem "annotate"
 end
 
 group :test do
