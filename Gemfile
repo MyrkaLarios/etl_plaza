@@ -22,6 +22,7 @@ gem 'wdm', '>= 0.1.0'
 gem 'tiny_tds'
 gem 'activerecord-sqlserver-adapter'
 gem "jquery-rails"
+gem 'rails-ujs'
 
 # Background Jobs Adapter
 gem "sidekiq"
