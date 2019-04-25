@@ -3143,50 +3143,28 @@ select * from ordenes_servicio;
 -- TIPOS DE INCIDENTES
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---INSERT INTO tipos_incidentes (nombre, descripcion) VALUES ('Fallo de fábrica', 'El material llegó defectuoso');
---INSERT INTO tipos_incidentes (nombre, descripcion) VALUES ('Destrucción', 'El material se rompió');
---INSERT INTO tipos_incidentes (nombre, descripcion) VALUES ('Derrame', 'El material líquido se derramó');
---INSERT INTO tipos_incidentes (nombre, descripcion) VALUES ('Caducado', 'La fecha de caducidad ya pasó');
+INSERT INTO tipos_incidentes (nombre, descripcion) VALUES ('Fallo de fábrica', 'El material llegó defectuoso');
+INSERT INTO tipos_incidentes (nombre, descripcion) VALUES ('Destrucción', 'El material se rompió');
+INSERT INTO tipos_incidentes (nombre, descripcion) VALUES ('Derrame', 'El material líquido se derramó');
+INSERT INTO tipos_incidentes (nombre, descripcion) VALUES ('Caducado', 'La fecha de caducidad ya pasó');
 
-
---select * from tipos_incidentes;
-select * from ordenes_servicios_contratistas;
-select * from contratistas;
-select * from horarios;
-select * from tipos_areas;
-select * from tareas;
-select * from solicitudes_compra_material;
-select * from solicitudes_compra;
-select * from servicios_materiales;
-select * from secciones_bodega;
-select * from recursos_materiales;
-select * from categorias_materiales;
-select * from personas;
-select * from puestos;
-select * from proveedores;
-select * from areas_servicios;
-select * from servicios;
-select * from areas_horarios;
-select * from horarios_disponibles;
-select * from areas;
-select * from ordenes_servicio;
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- INCIDENTES
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---INSERT INTO tipos_incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
---	'2017-10-08', null, null, 1, 2, 12);
+INSERT INTO incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
+	'2017-10-08', null, null, 1, 2, 12);
 --XXXX FECHA
---INSERT INTO tipos_incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
---	'2020-11-21', null, null, 4, 2, 11);
---INSERT INTO tipos_incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
---	'2017-11-22', null, null, 4, 2, 19);
---INSERT INTO tipos_incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
---	'2017-21-20', null, null, 4, 2, 26);
---INSERT INTO tipos_incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
---	'2019-01-14', null, null, 4, 2, 33);
+INSERT INTO incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
+	'2020-11-21', null, null, 4, 2, 11);
+INSERT INTO incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
+	'2017-11-22', null, null, 4, 2, 19);
+INSERT INTO incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
+	'2017-21-20', null, null, 4, 2, 26);
+INSERT INTO incidente (fecha, clave_nota_credito, clave_nota_debito, tipo_incidente, persona, recurso_material) VALUES (
+	'2019-01-14', null, null, 4, 2, 33);
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3222,4 +3200,5 @@ SELECT * FROM tipos_materiales;
 SELECT * FROM proveedores;
 SELECT * FROM personas;
 SELECT * FROM puestos;
+
 
