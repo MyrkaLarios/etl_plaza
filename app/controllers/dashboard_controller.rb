@@ -2,7 +2,7 @@
 
 class DashboardController < ApplicationController
   def index
-    Octopus.using(:MYL) do
+    Octopus.using(:RF) do
       binding.pry
     end
   end

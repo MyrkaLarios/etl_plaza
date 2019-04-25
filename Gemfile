@@ -8,6 +8,7 @@ gem "rails", "~> 5.2.1"
 gem "pg", ">= 0.18", "< 2.0"
 gem "ar-octopus"
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
+gem 'mdb'
 
 gem "bootsnap", ">= 1.1.0", require: false
 gem "devise"

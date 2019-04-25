@@ -2,11 +2,11 @@ octopus:
   environments:
     - development
   development:
-    DATAWH:
+    TEMP:
       host: localhost
       adapter: sqlserver
       mode: dblib
-      database: DATAWH
+      database: DATAWHTEMP
       username: admin
       password: 123qwe
       port: 1433
@@ -23,8 +23,11 @@ octopus:
       username: postgres
       password: postgres
       port: 5432
-    shard_four:
+    RF:
+      adapter: sqlserver
+      mode: dblib
       host: localhost
-      adapter: postgresql
-      database: micheticket_development
-      username: myrkalarios
+      port: 1433
+      username: admin
+      password: 123qwe
+      database: recursos_financieros
