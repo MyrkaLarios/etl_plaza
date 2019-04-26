@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations' ,
+    sessions: 'users/sessions'
+  }
   devise_scope :user do
     authenticated :user do
       root 'dashboard#index', as: :authenticated_root
+      resources :etl
     end
 
     unauthenticated do
