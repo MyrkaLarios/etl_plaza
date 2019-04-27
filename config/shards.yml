@@ -6,7 +6,7 @@ octopus:
       host: localhost
       adapter: sqlserver
       mode: dblib
-      database: DATAWHTEMP
+      database: TEMP
       username: admin
       password: 123qwe
       port: 1433
@@ -31,3 +31,11 @@ octopus:
       username: admin
       password: 123qwe
       database: recursos_financieros
+    DTWH:
+      adapter: sqlserver
+      mode: dblib
+      host: localhost
+      port: 1433
+      username: admin
+      password: 123qwe
+      database: DATAWH
