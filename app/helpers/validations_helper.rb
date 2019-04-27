@@ -1,6 +1,6 @@
 module ValidationsHelper
   def valid_name?(name)
-    name.scan(/^[A-z ]+$/).present?
+    name.scan(/^[A-z áéíóúÁÉÍÓÚñÑ]+$/).present?
   end
 
   def valid_CURP?(curp)

@@ -8,6 +8,9 @@ class Empleado < ApplicationRecord
     when 'E'
       valid_name?(nombre) &&
       valid_CURP?(curp)
+    when 'F'
+      valid_name?(nombre) &&
+      valid_CURP?(self.CURP)
     end
   end
 end
