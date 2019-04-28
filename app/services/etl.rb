@@ -3,8 +3,10 @@ class Etl
     @new = true
     extract_employee_type_data
     extract_employee_data
-    extract_tarjet_data
-    extract_estancia_data
+    # extract_tarjet_data
+    # extract_estancia_data
+    extract_tipo_area_data
+    extract_area_data
   end
 
   def self.extract_employee_type_data
@@ -41,6 +43,21 @@ class Etl
     Octopus.using(:E) do
       send_to_DWH(Estancia.all, 'E')
       send_to_DWH(DetalleEstanciaVideocamara.all, 'E')
+    end
+  end
+
+  def self.extract_tipo_area_data
+    Octopus.using(:MYL) do
+      send_to_DWH(TipoArea.all, 'M')
+    end
+  end
+
+  def self.extract_area_data
+    Octopus.using(:E) do
+      send_to_DWH(AreaEstacionamiento.all, 'E')
+    end
+    Octopus.using(:MYL) do
+      send_to_DWH(Area.all, 'M')
     end
   end
 
@@ -99,6 +116,28 @@ class Etl
         sql = "UPDATE dbo.ESTANCIA SET placa = '#{object[:placa]}' WHERE id = #{object[:id_Estancia]}"
         ActiveRecord::Base.connection.execute(sql)
       end
+
+      if k == TipoArea
+        if !already_in_db?('nombre', object[:nombre], 'TIPO_AREA')
+          sql = "INSERT INTO dbo.TIPO_AREA (original_id, nombre) VALUES (#{object[:id]}, '#{object[:nombre]}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+      end
+
+      if k == AreaEstacionamiento
+        if !already_in_db?('nombre', object[:nombre], 'AREA')
+          sql = "INSERT INTO dbo.AREA (original_id, nombre, descripcion) VALUES (#{object[:id]}, '#{object[:nombre]}', '#{object[:descripcion]}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+      end
+
+      if k == Area
+        tipo_area = find_foreign_key_from_original('TIPO_AREA', object[:tipo_area])
+        if !already_in_db?('nombre', object[:nombre], 'AREA')
+          sql = "INSERT INTO dbo.AREA (original_id, nombre, id_tipoarea) VALUES (#{object[:id]}, '#{object[:nombre]}', #{tipo_area});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+      end
     end
   end
 
@@ -133,6 +172,21 @@ class Etl
           sql = "INSERT INTO dbo.DETALLE_ESTANCIA_VIDEOCAMARAS (placa, id_Estancia) VALUES (#{object[:placa]}, '#{object[:id_Estancia]}');"
           ActiveRecord::Base.connection.execute(sql)
         end
+        if k == TipoArea
+          sql = "INSERT INTO dbo.TIPO_AREA (original_id, nombre, sistema) VALUES (#{object[:id]}, '#{object[:nombre]}', '#{s}')"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == AreaEstacionamiento
+          sql = "INSERT INTO dbo.AREA (original_id, nombre, descripcion, sistema) VALUES (#{object[:id]}, '#{object[:nombre]}', '#{object[:descripcion]}', '#{s}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Area
+          sql = "INSERT INTO dbo.AREA (original_id, nombre, sistema, id_tipoarea) VALUES (#{object[:id]}, '#{object[:nombre]}', '#{s}', #{object[:tipo_area]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
       end
     end
   end
@@ -156,6 +210,14 @@ class Etl
     Octopus.using(:DTWH) do
       sql = "SELECT id from #{dtwh_t} where #{dtwh_where_name} = '#{original_value}'"
       ActiveRecord::Base.connection.execute(sql)
+    end
+  end
+
+  def self.find_foreign_key_from_original(table, original_id)
+    Octopus.using(:DTWH) do
+      sql = "SELECT id from #{table} where original_id = '#{original_id}'"
+      result = ActiveRecord::Base.connection.exec_query(sql).rows
+      result = result.present? ? result[0][0] : 'null'
     end
   end
 end

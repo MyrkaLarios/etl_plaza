@@ -3,6 +3,10 @@ module ValidationsHelper
     name.scan(/^[A-z áéíóúÁÉÍÓÚñÑ]+$/).present?
   end
 
+  def valid_zone_name?(name)
+    name.scan(/^[A-z áéíóúÁÉÍÓÚñÑ0-9]+$/).present?
+  end
+
   def valid_CURP?(curp)
     curp.scan(/^[A-Z]{4}[0-9]{6}[A-Z]{6}[0-9]{2}$/).present?
   end
