@@ -11,8 +11,9 @@ class Etl
     # extract_cajero_estancia
     # extract_pasillo
     # extract_sensor
-    extract_horario_disp
-    extract_horario_disp_detalle
+    # extract_horario_disp
+    # extract_horario_disp_detalle
+    extract_locale
 
   end
 
@@ -102,6 +103,12 @@ class Etl
   def self.extract_horario_disp_detalle
     Octopus.using(:MYL) do
       send_to_DWH(DetalleHorarioDisponibleArea.all, 'M')
+    end
+  end
+
+  def self.extract_locale
+    Octopus.using(:RF) do
+      send_to_DWH(Locale.all, 'F')
     end
   end
 
@@ -236,6 +243,12 @@ class Etl
         sql = "INSERT INTO dbo.AREA_HORARIODISPONIBLE (id_horariodisponible, id_area) VALUES (#{horario}, #{area});"
         ActiveRecord::Base.connection.execute(sql)
       end
+
+      if k == Locale
+        ubicacion = find_foreign_key_from_attr('DTWH','AREA', 'nombre', object[:ubicacion])
+        sql = "INSERT INTO dbo.LOCALES (numero, original_id, ubicacion, dimensiones, estado, costo) VALUES (#{object[:numero]}, #{object[:numero]}, '#{ubicacion}', '#{object[:dimensiones]}', '#{object[:estado]}',  #{object[:costo]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
     end
   end
 
@@ -318,6 +331,11 @@ class Etl
           sql = "INSERT INTO dbo.AREA_HORARIODISPONIBLE (id_horariodisponible, id_area) VALUES (#{object[:horario_disp]}, #{object[:area]});"
           ActiveRecord::Base.connection.execute(sql)
         end
+      end
+
+      if k == Locale
+        sql = "INSERT INTO dbo.LOCALES (numero, original_id, ubicacion, dimensiones, estado, costo) VALUES (#{object[:numero]}, #{object[:numero]}, '#{object[:ubicacion]}', '#{object[:dimensiones]}', '#{object[:estado]}',  #{object[:costo]});"
+        ActiveRecord::Base.connection.execute(sql)
       end
     end
   end

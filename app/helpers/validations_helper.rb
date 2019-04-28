@@ -62,4 +62,12 @@ module ValidationsHelper
   def valid_dia?(dia)
     dia.scan(/(L|M|MA|J|V|S|D)/).present?
   end
+
+  def valid_dimension?(dimension)
+    dimension.scan(/([0-9]{1,2}x[0-9]{1,2})/).present?
+  end
+
+  def valid_estado_local?(estado)
+    estado.scan(/(Ocupado|Disponible)/).present?
+  end
 end
