@@ -6,16 +6,20 @@ class Etl
     # extract_tarjet_data
     # extract_estancia_data
     # extract_tipo_area_data
-    extract_area_data
+    # extract_area_data
     # extract_cajero_data
     # extract_cajero_estancia
     # extract_pasillo
     # extract_sensor
     # extract_horario_disp
     # extract_horario_disp_detalle
-    extract_locale
-    extract_negocio
-    extract_local_negocio
+    # extract_locale
+    # extract_negocio
+    # extract_local_negocio
+    # extract_descuento
+    # extract_tipo_accidente
+    # extract_accidente
+    extract_cliente
   end
 
   def self.extract_employee_type_data
@@ -125,6 +129,37 @@ class Etl
     end
   end
 
+  def self.extract_descuento
+    Octopus.using(:E) do
+      send_to_DWH(Descuento.all, 'E')
+    end
+  end
+
+  def self.extract_tipo_accidente
+    Octopus.using(:E) do
+      send_to_DWH(TiposAccidente.all, 'E')
+    end
+    Octopus.using(:MYL) do
+      # send_to_DWH(TiposAccidente.all, 'E')
+    end
+  end
+
+  def self.extract_accidente
+    Octopus.using(:E) do
+      send_to_DWH(Accidente.all, 'E')
+    end
+    Octopus.using(:MYL) do
+      # send_to_DWH(TiposAccidente.all, 'E')
+    end
+  end
+
+  def self.extract_cliente
+    Octopus.using(:RF) do
+      send_to_DWH(Cliente.all, 'E')
+    end
+
+  end
+
   def self.send_to_DWH(objects, s)
     objects.each do |object|
       object.valid?(s) ? save_on_DTWH(object, object.class, s) : save_on_TEMP(object, s, object.class)
@@ -196,7 +231,7 @@ class Etl
       end
 
       if k == Area
-        tipo_area = find_foreign_key_from_original('TIPO_AREA', object[:tipo_area])
+        tipo_area = find_foreign_key_from_original('TIPO_AREA', object[:tipo_area], 0)
         if !already_in_db?('nombre', object[:nombre], 'AREA')
           sql = "INSERT INTO dbo.AREA (original_id, nombre, id_tipoarea) VALUES (#{object[:id]}, '#{object[:nombre]}', #{tipo_area});"
           ActiveRecord::Base.connection.execute(sql)
@@ -204,14 +239,14 @@ class Etl
       end
 
       if k == Cajero
-        area = find_foreign_key_from_original('AREA', object[:id_Area])
+        area = find_foreign_key_from_original('AREA', object[:id_Area], 1)
         sql = "INSERT INTO dbo.CAJERO (original_id, dineroactual, fechaactual, periodicidadmantenimiento, estado, id_area) VALUES (#{object[:id]}, #{object[:dinero_Actual]}, '#{object[:fecha_Instalacion]}', '#{object[:periodicidad_Mantenimiento]}', '#{object[:estado]}', #{area});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
       if k == DetalleTarjetaCajero && @new
         estancia = find_foreign_key_from_attr('E','estancia', 'id_Tarjeta', object[:id_Tarjeta])
-        estancia = find_foreign_key_from_original('ESTANCIA', estancia)
+        estancia = find_foreign_key_from_original('ESTANCIA', estancia, 0)
         hora = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
         sql = "INSERT INTO dbo.ESTANCIA_CAJERO (tarifa, fechainicio, fechafin, id_estancia) VALUES (#{object[:id_Tarifa]}, '#{hora}', '#{hora}', #{estancia});"
         ActiveRecord::Base.connection.execute(sql)
@@ -228,13 +263,13 @@ class Etl
       end
 
       if k == Pasillo
-        area = find_foreign_key_from_original('AREA', object[:id_Area])
+        area = find_foreign_key_from_original('AREA', object[:id_Area],1)
         sql = "INSERT INTO dbo.PASILLO (original_id, numero, cantidad_ocupados, cantidad_libres, id_area) VALUES (#{object[:id]}, #{object[:numero]}, #{object[:cantidad_ocupados]}, '#{object[:cantidad_libres]}', '#{area}');"
         ActiveRecord::Base.connection.execute(sql)
       end
 
       if k == Sensor && @new
-        pasillo = find_foreign_key_from_original('PASILLO', object[:id_pasillo])
+        pasillo = find_foreign_key_from_original('PASILLO', object[:id_pasillo],0)
         fecha = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
         sql = "INSERT INTO dbo.SENSOR (estado, fecha, id_pasillo) VALUES ('#{object[:estado]}', '#{fecha}', #{pasillo});"
         ActiveRecord::Base.connection.execute(sql)
@@ -251,8 +286,8 @@ class Etl
       end
 
       if k == DetalleHorarioDisponibleArea
-        area = find_foreign_key_from_original('AREA', object[:area])
-        horario = find_foreign_key_from_original('HORARIO_DISPONIBLE', object[:horario_disp])
+        area = find_foreign_key_from_original('AREA', object[:area], 0)
+        horario = find_foreign_key_from_original('HORARIO_DISPONIBLE', object[:horario_disp],0)
         sql = "INSERT INTO dbo.AREA_HORARIODISPONIBLE (id_horariodisponible, id_area) VALUES (#{horario}, #{area});"
         ActiveRecord::Base.connection.execute(sql)
       end
@@ -264,15 +299,62 @@ class Etl
       end
 
       if k == Negocio
-        local = find_foreign_key_from_original('LOCALES', object[:id_locales])
+        local = find_foreign_key_from_original('LOCALES', object[:id_locales],0)
         sql = "INSERT INTO dbo.NEGOCIOS (nombre, giro, estado, id_locales, original_id) VALUES ('#{object[:nombre]}', '#{object[:giro]}', '#{object[:estado]}', #{local},  #{object[:id]});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
       if k == LocalNegocio
-        local = find_foreign_key_from_original('LOCALES', object[:id_local])
-        negocio = find_foreign_key_from_original('NEGOCIOS', object[:id_negocio])
+        local = find_foreign_key_from_original('LOCALES', object[:id_local], 0)
+        negocio = find_foreign_key_from_original('NEGOCIOS', object[:id_negocio], 0)
         sql = "INSERT INTO dbo.LOCAL_NEGOCIO (fechainicio, fechafin, id_negocio, id_locales) VALUES ('#{object[:fechaini].strftime('%Y-%m-%d')}', '#{object[:fechafin].strftime('%Y-%m-%d')}', #{negocio},  #{local});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Descuento && @new
+        negocio = find_foreign_key_from_attr('DTWH', 'NEGOCIOS', 'nombre', object[:nombreNegocio])
+        estancia = find_foreign_key_from_original('ESTANCIA', object[:id_Estancia], 0)
+        sql = "INSERT INTO dbo.DESCUENTO (cantidad, id_negocio, id_estancia) VALUES (#{object[:cantidad]}, #{negocio},  #{local});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Descuento && !@new
+        sql = "INSERT INTO dbo.DESCUENTO (cantidad, id_negocio, id_estancia) VALUES (#{object[:cantidad]}, #{object[:id_negocio]},  #{object[:id_estancia]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == TiposAccidente && @new
+        sql = "INSERT INTO dbo.TIPO_ACCIDENTE (nombre, original_id) VALUES ('#{object[:nombre]}', #{object[:id_tipoAccidente]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == TiposAccidente && !@new
+        sql = "INSERT INTO dbo.TIPO_ACCIDENTE (nombre, original_id) VALUES ('#{object[:nombre]}', #{object[:original_id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Accidente && @new
+        fecha = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
+        tipo_a = find_foreign_key_from_original('TIPO_ACCIDENTE', object[:id_tipoAccidente], 0)
+        area = find_foreign_key_from_original('AREA', object[:id_Area], 1)
+        sql = "INSERT INTO dbo.ACCIDENTES (fecha, id_tipoaccidente, id_area) VALUES ('#{fecha}', #{tipo_a}, #{area});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Accidente && !@new
+        tipo_a = find_foreign_key_from_original('TIPO_ACCIDENTE', object[:id_tipoaccidente], 0)
+        area = find_foreign_key_from_original('AREA', object[:id_area], 1)
+        sql = "INSERT INTO dbo.ACCIDENTES (fecha, id_tipoaccidente, id_area) VALUES ('#{object[:fecha]}', #{tipo_a}, #{area});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Cliente && @new
+        sql = "INSERT INTO dbo.CLIENTE (nombre, RFC) VALUES ('#{object[:nombres]} #{object[:apellidos]}', '#{object[:rfc]}');"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Cliente && !@new
+        sql = "INSERT INTO dbo.CLIENTE (nombre, RFC) VALUES ('#{object[:nombre]}', '#{object[:RFC]}');"
         ActiveRecord::Base.connection.execute(sql)
       end
     end
@@ -331,7 +413,7 @@ class Etl
 
         if k == DetalleTarjetaCajero
           estancia = find_foreign_key_from_attr('E','estancia', 'id_Tarjeta', object[:id_Tarjeta])
-          estancia = find_foreign_key_from_original('ESTANCIA', estancia)
+          estancia = find_foreign_key_from_original('ESTANCIA', estancia, 0)
           hora = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
           sql = "INSERT INTO dbo.ESTANCIA_CAJERO (tarifa, fechainicio, fechafin, id_estancia) VALUES (#{object[:id_Tarifa]}, '#{hora}', '#{hora}', #{estancia});"
           ActiveRecord::Base.connection.execute(sql)
@@ -368,8 +450,26 @@ class Etl
           ActiveRecord::Base.connection.execute(sql)
         end
 
-        if k == LocalNegocio
-          sql = "INSERT INTO dbo.LOCAL_NEGOCIO (fechainicio, fechafin, id_negocio, id_locales) VALUES ('#{object[:fechaini].strftime('%Y-%m-%d')}', '#{object[:fechafin].strftime('%Y-%m-%d')}', #{object[:id_negocio]},  #{object[:id_local]});"
+        if k == Descuento
+          negocio = find_foreign_key_from_attr('DTWH', 'NEGOCIOS', 'nombre', object[:nombreNegocio])
+          estancia = find_foreign_key_from_original('ESTANCIA', object[:id_Estancia], 0)
+          sql = "INSERT INTO dbo.DESCUENTO (cantidad, id_negocio, id_estancia) VALUES (#{object[:cantidad]}, #{negocio},  #{local});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == TiposAccidente
+          sql = "INSERT INTO dbo.TIPO_ACCIDENTE (nombre, original_id, sistema) VALUES ('#{object[:nombre]}', #{object[:id_tipoAccidente]}, '#{s}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Accidente
+          fecha = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
+          sql = "INSERT INTO dbo.ACCIDENTES (fecha, id_tipoaccidente, id_area) VALUES ('#{fecha}', #{object[:id_tipoAccidente]}, #{object[:id_Area]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Cliente && @new
+          sql = "INSERT INTO dbo.CLIENTE (nombre, RFC) VALUES ('#{object[:nombres]} #{object[:apellidos]}', '#{object[:rfc]}');"
           ActiveRecord::Base.connection.execute(sql)
         end
       end
@@ -398,11 +498,12 @@ class Etl
     end
   end
 
-  def self.find_foreign_key_from_original(table, original_id)
+  def self.find_foreign_key_from_original(table, original_id, i)
     Octopus.using(:DTWH) do
       sql = "SELECT id from #{table} where original_id = '#{original_id}'"
       result = ActiveRecord::Base.connection.exec_query(sql).rows
-      result = result.present? ? result[0][0] : 'null'
+      result[i].present? ? result[i][0] : 'null'
+
     end
   end
 

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class Descuento < ApplicationRecord
+class TiposAccidente < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    valid_salary?(cantidad)
+    valid_name?(nombre)
   end
 end
