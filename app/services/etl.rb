@@ -13,13 +13,15 @@ class Etl
     # extract_sensor
     # extract_horario_disp
     # extract_horario_disp_detalle
-    # extract_locale
+    extract_locale
     # extract_negocio
     # extract_local_negocio
     # extract_descuento
     # extract_tipo_accidente
     # extract_accidente
     extract_cliente
+    extract_contrato
+    extract_rentas
   end
 
   def self.extract_employee_type_data
@@ -155,9 +157,20 @@ class Etl
 
   def self.extract_cliente
     Octopus.using(:RF) do
-      send_to_DWH(Cliente.all, 'E')
+      send_to_DWH(Cliente.all, 'F')
     end
+  end
 
+  def self.extract_contrato
+    Octopus.using(:RF) do
+      send_to_DWH(Contrato.all, 'F')
+    end
+  end
+
+  def self.extract_rentas
+    Octopus.using(:RF) do
+      send_to_DWH(Rentas.all, 'F')
+    end
   end
 
   def self.send_to_DWH(objects, s)
@@ -357,6 +370,18 @@ class Etl
         sql = "INSERT INTO dbo.CLIENTE (nombre, RFC) VALUES ('#{object[:nombre]}', '#{object[:RFC]}');"
         ActiveRecord::Base.connection.execute(sql)
       end
+
+      if k == Contrato
+        sql = "INSERT INTO dbo.CONTRATO (fechainicio, fechafin, costo, id_cliente, id_local, original_id) VALUES ('#{object[:fechainicio].to_date}', '#{object[:fechafin].to_date}', #{object[:costo]}, #{object[:id_cliente]}, #{object[:id_local]}, #{object[:id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Rentas
+        contrato = find_foreign_key_from_attr('DTWH', 'contrato', 'id_local', object[:id_local].to_i)
+        sql = "INSERT INTO dbo.RENTAS (fechacobro, statusretraso, statuspagado, id_contrato) VALUES ('#{object[:fechacobro].to_date}', '#{object[:statusretraso]}', '#{object[:statuspago]}', #{contrato});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
     end
   end
 
@@ -470,6 +495,11 @@ class Etl
 
         if k == Cliente && @new
           sql = "INSERT INTO dbo.CLIENTE (nombre, RFC) VALUES ('#{object[:nombres]} #{object[:apellidos]}', '#{object[:rfc]}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Contrato
+          sql = "INSERT INTO dbo.CONTRATO (fechainicio, fechafin, costo, id_cliente, id_local) VALUES ('#{object[:fechainicio].to_date}', '#{object[:fechafin].to_date}', #{object[:costo]}, #{object[:id_cliente]}, #{object[:id_local]});"
           ActiveRecord::Base.connection.execute(sql)
         end
       end

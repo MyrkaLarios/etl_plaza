@@ -36,7 +36,7 @@ module ValidationsHelper
   end
 
   def valid_date?(date)
-    date.year >= 2016 && date < Time.zone.now
+    date.year >= 2016 && date <= Time.zone.now
   end
 
   def valid_business_date?(date)
@@ -85,5 +85,13 @@ module ValidationsHelper
 
   def valid_estado_local?(estado)
     estado.scan(/^(Ocupado|Disponible)$/).present?
+  end
+
+  def valid_status_retraso?(estado)
+    estado.scan(/^(N|S)$/).present?
+  end
+
+  def valid_status_pago?(estado)
+    estado.scan(/^(C|NC)$/).present?
   end
 end
