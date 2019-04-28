@@ -19,11 +19,23 @@ module ValidationsHelper
     rfc.scan(/^[A-Z]{4}[0-9]{6}[A-Z0-9]{3}$/).present?
   end
 
-  # def valid_turn?(turn)
-  #   turn.scan(/(M|V|N)/).present?
-  # end
+  def valid_date?(date)
+    date.year > 2016 && date < Time.zone.now
+  end
 
-  # def valid_state?(state)
-  #   turn.scan(/(A|I)/).present?
-  # end
+  def valid_date?(duration)
+    duration >= 0
+  end
+
+  def valid_state?(state)
+    state.scan(/(Activada|Desactivada)/).present?
+  end
+
+  def valid_estado_estancia?(state)
+    state.scan(/(Finalizada|Activa)/).present?
+  end
+
+  def valid_placa?(placa)
+    placa.scan(/[A-Z0-9-]{6,10}/).present?
+  end
 end

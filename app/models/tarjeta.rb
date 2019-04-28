@@ -1,3 +1,7 @@
 class Tarjeta < ApplicationRecord
-  # belongs_to :company
+  include ValidationsHelper
+
+  def valid?(s)
+    valid_state?(estado)
+  end
 end

@@ -3,11 +3,13 @@ class Etl
     @new = true
     extract_employee_type_data
     extract_employee_data
+    extract_tarjet_data
+    extract_estancia_data
   end
 
   def self.extract_employee_type_data
     Octopus.using(:E) do
-      send_to_DWH(TipoEmpleado.all, 'E')
+      send_to_DWH(TipoEmpleadoEstacionamiento.all, 'E')
     end
     Octopus.using(:MYL) do
       send_to_DWH(Puesto.all, 'M')
@@ -27,7 +29,19 @@ class Etl
     Octopus.using(:MYL) do
       send_to_DWH(Persona.all, 'M')
     end
+  end
 
+  def self.extract_tarjet_data
+    Octopus.using(:E) do
+      send_to_DWH(Tarjeta.all, 'E')
+    end
+  end
+
+  def self.extract_estancia_data
+    Octopus.using(:E) do
+      send_to_DWH(Estancia.all, 'E')
+      send_to_DWH(DetalleEstanciaVideocamara.all, 'E')
+    end
   end
 
   def self.send_to_DWH(objects, s)
@@ -56,14 +70,33 @@ class Etl
 
       if k == Empleado || k == Persona || k == EmpleadoEstacionamiento
         curp = s == 'F' ? object[:CURP] : object[:curp]
-        fk = find_foreign_key('E', 'empleado_estacionamientos', 'id_tipoEmpleado', 'tipo_empleados', 'id_tipoEmpleado', 'nombre', 'curp', curp, 'dbo.TIPO_EMPLEADOS', 'nombre') if s == 'E'
+        fk = find_foreign_key('E', 'empleado_estacionamientos', 'id_tipoEmpleado', 'tipo_empleado_estacionamientos', 'id', 'nombre', 'curp', curp, 'dbo.TIPO_EMPLEADOS', 'nombre') if s == 'E'
         fk = find_foreign_key('MYL', 'personas', 'puesto', 'puestos', 'id', 'nombre', 'curp', curp, 'dbo.TIPO_EMPLEADOS', 'nombre') if s == 'M'
-        fk = find_foreign_key('RF', 'empleados', 'id_tipoempleado', 'tipo_empleados', 'Id', 'nombre', 'curp', curp, 'dbo.TIPO_EMPLEADOS', 'nombre') if s =='F'
+        fk = find_foreign_key('RF', 'empleados', 'id_tipoempleado', 'tipo_empleados', 'id', 'nombre', 'curp', curp, 'dbo.TIPO_EMPLEADOS', 'nombre') if s =='F'
         if already_in_db?('curp', "#{curp}", 'dbo.EMPLEADOS')
           sql = "UPDATE dbo.EMPLEADOS SET id_tipoempleado = #{fk} WHERE curp = '#{curp}'" if fk != 0
         else
           sql = "INSERT INTO dbo.EMPLEADOS (nombre, curp, id_tipoempleado) VALUES ('#{object[:nombre]}', '#{curp}', #{fk.zero? ? 'null' : fk})"
         end
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Tarjeta
+        sql = "INSERT INTO dbo.TARJETA (id_original, estado) VALUES (#{object[:id]}, '#{object[:estado]}');"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Estancia
+        placa = ''
+        Octopus.using(:E) do
+          placa = DetalleEstanciaVideocamara.find_by(id_Estancia: object[:id])
+        end
+        sql = "INSERT INTO dbo.ESTANCIA (orginal_id, fechainicio, fechafin, horainicio, horafin, duracion, estado, subtotal, total) VALUES (#{object[:id]}, '#{object[:fecha_Inicio]}', '#{object[:fecha_Fin]}', '#{object[:hora_Inicio].strftime('%H:%M:%S')}', '#{object[:hora_Fin].strftime('%H:%M:%S')}', #{object[:duracion]}, '#{object[:estado]}', #{object[:subtotal]}, #{object[:total]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == DetalleEstanciaVideocamara
+        sql = "UPDATE dbo.ESTANCIA SET placa = '#{object[:placa]}' WHERE id = #{object[:id_Estancia]}"
         ActiveRecord::Base.connection.execute(sql)
       end
     end
@@ -86,6 +119,18 @@ class Etl
         end
         if k == Empleado && s == 'F'
           sql = "INSERT INTO dbo.EMPLEADOS (nombre, curp, id_tipoempleado, sistema) VALUES ('#{object[:nombre]}', '#{object[:CURP]}', #{object[:id_tipoempleado]}, '#{s}')"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+        if k == Tarjeta
+          sql = "INSERT INTO dbo.TARJETA (id_original, estado) VALUES (#{object[:id]}, '#{object[:estado]}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+        if k == Estancia
+          sql = "INSERT INTO dbo.ESTANCIA (orginal_id, fechainicio, fechafin, horainicio, horafin, duracion, estado, subtotal, total) VALUES (#{object[:id]}, '#{object[:fecha_Inicio]}', '#{object[:fecha_Fin]}', '#{object[:hora_Inicio].strftime('%H:%M:%S')}', '#{object[:hora_Fin].strftime('%H:%M:%S')}', #{object[:duracion]}, '#{object[:estado]}', #{object[:subtotal]}, #{object[:total]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+        if k == DetalleEstanciaVideocamara
+          sql = "INSERT INTO dbo.DETALLE_ESTANCIA_VIDEOCAMARAS (placa, id_Estancia) VALUES (#{object[:placa]}, '#{object[:id_Estancia]}');"
           ActiveRecord::Base.connection.execute(sql)
         end
       end
