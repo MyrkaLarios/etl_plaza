@@ -5,8 +5,10 @@ class Etl
     extract_employee_data
     # extract_tarjet_data
     # extract_estancia_data
-    extract_tipo_area_data
-    extract_area_data
+    # extract_tipo_area_data
+    # extract_area_data
+    extract_cajero_data
+    extract_cajero_estancia
   end
 
   def self.extract_employee_type_data
@@ -58,6 +60,18 @@ class Etl
     end
     Octopus.using(:MYL) do
       send_to_DWH(Area.all, 'M')
+    end
+  end
+
+  def self.extract_cajero_data
+    Octopus.using(:E) do
+      send_to_DWH(Cajero.all, 'E')
+    end
+  end
+
+  def self.extract_cajero_estancia
+    Octopus.using(:E) do
+      send_to_DWH(DetalleTarjetaCajero.all, 'E')
     end
   end
 
@@ -138,6 +152,25 @@ class Etl
           ActiveRecord::Base.connection.execute(sql)
         end
       end
+
+      if k == Cajero
+        area = find_foreign_key_from_original('AREA', object[:id_Area])
+        sql = "INSERT INTO dbo.CAJERO (original_id, dineroactual, fechaactual, periodicidadmantenimiento, estado, id_area) VALUES (#{object[:id]}, #{object[:dinero_Actual]}, '#{object[:fecha_Instalacion]}', '#{object[:periodicidad_Mantenimiento]}', '#{object[:estado]}', #{area});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == DetalleTarjetaCajero && @new
+        estancia = find_foreign_key_from_attr('ESTANCIA', 'id_tarjeta', object[:id_Tarjeta])
+        hora = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
+        sql = "INSERT INTO dbo.ESTANCIA_CAJERO (tarifa, fechainicio, fechafin, id_estancia) VALUES (#{object[:id_Tarifa]}, '#{hora}', '#{hora}', #{estancia});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == DetalleTarjetaCajero && !@new
+        sql = "INSERT INTO dbo.ESTANCIA_CAJERO (tarifa, fechainicio, fechafin, id_estancia) VALUES (#{object[:tarifa]}, #{object[:fechainicio]}, '#{object[:fechafin]}', '#{object[:id_estancia]}');"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
     end
   end
 
@@ -187,6 +220,17 @@ class Etl
           ActiveRecord::Base.connection.execute(sql)
         end
 
+        if k == Cajero
+          sql = "INSERT INTO dbo.CAJERO (original_id, dineroactual, fechaactual, periodicidadmantenimiento, estado, id_area) VALUES (#{object[:id]}, #{object[:dinero_Actual]}, '#{object[:fecha_Instalacion]}', '#{object[:periodicidad_Mantenimiento]}', '#{object[:estado]}', #{object[:id_Area]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == DetalleTarjetaCajero
+          estancia = find_foreign_key_from_attr('ESTANCIA', 'id_tarjeta', object[:id_Tarjeta])
+          hora = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
+          sql = "INSERT INTO dbo.ESTANCIA_CAJERO (tarifa, fechainicio, fechafin, id_estancia) VALUES (#{object[:id_Tarifa]}, '#{hora}', '#{hora}', #{estancia});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
       end
     end
   end
@@ -216,6 +260,14 @@ class Etl
   def self.find_foreign_key_from_original(table, original_id)
     Octopus.using(:DTWH) do
       sql = "SELECT id from #{table} where original_id = '#{original_id}'"
+      result = ActiveRecord::Base.connection.exec_query(sql).rows
+      result = result.present? ? result[0][0] : 'null'
+    end
+  end
+
+  def self.find_foreign_key_from_attr(table, attri, attr_val)
+    Octopus.using(:DTWH) do
+      sql = "SELECT id from #{table} where #{attri} = '#{attr_val}'"
       result = ActiveRecord::Base.connection.exec_query(sql).rows
       result = result.present? ? result[0][0] : 'null'
     end

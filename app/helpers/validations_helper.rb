@@ -42,4 +42,12 @@ module ValidationsHelper
   def valid_placa?(placa)
     placa.scan(/[A-Z0-9-]{6,10}/).present?
   end
+
+  def valid_periodicidad?(periodicidad)
+    periodicidad.scan(/(trimestral|semestral|anual)/).present?
+  end
+
+  def valid_estado_cajero?(estado)
+    estado.scan(/(Mantenimiento|Activado|Desactivado)/).present?
+  end
 end
