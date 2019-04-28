@@ -27,8 +27,8 @@ module ValidationsHelper
     date.year > 2016 && date < Time.zone.now
   end
 
-  def valid_date?(duration)
-    duration >= 0
+  def valid_number?(num)
+    num >= 0
   end
 
   def valid_state?(state)
@@ -49,5 +49,17 @@ module ValidationsHelper
 
   def valid_estado_cajero?(estado)
     estado.scan(/(Mantenimiento|Activado|Desactivado)/).present?
+  end
+
+  def available?(num)
+    num == 1 || num == 0
+  end
+
+  # def valid_hora?(hora)
+  #   hora.scan(/0-90-9:0-90-9:0-90-9/).present?
+  # end
+
+  def valid_dia?(dia)
+    dia.scan(/(L|M|MA|J|V|S|D)/).present?
   end
 end

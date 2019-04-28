@@ -6,9 +6,14 @@ class Etl
     # extract_tarjet_data
     # extract_estancia_data
     # extract_tipo_area_data
-    # extract_area_data
-    extract_cajero_data
-    extract_cajero_estancia
+    extract_area_data
+    # extract_cajero_data
+    # extract_cajero_estancia
+    # extract_pasillo
+    # extract_sensor
+    extract_horario_disp
+    extract_horario_disp_detalle
+
   end
 
   def self.extract_employee_type_data
@@ -72,6 +77,31 @@ class Etl
   def self.extract_cajero_estancia
     Octopus.using(:E) do
       send_to_DWH(DetalleTarjetaCajero.all, 'E')
+      send_to_DWH(Tarifa.all, 'E')
+    end
+  end
+
+  def self.extract_pasillo
+    Octopus.using(:E) do
+      send_to_DWH(Pasillo.all, 'E')
+    end
+  end
+
+  def self.extract_sensor
+    Octopus.using(:E) do
+      send_to_DWH(Sensor.all, 'E')
+    end
+  end
+
+  def self.extract_horario_disp
+    Octopus.using(:MYL) do
+      send_to_DWH(HorarioDisponible.all, 'M')
+    end
+  end
+
+  def self.extract_horario_disp_detalle
+    Octopus.using(:MYL) do
+      send_to_DWH(DetalleHorarioDisponibleArea.all, 'M')
     end
   end
 
@@ -122,7 +152,7 @@ class Etl
         Octopus.using(:E) do
           placa = DetalleEstanciaVideocamara.find_by(id_Estancia: object[:id])
         end
-        sql = "INSERT INTO dbo.ESTANCIA (orginal_id, fechainicio, fechafin, horainicio, horafin, duracion, estado, subtotal, total) VALUES (#{object[:id]}, '#{object[:fecha_Inicio]}', '#{object[:fecha_Fin]}', '#{object[:hora_Inicio].strftime('%H:%M:%S')}', '#{object[:hora_Fin].strftime('%H:%M:%S')}', #{object[:duracion]}, '#{object[:estado]}', #{object[:subtotal]}, #{object[:total]});"
+        sql = "INSERT INTO dbo.ESTANCIA (original_id, fechainicio, fechafin, horainicio, horafin, duracion, estado, subtotal, total) VALUES (#{object[:id]}, '#{object[:fecha_Inicio]}', '#{object[:fecha_Fin]}', '#{object[:hora_Inicio].strftime('%H:%M:%S')}', '#{object[:hora_Fin].strftime('%H:%M:%S')}', #{object[:duracion]}, '#{object[:estado]}', #{object[:subtotal]}, #{object[:total]});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
@@ -160,7 +190,8 @@ class Etl
       end
 
       if k == DetalleTarjetaCajero && @new
-        estancia = find_foreign_key_from_attr('ESTANCIA', 'id_tarjeta', object[:id_Tarjeta])
+        estancia = find_foreign_key_from_attr('E','estancia', 'id_Tarjeta', object[:id_Tarjeta])
+        estancia = find_foreign_key_from_original('ESTANCIA', estancia)
         hora = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
         sql = "INSERT INTO dbo.ESTANCIA_CAJERO (tarifa, fechainicio, fechafin, id_estancia) VALUES (#{object[:id_Tarifa]}, '#{hora}', '#{hora}', #{estancia});"
         ActiveRecord::Base.connection.execute(sql)
@@ -171,6 +202,40 @@ class Etl
         ActiveRecord::Base.connection.execute(sql)
       end
 
+      if k == Tarifa
+        sql = "UPDATE dbo.ESTANCIA_CAJERO SET tarifa = '#{object[:costo]}' WHERE tarifa = #{object[:id]}"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Pasillo
+        area = find_foreign_key_from_original('AREA', object[:id_Area])
+        sql = "INSERT INTO dbo.PASILLO (original_id, numero, cantidad_ocupados, cantidad_libres, id_area) VALUES (#{object[:id]}, #{object[:numero]}, #{object[:cantidad_ocupados]}, '#{object[:cantidad_libres]}', '#{area}');"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Sensor && @new
+        pasillo = find_foreign_key_from_original('PASILLO', object[:id_pasillo])
+        fecha = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
+        sql = "INSERT INTO dbo.SENSOR (estado, fecha, id_pasillo) VALUES ('#{object[:estado]}', '#{fecha}', #{pasillo});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Sensor && !@new
+        sql = "INSERT INTO dbo.SENSOR (estado, fecha, id_pasillo) VALUES ('#{object[:estado]}', '#{object[:fecha]}', #{pasillo});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == HorarioDisponible
+        sql = "INSERT INTO dbo.HORARIO_DISPONIBLE (original_id, horainicio, horafin, dia) VALUES (#{object[:id]}, '#{object[:hora_inicio].strftime('%H:%M')}', '#{object[:hora_fin].strftime('%H:%M')}', '#{object[:dia]}');"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == DetalleHorarioDisponibleArea
+        area = find_foreign_key_from_original('AREA', object[:area])
+        horario = find_foreign_key_from_original('HORARIO_DISPONIBLE', object[:horario_disp])
+        sql = "INSERT INTO dbo.AREA_HORARIODISPONIBLE (id_horariodisponible, id_area) VALUES (#{horario}, #{area});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
     end
   end
 
@@ -198,7 +263,7 @@ class Etl
           ActiveRecord::Base.connection.execute(sql)
         end
         if k == Estancia
-          sql = "INSERT INTO dbo.ESTANCIA (orginal_id, fechainicio, fechafin, horainicio, horafin, duracion, estado, subtotal, total) VALUES (#{object[:id]}, '#{object[:fecha_Inicio]}', '#{object[:fecha_Fin]}', '#{object[:hora_Inicio].strftime('%H:%M:%S')}', '#{object[:hora_Fin].strftime('%H:%M:%S')}', #{object[:duracion]}, '#{object[:estado]}', #{object[:subtotal]}, #{object[:total]});"
+          sql = "INSERT INTO dbo.ESTANCIA (original_id, fechainicio, fechafin, horainicio, horafin, duracion, estado, subtotal, total) VALUES (#{object[:id]}, '#{object[:fecha_Inicio]}', '#{object[:fecha_Fin]}', '#{object[:hora_Inicio].strftime('%H:%M:%S')}', '#{object[:hora_Fin].strftime('%H:%M:%S')}', #{object[:duracion]}, '#{object[:estado]}', #{object[:subtotal]}, #{object[:total]});"
           ActiveRecord::Base.connection.execute(sql)
         end
         if k == DetalleEstanciaVideocamara
@@ -226,9 +291,31 @@ class Etl
         end
 
         if k == DetalleTarjetaCajero
-          estancia = find_foreign_key_from_attr('ESTANCIA', 'id_tarjeta', object[:id_Tarjeta])
+          estancia = find_foreign_key_from_attr('E','estancia', 'id_Tarjeta', object[:id_Tarjeta])
+          estancia = find_foreign_key_from_original('ESTANCIA', estancia)
           hora = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
           sql = "INSERT INTO dbo.ESTANCIA_CAJERO (tarifa, fechainicio, fechafin, id_estancia) VALUES (#{object[:id_Tarifa]}, '#{hora}', '#{hora}', #{estancia});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Pasillo
+          sql = "INSERT INTO dbo.PASILLO (original_id, numero, cantidad_ocupados, cantidad_libres, id_area) VALUES (#{object[:id]}, #{object[:numero]}, #{object[:cantidad_ocupados]}, '#{object[:cantidad_libres]}', '#{object[:id_Area]}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Sensor
+          fecha = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
+          sql = "INSERT INTO dbo.SENSOR (estado, fecha, id_pasillo) VALUES ('#{object[:estado]}', '#{fecha}', #{object[:id_pasillo]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == HorarioDisponible
+          sql = "INSERT INTO dbo.HORARIO_DISPONIBLE (original_id, horainicio, horafin, dia) VALUES (#{object[:id]}, '#{object[:hora_inicio].strftime('%H:%M')}', '#{object[:hora_fin].strftime('%H:%M')}', '#{object[:dia]}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == DetalleHorarioDisponibleArea
+          sql = "INSERT INTO dbo.AREA_HORARIODISPONIBLE (id_horariodisponible, id_area) VALUES (#{object[:horario_disp]}, #{object[:area]});"
           ActiveRecord::Base.connection.execute(sql)
         end
       end
@@ -265,8 +352,8 @@ class Etl
     end
   end
 
-  def self.find_foreign_key_from_attr(table, attri, attr_val)
-    Octopus.using(:DTWH) do
+  def self.find_foreign_key_from_attr(db, table, attri, attr_val)
+    Octopus.using(:"#{db}") do
       sql = "SELECT id from #{table} where #{attri} = '#{attr_val}'"
       result = ActiveRecord::Base.connection.exec_query(sql).rows
       result = result.present? ? result[0][0] : 'null'
