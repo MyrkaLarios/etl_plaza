@@ -14,7 +14,8 @@ class Etl
     # extract_horario_disp
     # extract_horario_disp_detalle
     extract_locale
-
+    extract_negocio
+    extract_local_negocio
   end
 
   def self.extract_employee_type_data
@@ -109,6 +110,18 @@ class Etl
   def self.extract_locale
     Octopus.using(:RF) do
       send_to_DWH(Locale.all, 'F')
+    end
+  end
+
+  def self.extract_negocio
+    Octopus.using(:RF) do
+      send_to_DWH(Negocio.all, 'F')
+    end
+  end
+
+  def self.extract_local_negocio
+    Octopus.using(:RF) do
+      send_to_DWH(LocalNegocio.all, 'F')
     end
   end
 
@@ -249,6 +262,19 @@ class Etl
         sql = "INSERT INTO dbo.LOCALES (numero, original_id, ubicacion, dimensiones, estado, costo) VALUES (#{object[:numero]}, #{object[:numero]}, '#{ubicacion}', '#{object[:dimensiones]}', '#{object[:estado]}',  #{object[:costo]});"
         ActiveRecord::Base.connection.execute(sql)
       end
+
+      if k == Negocio
+        local = find_foreign_key_from_original('LOCALES', object[:id_locales])
+        sql = "INSERT INTO dbo.NEGOCIOS (nombre, giro, estado, id_locales, original_id) VALUES ('#{object[:nombre]}', '#{object[:giro]}', '#{object[:estado]}', #{local},  #{object[:id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == LocalNegocio
+        local = find_foreign_key_from_original('LOCALES', object[:id_local])
+        negocio = find_foreign_key_from_original('NEGOCIOS', object[:id_negocio])
+        sql = "INSERT INTO dbo.LOCAL_NEGOCIO (fechainicio, fechafin, id_negocio, id_locales) VALUES ('#{object[:fechaini].strftime('%Y-%m-%d')}', '#{object[:fechafin].strftime('%Y-%m-%d')}', #{negocio},  #{local});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
     end
   end
 
@@ -331,11 +357,21 @@ class Etl
           sql = "INSERT INTO dbo.AREA_HORARIODISPONIBLE (id_horariodisponible, id_area) VALUES (#{object[:horario_disp]}, #{object[:area]});"
           ActiveRecord::Base.connection.execute(sql)
         end
-      end
 
-      if k == Locale
-        sql = "INSERT INTO dbo.LOCALES (numero, original_id, ubicacion, dimensiones, estado, costo) VALUES (#{object[:numero]}, #{object[:numero]}, '#{object[:ubicacion]}', '#{object[:dimensiones]}', '#{object[:estado]}',  #{object[:costo]});"
-        ActiveRecord::Base.connection.execute(sql)
+        if k == Locale
+          sql = "INSERT INTO dbo.LOCALES (numero, original_id, ubicacion, dimensiones, estado, costo) VALUES (#{object[:numero]}, #{object[:numero]}, '#{object[:ubicacion]}', '#{object[:dimensiones]}', '#{object[:estado]}',  #{object[:costo]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Negocio
+          sql = "INSERT INTO dbo.NEGOCIOS (nombre, giro, estado, id_locales, original_id) VALUES ('#{object[:nombre]}', '#{object[:giro]}', '#{object[:estado]}', #{object[:id]},  #{object[:id]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == LocalNegocio
+          sql = "INSERT INTO dbo.LOCAL_NEGOCIO (fechainicio, fechafin, id_negocio, id_locales) VALUES ('#{object[:fechaini].strftime('%Y-%m-%d')}', '#{object[:fechafin].strftime('%Y-%m-%d')}', #{object[:id_negocio]},  #{object[:id_local]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
       end
     end
   end

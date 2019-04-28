@@ -3,8 +3,20 @@ module ValidationsHelper
     name.scan(/^[A-z áéíóúÁÉÍÓÚñÑ]+$/).present?
   end
 
+  def valid_business_name?(name)
+    name.scan(/^[A-z áéíóúÁÉÍÓÚñÑ0-9]+$/).present?
+  end
+
+  def valid_giro_name?(name)
+    name.scan(/^[A-z áéíóúÁÉÍÓÚñÑ\/]+$/).present?
+  end
+
   def valid_zone_name?(name)
     name.scan(/^[A-z áéíóúÁÉÍÓÚñÑ0-9]+$/).present?
+  end
+
+  def valid_estado_negocio?(estado)
+    estado.scan(/^(A|I)$/).present?
   end
 
   def valid_CURP?(curp)
@@ -24,7 +36,11 @@ module ValidationsHelper
   end
 
   def valid_date?(date)
-    date.year > 2016 && date < Time.zone.now
+    date.year >= 2016 && date < Time.zone.now
+  end
+
+  def valid_business_date?(date)
+    date.year >= 2016
   end
 
   def valid_number?(num)
@@ -32,11 +48,11 @@ module ValidationsHelper
   end
 
   def valid_state?(state)
-    state.scan(/(Activada|Desactivada)/).present?
+    state.scan(/^(Activada|Desactivada)$/).present?
   end
 
   def valid_estado_estancia?(state)
-    state.scan(/(Finalizada|Activa)/).present?
+    state.scan(/^(Finalizada|Activa)$/).present?
   end
 
   def valid_placa?(placa)
@@ -44,7 +60,7 @@ module ValidationsHelper
   end
 
   def valid_periodicidad?(periodicidad)
-    periodicidad.scan(/(trimestral|semestral|anual)/).present?
+    periodicidad.scan(/^(trimestral|semestral|anual)$/).present?
   end
 
   def valid_estado_cajero?(estado)
@@ -60,14 +76,14 @@ module ValidationsHelper
   # end
 
   def valid_dia?(dia)
-    dia.scan(/(L|M|MA|J|V|S|D)/).present?
+    dia.scan(/^(L|M|MA|J|V|S|D)$/).present?
   end
 
   def valid_dimension?(dimension)
-    dimension.scan(/([0-9]{1,2}x[0-9]{1,2})/).present?
+    dimension.scan(/^([0-9]{1,2}x[0-9]{1,2})$/).present?
   end
 
   def valid_estado_local?(estado)
-    estado.scan(/(Ocupado|Disponible)/).present?
+    estado.scan(/^(Ocupado|Disponible)$/).present?
   end
 end

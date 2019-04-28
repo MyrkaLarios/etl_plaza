@@ -29,7 +29,7 @@ class EtlController < ApplicationController
     @system = params[:s]
     @id = params[:id]
     Octopus.using(:TEMP) do
-      if @table = 'dbo.EMPLEADOS'
+      if @table == 'dbo.EMPLEADOS'
         @element = Empleado.find(@id)
       end
     end
