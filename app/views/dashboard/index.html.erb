@@ -2,7 +2,53 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <%= link_to 'Salir', destroy_user_session_path, method: 'delete'%>
 </nav>
+<% Octopus.using(:TEMP) do %>
+  <div class="container etl">
+    <% if current_user.user_type == 1 && @etl %>
+      <%= link_to 'Hacer correcciones', etl_index_path, class: 'btn btn-primary' %>
 
-<div class="container etl">
-  <%= link_to 'Iniciar proceso ETL', etl_index_path, class: 'btn btn-primary' %>
-</div>
+    <% elsif current_user.user_type == 1 %>
+      <%= link_to 'Iniciar proceso ETL', etl_index_path, class: 'btn btn-primary' %>
+
+    <% elsif current_user.user_type != 1 && !@etl %>
+      <p>No tienes registros que corregir</p>
+
+
+    <!-- FINANZAS -->
+    <% elsif current_user.user_type == 2 %>
+      <h1>Datos a corregir</h1>
+      <% if @tipos_empleado_F.present? %>
+        <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_F, s: 'F' } %>
+      <% end %>
+      <% if @empleados_F.present? %>
+        <%= render partial: "empleado", locals: { empleados: @empleados_F, s: 'F' } %>
+      <% end %>
+
+
+    <!-- ESTACIONAMIENTO -->
+    <% elsif current_user.user_type == 3 %>
+      <h1>Datos a corregir</h1>
+
+      <% if @tipos_empleado_E.present? %>
+        <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_E, s: 'E' } %>
+      <% end %>
+
+      <% if @empleados_E.present? %>
+        <%= render partial: "empleado", locals: { empleados: @empleados_E, s: 'E' } %>
+      <% end %>
+
+
+    <!-- MANTENIMIENTO Y LIMPIEZA -->
+    <% elsif current_user.user_type == 4 %>
+      <h1>Datos a corregir</h1>
+
+      <% if @tipos_empleado_E.present? %>
+        <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_M, s: 'M' } %>
+      <% end %>
+
+      <% if @empleados_M.present? %>
+        <%= render partial: "empleado", locals: { empleados: @empleados_M, s: 'M' } %>
+      <% end %>
+    <%end%>
+  </div>
+<%end%>

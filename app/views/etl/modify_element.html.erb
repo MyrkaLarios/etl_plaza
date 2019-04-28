@@ -1,0 +1,15 @@
+<div class="container">
+  <form action="/update?table=dbo.EMPLEADOS&id=<%=@element.id%>&s=<%=@system%>", method='post'>
+    <% if @table == 'dbo.EMPLEADOS' %>
+      <p>Modifcando Empleado</p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= label_tag :curp %>
+      <%= text_field_tag (:curp), @element.curp %>
+    <%elsif @table == 'dbo.TIPO_EMPLEADOS'%>
+    <% end %>
+    <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />
+    <%= link_to 'Cancelar', authenticated_root_path, class: 'btn btn-dark' %>
+  </form>
+
+</div>

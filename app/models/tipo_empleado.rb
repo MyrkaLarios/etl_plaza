@@ -5,7 +5,7 @@ class TipoEmpleado < ApplicationRecord
     case s
     when 'E'
       valid_name?(nombre)
-    when 'R'
+    when 'F'
       valid_name?(nombre)
       valid_salary?(salario)
     end

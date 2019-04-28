@@ -7,10 +7,13 @@ Rails.application.routes.draw do
     authenticated :user do
       root 'dashboard#index', as: :authenticated_root
       resources :etl
+      get '/delete' => 'etl#delete_element', as: :delete_register
+      get '/modify' => 'etl#modify_element', as: :modify_register
+      post '/update' => 'etl#update', as: :update_register
     end
 
     unauthenticated do
-      root 'devise/sessions#new', as: :unauthenticated_root
+      root 'users/sessions#new', as: :unauthenticated_root
     end
   end
   require 'sidekiq/web'

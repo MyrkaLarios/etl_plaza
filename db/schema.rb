@@ -32,10 +32,19 @@ ActiveRecord::Schema.define(version: 2019_04_22_233304) do
     t.index ["company_id"], name: "index_databases_on_company_id"
   end
 
+  create_table "sysdiagrams", primary_key: "diagram_id", id: :integer, force: :cascade do |t|
+    t.string "name", limit: 128, null: false
+    t.integer "principal_id", null: false
+    t.integer "version"
+    t.binary "definition"
+    t.index ["principal_id", "name"], name: "UK_principal_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
+    t.integer "user_type", default: 3, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
