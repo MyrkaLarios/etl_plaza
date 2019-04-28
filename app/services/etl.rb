@@ -3,22 +3,22 @@ class Etl
     @new = true
     extract_employee_type_data
     extract_employee_data
-    # extract_tarjet_data
-    # extract_estancia_data
-    # extract_tipo_area_data
-    # extract_area_data
-    # extract_cajero_data
-    # extract_cajero_estancia
-    # extract_pasillo
-    # extract_sensor
-    # extract_horario_disp
-    # extract_horario_disp_detalle
+    extract_tarjet_data
+    extract_estancia_data
+    extract_tipo_area_data
+    extract_area_data
+    extract_cajero_data
+    extract_cajero_estancia
+    extract_pasillo
+    extract_sensor
+    extract_horario_disp
+    extract_horario_disp_detalle
     extract_locale
-    # extract_negocio
-    # extract_local_negocio
-    # extract_descuento
-    # extract_tipo_accidente
-    # extract_accidente
+    extract_negocio
+    extract_local_negocio
+    extract_descuento
+    extract_tipo_accidente
+    extract_accidente
     extract_cliente
     extract_contrato
     extract_rentas
@@ -277,7 +277,7 @@ class Etl
 
       if k == Pasillo
         area = find_foreign_key_from_original('AREA', object[:id_Area],1)
-        sql = "INSERT INTO dbo.PASILLO (original_id, numero, cantidad_ocupados, cantidad_libres, id_area) VALUES (#{object[:id]}, #{object[:numero]}, #{object[:cantidad_ocupados]}, '#{object[:cantidad_libres]}', '#{area}');"
+        sql = "INSERT INTO dbo.PASILLO (original_id, numero, cantidad_ocupados, cantidad_libres, id_area) VALUES (#{object[:id]}, #{object[:numero]}, #{object[:cantidad_ocupados]}, '#{object[:cantidad_libres]}', #{area});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
@@ -327,7 +327,7 @@ class Etl
       if k == Descuento && @new
         negocio = find_foreign_key_from_attr('DTWH', 'NEGOCIOS', 'nombre', object[:nombreNegocio])
         estancia = find_foreign_key_from_original('ESTANCIA', object[:id_Estancia], 0)
-        sql = "INSERT INTO dbo.DESCUENTO (cantidad, id_negocio, id_estancia) VALUES (#{object[:cantidad]}, #{negocio},  #{local});"
+        sql = "INSERT INTO dbo.DESCUENTO (cantidad, id_negocio, id_estancia) VALUES (#{object[:cantidad]}, #{negocio},  #{estancia});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
@@ -376,9 +376,15 @@ class Etl
         ActiveRecord::Base.connection.execute(sql)
       end
 
-      if k == Rentas
+      if k == Rentas && @new
         contrato = find_foreign_key_from_attr('DTWH', 'contrato', 'id_local', object[:id_local].to_i)
         sql = "INSERT INTO dbo.RENTAS (fechacobro, statusretraso, statuspagado, id_contrato) VALUES ('#{object[:fechacobro].to_date}', '#{object[:statusretraso]}', '#{object[:statuspago]}', #{contrato});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Rentas && !@new
+        contrato = find_foreign_key_from_attr('DTWH', 'contrato', 'id_local', object[:id_local].to_i)
+        sql = "INSERT INTO dbo.RENTAS (fechacobro, statusretraso, statuspagado, id_contrato) VALUES ('#{object[:fechacobro].to_date}', '#{object[:statusretraso]}', '#{object[:statuspagado]}', #{contrato});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
@@ -478,7 +484,7 @@ class Etl
         if k == Descuento
           negocio = find_foreign_key_from_attr('DTWH', 'NEGOCIOS', 'nombre', object[:nombreNegocio])
           estancia = find_foreign_key_from_original('ESTANCIA', object[:id_Estancia], 0)
-          sql = "INSERT INTO dbo.DESCUENTO (cantidad, id_negocio, id_estancia) VALUES (#{object[:cantidad]}, #{negocio},  #{local});"
+          sql = "INSERT INTO dbo.DESCUENTO (cantidad, id_negocio, id_estancia) VALUES (#{object[:cantidad]}, #{negocio},  #{estancia});"
           ActiveRecord::Base.connection.execute(sql)
         end
 
@@ -500,6 +506,11 @@ class Etl
 
         if k == Contrato
           sql = "INSERT INTO dbo.CONTRATO (fechainicio, fechafin, costo, id_cliente, id_local) VALUES ('#{object[:fechainicio].to_date}', '#{object[:fechafin].to_date}', #{object[:costo]}, #{object[:id_cliente]}, #{object[:id_local]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Rentas
+          sql = "INSERT INTO dbo.RENTAS (fechacobro, statusretraso, statuspagado, id_contrato) VALUES ('#{object[:fechacobro].to_date}', '#{object[:statusretraso]}', '#{object[:statuspago]}', #{object[:id_local]});"
           ActiveRecord::Base.connection.execute(sql)
         end
       end
