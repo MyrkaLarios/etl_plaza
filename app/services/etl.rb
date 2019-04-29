@@ -22,6 +22,13 @@ class Etl
     extract_cliente
     extract_contrato
     extract_rentas
+    extract_proveedores
+    extract_categorias
+    extract_material_types
+    extract_materials
+    extract_proveedor_material
+    extract_solicitud_compra
+    extract_servicios
   end
 
   def self.extract_employee_type_data
@@ -173,6 +180,63 @@ class Etl
     end
   end
 
+  def self.extract_proveedores
+    Octopus.using(:E) do
+      send_to_DWH(Proveedores.all, 'E')
+    end
+    Octopus.using(:MYL) do
+      send_to_DWH(ProveedoresMyl.all, 'M')
+    end
+  end
+
+  def self.extract_categorias
+    Octopus.using(:MYL) do
+      send_to_DWH(Categorias.all, 'M')
+    end
+  end
+
+  def self.extract_material_types
+    Octopus.using(:E) do
+      send_to_DWH(TiposEquipo.all, 'E')
+    end
+    Octopus.using(:MYL) do
+      send_to_DWH(TiposMateriales.all, 'M')
+    end
+  end
+
+  def self.extract_materials
+    Octopus.using(:E) do
+      send_to_DWH(Equipos.all, 'E')
+    end
+    Octopus.using(:MYL) do
+      send_to_DWH(RecursosMateriales.all, 'M')
+    end
+  end
+
+  def self.extract_proveedor_material
+    Octopus.using(:E) do
+      send_to_DWH(DetalleProveedoresEquipos.all, 'E')
+    end
+    Octopus.using(:MYL) do
+      send_to_DWH(MaterialesProveedores.all, 'M')
+    end
+  end
+
+  def self.extract_solicitud_compra
+    Octopus.using(:E) do
+      send_to_DWH(SolicitudesCompras.all, 'E')
+    end
+    Octopus.using(:MYL) do
+      send_to_DWH(SolicitudesCompraMyl.all, 'M')
+    end
+  end
+
+  def self.extract_servicios
+    Octopus.using(:MYL) do
+      send_to_DWH(Servicio.all, 'M')
+    end
+  end
+
   def self.send_to_DWH(objects, s)
     objects.each do |object|
       object.valid?(s) ? save_on_DTWH(object, object.class, s) : save_on_TEMP(object, s, object.class)
@@ -205,7 +269,7 @@ class Etl
         if already_in_db?('curp', "#{curp}", 'dbo.EMPLEADOS')
           sql = "UPDATE dbo.EMPLEADOS SET id_tipoempleado = #{fk} WHERE curp = '#{curp}'" if fk != 0
         else
-          sql = "INSERT INTO dbo.EMPLEADOS (nombre, curp, id_tipoempleado) VALUES ('#{object[:nombre]}', '#{curp}', #{fk.zero? ? 'null' : fk})"
+          sql = "INSERT INTO dbo.EMPLEADOS (nombre, curp, id_tipoempleado) VALUES ('#{object[:nombre]}', '#{curp}', #{fk})"
         end
         ActiveRecord::Base.connection.execute(sql)
       end
@@ -388,6 +452,122 @@ class Etl
         ActiveRecord::Base.connection.execute(sql)
       end
 
+      if (k == Proveedores || k == ProveedoresMyl) && @new
+        sql = "INSERT INTO dbo.RENTAS (nombre, rfc, telefono, direccion, original_id) VALUES ('#{object[:nombre]}', '#{object[:rfc]}', '#{object[:telefono]}', '#{object[:telefono]}', #{object[:id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if (k == Proveedores || k == ProveedoresMyl) && !@new
+        sql = "INSERT INTO dbo.PROVEEDOR (nombre, rfc, telefono, direccion, original_id) VALUES ('#{object[:nombre]}', '#{object[:rfc]}', '#{object[:telefono]}', '#{object[:telefono]}', #{object[:original_id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Categorias && @new
+        sql = "INSERT INTO dbo.CATEGORIA (nombre, original_id) VALUES ('#{object[:nombre]}', #{object[:id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Categorias && !@new
+        sql = "INSERT INTO dbo.CATEGORIA (nombre, original_id) VALUES ('#{object[:nombre]}', #{object[:original_id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if (k == TiposEquipo || k == TiposMateriales) && @new
+        sql = "INSERT INTO dbo.TIPO_MATERIAL (nombre, original_id) VALUES ('#{object[:nombre]}', #{object[:id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if (k == TiposEquipo || k == TiposMateriales) && !@new
+        sql = "INSERT INTO dbo.TIPO_MATERIAL (nombre, original_id) VALUES ('#{object[:nombre]}', #{object[:original_id]});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Equipos && @new
+        tipo_id = find_foreign_key_from_original('TIPO_MATERIAL', object[:id_tipoEquipo], 0)
+        sql = "INSERT INTO dbo.RECURSO_MATERIAL (original_id, nombre, tipo) VALUES (#{object[:id]}, '#{object[:nombre]}', #{tipo_id});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == RecursosMateriales && @new
+        tipo_id = find_foreign_key_from_original('TIPO_MATERIAL', object[:tipo], 1)
+        categoria_id = find_foreign_key_from_original('CATEGORIA', object[:categoria], 0)
+        sql = "INSERT INTO dbo.RECURSO_MATERIAL (original_id, nombre, tipo, categoria) VALUES (#{object[:id]}, '#{object[:nombre]}', #{tipo_id}, #{categoria_id});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Equipos && !@new
+        tipo_id = find_foreign_key_from_original('TIPO_MATERIAL', object[:tipo], 0)
+        sql = "INSERT INTO dbo.RECURSO_MATERIAL (original_id, nombre, tipo) VALUES (#{object[:id]}, '#{object[:nombre]}', #{tipo_id});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == RecursosMateriales && !@new
+        tipo_id = find_foreign_key_from_original('TIPO_MATERIAL', object[:tipo], 1)
+        categoria_id = find_foreign_key_from_original('CATEGORIA', object[:categoria], 0)
+        sql = "INSERT INTO dbo.RECURSO_MATERIAL (original_id, nombre, tipo, categoria) VALUES (#{object[:id]}, '#{object[:nombre]}', #{tipo_id}, #{categoria_id});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == DetalleProveedoresEquipos && @new
+        id_material = find_foreign_key_from_original('RECURSO_MATERIAL', object[:id_Equipo], 0)
+        id_proveedor = find_foreign_key_from_original('PROVEEDOR', object[:id_Proveedor], 0)
+        sql = "INSERT INTO dbo.PROVEEDOR_MATERIAL (costo, minimo, id_recursomaterial, id_proveedor) VALUES (#{object[:costo_Menudeo]}, 1, #{id_material}, #{id_proveedor});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == MaterialesProveedores && @new
+        id_material = find_foreign_key_from_original('RECURSO_MATERIAL', object[:recurso_material], 1)
+        id_proveedor = find_foreign_key_from_original('PROVEEDOR', object[:proveedor], 1)
+        sql = "INSERT INTO dbo.PROVEEDOR_MATERIAL (costo, minimo, id_recursomaterial, id_proveedor) VALUES (#{object[:costo]}, #{object[:minimo]}, #{id_material}, #{id_proveedor});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == DetalleProveedoresEquipos && !@new
+        id_material = find_foreign_key_from_original('RECURSO_MATERIAL', object[:id_recursomaterial], 0)
+        id_proveedor = find_foreign_key_from_original('PROVEEDOR', object[:id_proveedor], 0)
+        sql = "INSERT INTO dbo.PROVEEDOR_MATERIAL (costo, minimo, id_recursomaterial, id_proveedor) VALUES (#{object[:costo_Menudeo]}, 1, #{id_material}, #{id_proveedor});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == MaterialesProveedores && !@new
+        id_material = find_foreign_key_from_original('RECURSO_MATERIAL', object[:id_recursomaterial], 1)
+        id_proveedor = find_foreign_key_from_original('PROVEEDOR', object[:id_proveedor], 1)
+        sql = "INSERT INTO dbo.PROVEEDOR_MATERIAL (costo, minimo, id_recursomaterial, id_proveedor) VALUES (#{object[:costo]}, #{object[:minimo]}, #{id_material}, #{id_proveedor});"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == SolicitudesCompras && @new
+        id_empleado = find_foreign_key('E', 'solicitudes_compras', 'id_Empleado', 'empleado_estacionamientos', 'id', 'curp', 'id_Empleado', object[:id_Empleado], 'dbo.EMPLEADOS', 'curp')
+        id_proveedor = find_foreign_key_from_original('PROVEEDOR', object[:id_Proveedor], 0)
+        sql = "INSERT INTO dbo.SOLICITUD_COMPRA (cantidad_total, fechaemision, costototal, id_empleado, id_proveedor, original_id) VALUES (#{object[:cantidad_Total]}, '#{object[:fecha_Emision]}', #{object[:costo_Total]}, #{id_empleado}, #{id_proveedor}, #{object[:id_Solicitud]} );"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == SolicitudesCompraMyl && @new
+        id_empleado = find_foreign_key('MYL', 'solicitudes_compra_myls', 'persona', 'personas', 'id', 'curp', 'persona', object[:persona], 'dbo.EMPLEADOS', 'curp')
+        id_proveedor = find_foreign_key_from_original('PROVEEDOR', object[:proveedor], 1)
+        sql = "INSERT INTO dbo.SOLICITUD_COMPRA (cantidad_total, fechaemision, costototal, id_empleado, id_proveedor, original_id) VALUES (#{object[:cantidad_total]}, '#{object[:fecha_emision]}', #{object[:costo_total]}, #{id_empleado}, #{id_proveedor}, #{object[:id]} );"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == SolicitudesCompras && !@new
+        id_empleado = find_foreign_key('E', 'solicitudes_compras', 'id_Empleado', 'empleado_estacionamientos', 'id', 'curp', 'id_Empleado', object[:id_empleado], 'dbo.EMPLEADOS', 'curp')
+        id_proveedor = find_foreign_key_from_original('PROVEEDOR', object[:id_proveedor], 0)
+        sql = "INSERT INTO dbo.SOLICITUD_COMPRA (cantidad_total, fechaemision, costototal, id_empleado, id_proveedor, original_id) VALUES (#{object[:cantidad_total]}, '#{object[:fechaemision]}', #{object[:costototal]}, #{id_empleado}, #{id_proveedor}, #{object[:original_id]} );"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == SolicitudesCompraMyl && !@new
+        id_empleado = find_foreign_key('MYL', 'solicitudes_compra_myls', 'persona', 'personas', 'id', 'curp', 'persona', object[:id_empleado], 'dbo.EMPLEADOS', 'curp')
+        id_proveedor = find_foreign_key_from_original('PROVEEDOR', object[:id_proveedor], 1)
+        sql = "INSERT INTO dbo.SOLICITUD_COMPRA (cantidad_total, fechaemision, costototal, id_empleado, id_proveedor, original_id) VALUES (#{object[:cantidad_total]}, '#{object[:fechaemision]}', #{object[:costototal]}, #{id_empleado}, #{id_proveedor}, #{object[:original_id]} );"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+
+      if k == Servicio && @new
+        sql = "INSERT INTO dbo.SERVICIO (nombre, duracion, tipo_servicio) VALUES ('#{object[:nombre]}', #{object[:duracion]}, #{object[:tipo_servicio]} );"
+        ActiveRecord::Base.connection.execute(sql)
+      end
     end
   end
 
@@ -513,6 +693,51 @@ class Etl
           sql = "INSERT INTO dbo.RENTAS (fechacobro, statusretraso, statuspagado, id_contrato) VALUES ('#{object[:fechacobro].to_date}', '#{object[:statusretraso]}', '#{object[:statuspago]}', #{object[:id_local]});"
           ActiveRecord::Base.connection.execute(sql)
         end
+
+        if k == Proveedores || k == ProveedoresMyl
+          sql = "INSERT INTO dbo.PROVEEDOR (nombre, rfc, telefono, direccion, original_id, sistema) VALUES ('#{object[:nombre]}', '#{object[:rfc]}', '#{object[:telefono]}', '#{object[:telefono]}', #{object[:id]}, '#{s}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Categorias
+          sql = "INSERT INTO dbo.CATEGORIA (nombre, original_id) VALUES ('#{object[:nombre]}', #{object[:id]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == TiposEquipo || k == TiposMateriales
+          sql = "INSERT INTO dbo.TIPO_MATERIAL (nombre, original_id) VALUES ('#{object[:nombre]}', #{object[:id]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == Equipos
+          sql = "INSERT INTO dbo.RECURSO_MATERIAL (nombre, tipo, sistema, original_id) VALUES ('#{object[:nombre]}', #{object[:id_tipoEquipo]}, '#{s}', #{object[:id]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == RecursosMateriales
+          sql = "INSERT INTO dbo.RECURSO_MATERIAL (nombre, tipo, sistema, categoria, original_id) VALUES ('#{object[:nombre]}', #{object[:tipo]}, '#{s}', #{object[:categoria]}, #{object[:id]});"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == DetalleProveedoresEquipos
+          sql = "INSERT INTO dbo.PROVEEDOR_MATERIAL (costo, minimo, id_recursomaterial, id_proveedor, sistema) VALUES (#{object[:costo_Menudeo]}, 1, #{object[:id_Equipo]}, #{object[:id_Proveedor]}, '#{s}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == MaterialesProveedores
+          sql = "INSERT INTO dbo.PROVEEDOR_MATERIAL (costo, minimo, id_recursomaterial, id_proveedor, sistema) VALUES (#{object[:costo]}, #{object[:minimo]}, #{object[:recurso_material]}, #{object[:proveedor]}, '#{s}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == SolicitudesCompras
+          sql = "INSERT INTO dbo.SOLICITUD_COMPRA (cantidad_total, fechaemision, costototal, id_empleado, id_proveedor, original_id, sistema) VALUES (#{object[:cantidad_Total]}, '#{object[:fecha_Emision]}', #{object[:costo_Total]}, #{object[:id_Empleado]}, #{object[:id_Proveedor]}, #{object[:id_Solicitud]}, '#{s}' );"
+          ActiveRecord::Base.connection.execute(sql)
+        end
+
+        if k == SolicitudesCompraMyl
+          sql = "INSERT INTO dbo.SOLICITUD_COMPRA (cantidad_total, fechaemision, costototal, id_empleado, id_proveedor, original_id, sistema) VALUES (#{object[:cantidad_total]}, '#{object[:fecha_emision]}', #{object[:costo_total]}, #{object[:persona]}, #{object[:proveedor]}, #{object[:id]}, '#{s}');"
+          ActiveRecord::Base.connection.execute(sql)
+        end
       end
     end
   end
@@ -529,13 +754,15 @@ class Etl
   def self.find_foreign_key(db_1, t1, fk1, t2, fk2, select_atr, where_name, where_val, dtwh_t, dtwh_where_name)
     original_value = ''
     Octopus.using(:"#{db_1}") do
-      sql = "SELECT two.#{select_atr} from #{t1} as one inner join #{t2} as two on one.#{fk1} = two.#{fk2} where one.#{where_name} = '#{where_val}'"
+      sql = "SELECT two.#{select_atr} from #{t1} as one inner join #{t2} as two on one.#{fk1} = two.#{fk2} where one.#{where_name} = '#{where_val}' LIMIT 1" if db_1 == 'MYL'
+      sql = "SELECT two.#{select_atr} from #{t1} as one inner join #{t2} as two on one.#{fk1} = two.#{fk2} where one.#{where_name} = '#{where_val}'" if db_1 != 'MYL'
       original_value = ActiveRecord::Base.connection.execute(sql)
       original_value = original_value.each[0][0] if db_1 == 'E'
     end
     Octopus.using(:DTWH) do
       sql = "SELECT id from #{dtwh_t} where #{dtwh_where_name} = '#{original_value}'"
-      ActiveRecord::Base.connection.execute(sql)
+      result = ActiveRecord::Base.connection.exec_query(sql).rows
+      result = result.present? ? result[0][0] : 'null'
     end
   end
 

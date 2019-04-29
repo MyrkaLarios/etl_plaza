@@ -94,4 +94,8 @@ module ValidationsHelper
   def valid_status_pago?(estado)
     estado.scan(/^(C|NC)$/).present?
   end
+
+  def valid_telefono?(tel)
+    tel.scan(/^[0-9]{10}$/).present?
+  end
 end
