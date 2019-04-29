@@ -8,6 +8,9 @@ class EtlController < ApplicationController
       Octopus.using(:TEMP) do
         @tipos_empleados = TipoEmpleado.all
         @empleados = Empleado.all
+        @tarjetas = TarjetasTEMP.all
+
+
       end
     end
   end

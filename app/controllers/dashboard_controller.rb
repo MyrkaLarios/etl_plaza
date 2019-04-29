@@ -6,6 +6,7 @@ class DashboardController < ApplicationController
     Octopus.using(:TEMP) do
       @empleados_E = Empleado.all.where(sistema: 'E')
       @tipos_empleado_E = TipoEmpleado.all.where(sistema: 'E')
+      @tarjeta_E = TarjetasTEMP.all
 
       @empleados_M = Empleado.all.where(sistema: 'M')
       @tipos_empleado_M = TipoEmpleado.all.where(sistema: 'M')

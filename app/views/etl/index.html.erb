@@ -10,5 +10,8 @@
     <% if @empleados.present? %>
       <%= render partial: "dashboard/empleado", locals: { empleados: @empleados } %>
     <% end %>
+    <% if @tarjetas.present? %>
+      <%= render partial: "dashboard/tarjeta", locals: { tarjetas: @tarjetas } %>
+    <% end %>
   </div>
 <%end%>
