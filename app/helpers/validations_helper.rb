@@ -98,4 +98,8 @@ module ValidationsHelper
   def valid_telefono?(tel)
     tel.scan(/^[0-9]{10}$/).present?
   end
+
+  def valid_prioridad?(prioridad)
+    prioridad.scan(/^[123]{1}$/).present?
+  end
 end

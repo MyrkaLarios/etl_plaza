@@ -3,7 +3,7 @@ class EtlController < ApplicationController
   def index
     if Empleado.all.empty?
       Etl.start
-      redirect_to etl_index_path
+      # redirect_to etl_index_path
     else
       Octopus.using(:TEMP) do
         @tipos_empleados = TipoEmpleado.all
