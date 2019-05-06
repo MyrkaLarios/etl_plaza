@@ -1,0 +1,14 @@
+<h2>Locales</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% tipos_empleado.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.numero %></p>
+      <p><%= e.ubicacion %></p>
+      <p><%= e.demiensiones %></p>
+      <p><%= e.estado %></p>
+      <p><%= e.costo %></p>
+      <p><%= e.sistema %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.LOCALES' } %>
+    </div>
+  <% end %>
+</div>

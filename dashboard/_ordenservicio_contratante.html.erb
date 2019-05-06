@@ -1,0 +1,10 @@
+<h2>Orden Servicio - Contratante</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% ordenservicio_contratante.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.costo %></p>
+      <p><%= e.tiempo %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ORDENSERVICIO_CONTRATANTE' } %>
+    </div>
+  <% end %>
+</div>

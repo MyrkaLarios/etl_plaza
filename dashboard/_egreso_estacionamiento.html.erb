@@ -1,0 +1,10 @@
+<h2>Egreso del Estacionamiento</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% egreso_estacionamiento.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.fecha %></p>
+      <p><%= e.cantidad %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.EGRESO_ESTACIONAMIENTO' } %>
+    </div>
+  <% end %>
+</div>

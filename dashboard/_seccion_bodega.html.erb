@@ -1,0 +1,12 @@
+<h2>Seccion Bodega</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% seccion_bodega.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.nombre %></p>
+      <p><%= e.tamaño %></p>
+      <p><%= e.estante %></p>
+      <p><%= e.numero %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SECCION_BODEGA' } %>
+    </div>
+  <% end %>
+</div>

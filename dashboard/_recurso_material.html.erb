@@ -1,0 +1,11 @@
+<h2>Recurso Material</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% recurso_material.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.nombre %></p>
+      <p><%= e.categoria %></p>
+      <p><%= e.tipo %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.RECURSO_MATERIAL' } %>
+    </div>
+  <% end %>
+</div>

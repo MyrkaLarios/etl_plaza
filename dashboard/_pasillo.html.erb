@@ -1,0 +1,11 @@
+<h2>Pasillo</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% tipos_empleado.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.numero %></p>
+      <p><%= e.cantidad_ocupados %></p>
+      <p><%= e.cantidad_libres %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.PASILLO' } %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,10 @@
+<h2>Proveedor de Material</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% proveedor_material.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.costo %></p>
+      <p><%= e.minimo %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.PROVEEDOR_MATERIAL' } %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,11 @@
+<h2>Horario Disponible</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% tipos_empleado.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.horainicio %></p>
+      <p><%= e.horafin %></p>
+      <p><%= e.dia %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.HORARIO_DISPONIBLE' } %>
+    </div>
+  <% end %>
+</div>

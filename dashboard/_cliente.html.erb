@@ -1,0 +1,11 @@
+<h2>Cliente</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% tipos_empleado.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.nombre %></p>
+      <p><%= e.RFC %></p>
+      <p><%= e.Sistema %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.CLIENTE' } %>
+    </div>
+  <% end %>
+</div>

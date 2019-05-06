@@ -1,0 +1,10 @@
+<h2>Empleado</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% empleados.each do |e| %>
+    <div class='my-2' style='display: flex; justify-content: space-between;'>
+      <p><%= e.nombre %></p>
+      <p><%= e.curp %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.EMPLEADOS' } %>
+    </div>
+  <% end %>
+</div>

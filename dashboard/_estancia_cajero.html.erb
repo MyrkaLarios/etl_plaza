@@ -1,0 +1,11 @@
+<h2>Estancia Cajero</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% tipos_empleado.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.tarifa %></p>
+      <p><%= e.fechainicio %></p>
+      <p><%= e.fechafin %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ESTANCIA_CAJERO' } %>
+    </div>
+  <% end %>
+</div>

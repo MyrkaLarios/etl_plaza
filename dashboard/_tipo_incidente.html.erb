@@ -1,0 +1,10 @@
+<h2>Tipo de Incidente</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% tipo_incidente.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.nombre %></p>
+      <p><%= e.descripcion %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.TIPO_INCIDENTE' } %>
+    </div>
+  <% end %>
+</div>

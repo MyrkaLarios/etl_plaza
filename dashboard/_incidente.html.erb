@@ -1,0 +1,11 @@
+<h2>Incidente</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% incidente.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.fecha %></p>
+      <p><%= e.clavenotacredito %></p>
+      <p><%= e.clavenotadebito %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.INCIDENTE' } %>
+    </div>
+  <% end %>
+</div>

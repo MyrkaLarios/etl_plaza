@@ -1,0 +1,10 @@
+<h2>Orden de Servicio</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% orden_servicio.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.fecha %></p>
+      <p><%= e.prioridad %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ORDEN_SERVICIO' } %>
+    </div>
+  <% end %>
+</div>
