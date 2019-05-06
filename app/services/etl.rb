@@ -537,7 +537,7 @@ class Etl
       end
 
       if k == Rentas
-        contrato = find_foreign_key_from_attr('DTWH', 'contrato', 'id_local', object[:id_local].to_i)
+        contrato = find_foreign_key_from_attr('TEMP', 'contrato', 'id_local', object[:id_local].to_i)
         sql = "INSERT INTO dbo.RENTAS (fechacobro, statusretraso, statuspagado, id_contrato, original_id, sistema, wrong) VALUES ('#{object[:fechacobro].to_date}', '#{object[:statusretraso]}', '#{object[:statuspago]}', #{contrato}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
