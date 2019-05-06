@@ -367,12 +367,6 @@ class Etl
     end
   end
 
-  #Cuando hagas el update
-  def self.send_to_DWH(objects, s)
-   ##debe venir el objeto y si ya es correcto se debe enviar a un metodo que en lugar de insertar actualice los datos
-   ## debe llamar a un metodo que revise si ya ninguna tabla tiene registros equivocados
-  end
-
   def self.save_on_DTWH_temp(object, k, s, wrong)
     sql = ''
     Octopus.using(:TEMP) do

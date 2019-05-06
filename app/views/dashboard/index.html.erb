@@ -2,6 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <%= link_to 'Salir', destroy_user_session_path, method: 'delete'%>
 </nav>
+
 <% Octopus.using(:TEMP) do %>
   <div class="container etl">
     <% if current_user.user_type == 1 && @etl %>
