@@ -4,10 +4,15 @@ class UpdateTemp
     case params[:table]
     when 'dbo.EMPLEADOS'
       Empleado.update_obj(params)
+    when 'dbo.TIPO_EMPLEADOS'
+      TipoEmpleado.update_obj(params)
+    when 'dbo.RECURSO_MATERIAL'
+      RecursoMaterial.update_obj(params)
     end
+    check_if_no_more_wrongs
   end
 
-  def check_if_no_more_wrongs
+  def self.check_if_no_more_wrongs
     Empleado.where(wrong: 1).present?
   end
 

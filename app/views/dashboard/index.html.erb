@@ -38,6 +38,10 @@
         <%= render partial: "empleado", locals: { empleados: @empleados_E, s: 'E' } %>
       <% end %>
 
+      <% if @recursos_materiales_E.present? %>
+        <%= render partial: "recurso_material", locals: { recursos_materiales: @recursos_materiales_E, s: 'E' } %>
+      <% end %>
+
 
     <!-- MANTENIMIENTO Y LIMPIEZA -->
     <% elsif current_user.user_type == 4 %>
@@ -50,6 +54,12 @@
       <% if @empleados_M.present? %>
         <%= render partial: "empleado", locals: { empleados: @empleados_M, s: 'M' } %>
       <% end %>
+
+      <% if @recursos_materiales_M.present? %>
+        <%= render partial: "recurso_material", locals: { recursos_materiales: @recursos_materiales_M, s: 'M' } %>
+      <% end %>
+
+
     <%end%>
   </div>
 <%end%>

@@ -1,5 +1,5 @@
 <div class="container">
-  <form action="/update?table=dbo.EMPLEADOS&id=<%=@element.id%>&s=<%=@system%>", method='post'>
+  <form action="/update?table=<%=@table%>&id=<%=@element.id%>&s=<%=@system%>", method='post'>
     <% if @table == 'dbo.EMPLEADOS' %>
       <p>Modifcando Empleado</p>
       <%= label_tag :nombre %>
@@ -7,6 +7,17 @@
       <%= label_tag :curp %>
       <%= text_field_tag (:curp), @element.curp %>
     <%elsif @table == 'dbo.TIPO_EMPLEADOS'%>
+      <p>Modifcando tipo de empleado</p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= label_tag :salario %>
+      <%= text_field_tag (:salario), @element.salario %>
+    <%elsif @table == 'dbo.RECURSO_MATERIAL'%>
+      <p>Modifcando el recurso material</p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= label_tag :categoria %>
+      <%= text_field_tag (:categoria), @element.categoria %>
     <% end %>
     <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />
     <%= link_to 'Cancelar', authenticated_root_path, class: 'btn btn-dark' %>

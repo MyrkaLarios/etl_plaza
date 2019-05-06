@@ -35,6 +35,10 @@ class EtlController < ApplicationController
       case @table
       when 'dbo.EMPLEADOS'
         @element = Empleado.find(@id)
+      when 'dbo.TIPO_EMPLEADOS'
+        @element = TipoEmpleado.find(@id)
+      when 'dbo.RECURSO_MATERIAL'
+        @element = RecursoMaterial.find(@id)
       end
     end
   end
@@ -49,27 +53,5 @@ class EtlController < ApplicationController
     else
       redirect_to authenticated_root_path
     end
-
-    # @new = false
-    # @table = params[:table]
-    # @id = params[:id]
-    # element = []
-    # Octopus.using(:TEMP) do
-    #   sql = "UPDATE dbo.EMPLEADOS SET nombre = '#{params[:nombre]}', curp = '#{params[:curp]}' WHERE id = '#{@id}'" if @table == 'dbo.EMPLEADOS'
-    #   ActiveRecord::Base.connection.execute(sql)
-    #   element << Empleado.find(@id)
-    # end
-    # a = Etl.send_to_DWH(element, params[:s])
-    # if a[0].valid?(params[:s])
-    #   Octopus.using(:TEMP) do
-    #     sql = "DELETE FROM #{@table} WHERE id = #{@id}"
-    #     ActiveRecord::Base.connection.execute(sql)
-    #   end
-    # end
-    # if current_user.user_type == 1
-    #   redirect_to etl_index_path
-    # else
-    #   redirect_to authenticated_root_path
-    # end
   end
 end

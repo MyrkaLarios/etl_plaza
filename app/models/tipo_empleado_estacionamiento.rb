@@ -2,6 +2,6 @@ class TipoEmpleadoEstacionamiento < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    valid_name?(nombre)
+    false #porque no tiene salario
   end
 end
