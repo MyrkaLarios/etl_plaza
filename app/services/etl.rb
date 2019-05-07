@@ -447,7 +447,11 @@ class Etl
       end
 
       if k == Tarifa
-        sql = "UPDATE dbo.ESTANCIA_CAJERO SET tarifa = '#{object[:costo]}' WHERE tarifa = #{object[:id]}"
+        if wrong == 1
+          sql = "UPDATE dbo.ESTANCIA_CAJERO SET tarifa = '#{object[:costo]}', wrong = 1 WHERE tarifa = #{object[:id]}"
+        else
+          sql = "UPDATE dbo.ESTANCIA_CAJERO SET tarifa = '#{object[:costo]}' WHERE tarifa = #{object[:id]}"
+        end
         ActiveRecord::Base.connection.execute(sql)
       end
 

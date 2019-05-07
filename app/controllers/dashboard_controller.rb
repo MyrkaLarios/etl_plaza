@@ -11,6 +11,7 @@ class DashboardController < ApplicationController
       @estancia_E = EstanciaTEMP.all.where(sistema: 'E', wrong: 1)
       @areas_E = AreasTEMP.all.where(sistema: 'E', wrong: 1)
       @cajeros = CajeroTEMP.all.where(sistema: 'E', wrong: 1)
+      @estancia_cajero = EstanciaCajero.all.where(sistema: 'E', wrong: 1)
 
       @empleados_M = Empleado.all.where(sistema: 'M', wrong: 1)
       @tipos_empleado_M = TipoEmpleado.all.where(sistema: 'M', wrong: 1)

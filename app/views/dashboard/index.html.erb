@@ -58,6 +58,10 @@
         <%= render partial: "cajero", locals: { cajeros:  @cajeros, s: 'E' } %>
       <% end %>
 
+      <% if @estancia_cajero.present? %>
+        <%= render partial: "estancia_cajero", locals: { estancias_cajeros:  @estancia_cajero, s: 'E' } %>
+      <% end %>
+
 
     <!-- MANTENIMIENTO Y LIMPIEZA -->
     <% elsif current_user.user_type == 4 %>
