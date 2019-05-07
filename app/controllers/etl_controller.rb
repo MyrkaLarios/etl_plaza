@@ -49,6 +49,16 @@ class EtlController < ApplicationController
         @element = AreasTEMP.find(@id)
       when 'dbo.CAJERO'
         @element = CajeroTEMP.find(@id)
+      when 'dbo.ESTANCIA_CAJERO'
+        @element = EstanciaCajero.find(@id)
+      when 'dbo.PASILLO'
+        @element = PasilloTEMP.find(@id)
+      when 'dbo.SENSOR'
+        @element = SensorTEMP.find(@id)
+      when 'dbo.HORARIO_DISPONIBLE'
+        @element = HorariosDisponiblesTEMP.find(@id)
+      when 'dbo.LOCALES'
+        @element = LocalTEMP.find(@id)
       end
     end
   end

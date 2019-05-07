@@ -18,6 +18,16 @@ class UpdateTemp
       AreasTEMP.update_obj(params)
     when 'dbo.CAJERO'
       CajeroTEMP.update_obj(params)
+    when 'dbo.ESTANCIA_CAJERO'
+      EstanciaCajero.update_obj(params)
+    when 'dbo.PASILLO'
+      PasilloTEMP.update_obj(params)
+    when 'dbo.SENSOR'
+      SensorTEMP.update_obj(params)
+    when 'dbo.HORARIO_DISPONIBLE'
+      HorariosDisponiblesTEMP.update_obj(params)
+    when 'dbo.LOCALES'
+      LocalTEMP.update_obj(params)
     end
     check_if_no_more_wrongs
   end

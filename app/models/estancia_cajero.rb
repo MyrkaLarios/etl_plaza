@@ -13,7 +13,7 @@ class EstanciaCajero < ApplicationRecord
   end
 
   def self.update_obj(params)
-    sql = "UPDATE dbo.ESTANCIA_CAJERO SET fechainicio = '#{params[:fechafin]}', fechafin = '#{params[:fechafin]}', tarifa = #{params[:tarifa]} where id = #{params[:id]};"
+    sql = "UPDATE dbo.ESTANCIA_CAJERO SET fechainicio = '#{params[:fechainicio][0...10]}', fechafin = '#{params[:fechafin][0...10]}', tarifa = #{params[:tarifa]} where id = #{params[:id]};"
     ActiveRecord::Base.connection.execute(sql)
     EstanciaCajero.find(params[:id]).update_wrong
   end

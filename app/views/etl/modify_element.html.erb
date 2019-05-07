@@ -65,6 +65,45 @@
       <%= text_field_tag (:periodicidadmantenimiento), @element.periodicidadmantenimiento %>
       <%= label_tag :estado %>
       <%= text_field_tag (:estado), @element.estado %>
+
+    <%elsif @table == 'dbo.ESTANCIA_CAJERO'%>
+      <p>Modifcando el cajero </p>
+      <%= label_tag :tarifa %>
+      <%= text_field_tag (:tarifa), @element.tarifa %>
+      <%= label_tag :fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= label_tag :fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin %>
+
+    <%elsif @table == 'dbo.PASILLO'%>
+      <p>Modifcando el pasillo </p>
+      <%= label_tag :numero %>
+      <%= text_field_tag (:numero), @element.numero %>
+      <%= label_tag :cantidad_ocupados %>
+      <%= text_field_tag (:cantidad_ocupados), @element.cantidad_ocupados %>
+      <%= label_tag :cantidad_libres %>
+      <%= text_field_tag (:cantidad_libres), @element.cantidad_libres %>
+
+    <%elsif @table == 'dbo.SENSOR'%>
+      <p>Modifcando el sensor </p>
+      <%= label_tag :estado %>
+      <%= text_field_tag (:estado), @element.estado %>
+      <%= label_tag :fecha %>
+      <%= text_field_tag (:fecha), @element.fecha %>
+
+    <%elsif @table == 'dbo.HORARIO_DISPONIBLE'%>
+      <p>Modifcando los horarios disponibles </p>
+      <%= label_tag :dia %>
+      <%= text_field_tag (:dia), @element.dia %>
+
+    <%elsif @table == 'dbo.LOCALES'%>
+      <p>Modifcando los locales </p>
+      <%= label_tag :dimensiones %>
+      <%= text_field_tag (:dimensiones), @element.dimensiones %>
+      <%= label_tag :estado %>
+      <%= text_field_tag (:estado), @element.estado %>
+      <%= label_tag :costo %>
+      <%= text_field_tag (:costo), @element.costo %>
     <% end %>
 
     <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />

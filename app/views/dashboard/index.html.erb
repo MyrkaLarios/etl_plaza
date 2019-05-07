@@ -24,6 +24,9 @@
       <% if @empleados_F.present? %>
         <%= render partial: "empleado", locals: { empleados: @empleados_F, s: 'F' } %>
       <% end %>
+      <% if @locales.present? %>
+        <%= render partial: "locales", locals: { locales: @locales, s: 'F' } %>
+      <% end %>
 
 
     <!-- ESTACIONAMIENTO -->
@@ -62,6 +65,16 @@
         <%= render partial: "estancia_cajero", locals: { estancias_cajeros:  @estancia_cajero, s: 'E' } %>
       <% end %>
 
+      <% if @pasillos.present? %>
+        <%= render partial: "pasillo", locals: { pasillos:  @pasillos, s: 'E' } %>
+      <% end %>
+
+      <% if @sensores.present? %>
+        <%= render partial: "sensor", locals: { sensores:  @sensores, s: 'E' } %>
+      <% end %>
+
+
+
 
     <!-- MANTENIMIENTO Y LIMPIEZA -->
     <% elsif current_user.user_type == 4 %>
@@ -85,6 +98,10 @@
 
       <% if @areas_M.present? %>
         <%= render partial: "area", locals: { areas:  @areas_M, s: 'M' } %>
+      <% end %>
+
+      <% if @horarios_disp.present? %>
+        <%= render partial: "horario_disponible", locals: { horarios:  @horarios_disp, s: 'M' } %>
       <% end %>
 
 
