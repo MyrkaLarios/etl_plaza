@@ -6,19 +6,42 @@
       <%= text_field_tag (:nombre), @element.nombre %>
       <%= label_tag :curp %>
       <%= text_field_tag (:curp), @element.curp %>
+
     <%elsif @table == 'dbo.TIPO_EMPLEADOS'%>
       <p>Modifcando tipo de empleado</p>
       <%= label_tag :nombre %>
       <%= text_field_tag (:nombre), @element.nombre %>
       <%= label_tag :salario %>
       <%= text_field_tag (:salario), @element.salario %>
+
     <%elsif @table == 'dbo.RECURSO_MATERIAL'%>
       <p>Modifcando el recurso material</p>
       <%= label_tag :nombre %>
       <%= text_field_tag (:nombre), @element.nombre %>
       <%= label_tag :categoria %>
       <%= text_field_tag (:categoria), @element.categoria %>
+
+    <%elsif @table == 'dbo.TARJETA'%>
+      <p>Modifcando la tarjeta</p>
+      <%= label_tag :estado %>
+      <%= text_field_tag (:estado), @element.estado %>
+
+    <%elsif @table == 'dbo.ESTANCIA'%>
+      <p>Modifcando la estancia</p>
+      <%= label_tag :fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= label_tag :fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin %>
+      <%= label_tag :duracion %>
+      <%= text_field_tag (:duracion), @element.duracion %>
+      <%= label_tag :subtotal %>
+      <%= text_field_tag (:subtotal), @element.subtotal %>
+      <%= label_tag :total %>
+      <%= text_field_tag (:total), @element.total %>
+      <%= label_tag :placa %>
+      <%= text_field_tag (:placa), @element.placa %>
     <% end %>
+
     <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />
     <%= link_to 'Cancelar', authenticated_root_path, class: 'btn btn-dark' %>
   </form>

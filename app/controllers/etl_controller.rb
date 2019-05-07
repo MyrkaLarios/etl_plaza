@@ -39,6 +39,10 @@ class EtlController < ApplicationController
         @element = TipoEmpleado.find(@id)
       when 'dbo.RECURSO_MATERIAL'
         @element = RecursoMaterial.find(@id)
+      when 'dbo.TARJETA'
+        @element = TarjetasTEMP.find(@id)
+      when 'dbo.ESTANCIA'
+        @element = EstanciaTEMP.find(@id)
       end
     end
   end

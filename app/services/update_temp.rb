@@ -8,6 +8,10 @@ class UpdateTemp
       TipoEmpleado.update_obj(params)
     when 'dbo.RECURSO_MATERIAL'
       RecursoMaterial.update_obj(params)
+    when 'dbo.TARJETA'
+      TarjetasTEMP.update_obj(params)
+    when 'dbo.ESTANCIA'
+      EstanciaTEMP.update_obj(params)
     end
     check_if_no_more_wrongs
   end

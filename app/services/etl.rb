@@ -404,14 +404,9 @@ class Etl
       if k == Estancia
         placa = ''
         Octopus.using(:E) do
-          placa = DetalleEstanciaVideocamara.find_by(id_Estancia: object[:id])
+          placa = DetalleEstanciaVideocamara.find_by(id_Estancia: object[:id]).placa
         end
-        sql = "INSERT INTO dbo.ESTANCIA (original_id, fechainicio, fechafin, horainicio, horafin, duracion, estado, subtotal, total, sistema, wrong) VALUES (#{object[:id]}, '#{object[:fecha_Inicio]}', '#{object[:fecha_Fin]}', '#{object[:hora_Inicio].strftime('%H:%M:%S')}', '#{object[:hora_Fin].strftime('%H:%M:%S')}', #{object[:duracion]}, '#{object[:estado]}', #{object[:subtotal]}, #{object[:total]}, '#{s}', #{wrong});"
-        ActiveRecord::Base.connection.execute(sql)
-      end
-
-      if k == DetalleEstanciaVideocamara
-        sql = "UPDATE dbo.ESTANCIA SET placa = '#{object[:placa]}', wrong = #{wrong} WHERE id = #{object[:id_Estancia]}"
+        sql = "INSERT INTO dbo.ESTANCIA (original_id, fechainicio, fechafin, horainicio, horafin, duracion, estado, subtotal, total, placa, sistema, wrong) VALUES (#{object[:id]}, '#{object[:fecha_Inicio]}', '#{object[:fecha_Fin]}', '#{object[:hora_Inicio].strftime('%H:%M:%S')}', '#{object[:hora_Fin].strftime('%H:%M:%S')}', #{object[:duracion]}, '#{object[:estado]}', #{object[:subtotal]}, #{object[:total]}, '#{placa}', '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
 

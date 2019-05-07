@@ -42,6 +42,14 @@
         <%= render partial: "recurso_material", locals: { recursos_materiales: @recursos_materiales_E, s: 'E' } %>
       <% end %>
 
+      <% if @tarjeta_E.present? %>
+        <%= render partial: "tarjeta", locals: { tarjetas: @tarjeta_E, s: 'E' } %>
+      <% end %>
+
+      <% if @estancia_E.present? %>
+        <%= render partial: "estancia", locals: { estancias: @estancia_E, s: 'E' } %>
+      <% end %>
+
 
     <!-- MANTENIMIENTO Y LIMPIEZA -->
     <% elsif current_user.user_type == 4 %>
