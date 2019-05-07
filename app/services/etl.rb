@@ -520,7 +520,7 @@ class Etl
       end
 
       if k == Cliente
-        sql = "INSERT INTO dbo.CLIENTE (nombre, RFC, original_id, sistema, wrong) VALUES ('#{object[:nombres]} #{object[:apellidos]}', '#{object[:rfc]}', #{object[:id]}, '#{s}', #{wrong});"
+        sql = "INSERT INTO dbo.CLIENTE (nombre, RFC, original_id, sistema, wrong) VALUES ('#{object[:nombre]} #{object[:apellidos]}', '#{object[:rfc]}', #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
 

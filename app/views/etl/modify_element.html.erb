@@ -126,6 +126,24 @@
       <%= label_tag :cantidad %>
       <%= text_field_tag (:cantidad), @element.cantidad %>
 
+    <%elsif @table == 'dbo.TIPO_ACCIDENTE'%>
+      <p>Modifcando los tipos de accidente </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+
+    <%elsif @table == 'dbo.ACCIDENTES'%>
+      <p>Modifcando los accidentes </p>
+      <%= label_tag :fecha %>
+      <%= text_field_tag (:fecha), @element.fecha %>
+
+    <%elsif @table == 'dbo.CONTRATO'%>
+      <p>Modifcando los contratos </p>
+      <%= label_tag :fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= label_tag :fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin %>
+      <%= label_tag :costo %>
+      <%= text_field_tag (:costo), @element.costo %>
     <% end %>
 
     <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />

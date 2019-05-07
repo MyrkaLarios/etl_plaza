@@ -65,6 +65,12 @@ class EtlController < ApplicationController
         @element = LocalNegocioTEMP.find(@id)
       when 'dbo.DESCUENTO'
         @element = DescuentoTEMP.find(@id)
+      when 'dbo.TIPO_ACCIDENTE'
+        @element = TipoAccidenteTEMP.find(@id)
+      when 'dbo.ACCIDENTES'
+        @element = AccidenteTEMP.find(@id)
+      when 'dbo.CONTRATO'
+        @element = ContratoTEMP.find(@id)
       end
     end
   end

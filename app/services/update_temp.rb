@@ -34,6 +34,14 @@ class UpdateTemp
       LocalNegocioTEMP.update_obj(params)
     when 'dbo.DESCUENTO'
       DescuentoTEMP.update_obj(params)
+    when 'dbo.TIPO_ACCIDENTE'
+      TipoAccidenteTEMP.update_obj(params)
+    when 'dbo.ACCIDENTES'
+      AccidenteTEMP.update_obj(params)
+    when 'dbo.CLIENTE'
+      ClienteTEMP.update_obj(params)
+    when 'dbo.CONTRATO'
+      ContratoTEMP.update_obj(params)
     end
     check_if_no_more_wrongs
   end
