@@ -1,0 +1,9 @@
+<h2>Descuento</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% descuentos.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.cantidad %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.DESCUENTO' } %>
+    </div>
+  <% end %>
+</div>

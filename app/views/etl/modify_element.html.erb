@@ -104,6 +104,28 @@
       <%= text_field_tag (:estado), @element.estado %>
       <%= label_tag :costo %>
       <%= text_field_tag (:costo), @element.costo %>
+
+    <%elsif @table == 'dbo.NEGOCIOS'%>
+      <p>Modifcando los locales </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= label_tag :giro %>
+      <%= text_field_tag (:giro), @element.giro %>
+      <%= label_tag :estado %>
+      <%= text_field_tag (:estado), @element.estado %>
+
+    <%elsif @table == 'dbo.LOCAL_NEGOCIO'%>
+      <p>Modifcando los locales y sus respectivos negocios </p>
+      <%= label_tag :fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= label_tag :fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin %>
+
+    <%elsif @table == 'dbo.DESCUENTO'%>
+      <p>Modifcando los descuentos </p>
+      <%= label_tag :cantidad %>
+      <%= text_field_tag (:cantidad), @element.cantidad %>
+
     <% end %>
 
     <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />

@@ -27,6 +27,13 @@
       <% if @locales.present? %>
         <%= render partial: "locales", locals: { locales: @locales, s: 'F' } %>
       <% end %>
+      <% if @negocios.present? %>
+        <%= render partial: "negocios", locals: { negocios: @negocios, s: 'F' } %>
+      <% end %>
+      <% if @negocios_locales.present? %>
+        <%= render partial: "local_negocio", locals: { negocios_locales: @negocios_locales, s: 'F' } %>
+      <% end %>
+
 
 
     <!-- ESTACIONAMIENTO -->
@@ -71,6 +78,10 @@
 
       <% if @sensores.present? %>
         <%= render partial: "sensor", locals: { sensores:  @sensores, s: 'E' } %>
+      <% end %>
+
+       <% if @descuentos.present? %>
+        <%= render partial: "descuento", locals: { descuentos: @descuentos, s: 'E' } %>
       <% end %>
 
 

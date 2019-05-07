@@ -481,7 +481,7 @@ class Etl
       end
 
       if k == Locale
-        ubicacion = find_foreign_key_from_attr('DTWH','AREA', 'nombre', object[:ubicacion])
+        ubicacion = find_foreign_key_from_attr('TEMP','AREA', 'nombre', object[:ubicacion])
         sql = "INSERT INTO dbo.LOCALES (numero, original_id, ubicacion, dimensiones, estado, costo, sistema, wrong) VALUES (#{object[:numero]}, #{object[:numero]}, '#{ubicacion}', '#{object[:dimensiones]}', '#{object[:estado]}',  #{object[:costo]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
@@ -500,7 +500,7 @@ class Etl
       end
 
       if k == Descuento
-        negocio = find_foreign_key_from_attr('DTWH', 'NEGOCIOS', 'nombre', object[:nombreNegocio])
+        negocio = find_foreign_key_from_attr('TEMP', 'NEGOCIOS', 'nombre', object[:nombreNegocio])
         estancia = find_foreign_key_from_original_using_system('ESTANCIA', object[:id_Estancia], 0, s)
         sql = "INSERT INTO dbo.DESCUENTO (cantidad, id_negocio, id_estancia, original_id, sistema, wrong) VALUES (#{object[:cantidad]}, #{negocio},  #{estancia}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)

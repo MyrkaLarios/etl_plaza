@@ -28,6 +28,12 @@ class UpdateTemp
       HorariosDisponiblesTEMP.update_obj(params)
     when 'dbo.LOCALES'
       LocalTEMP.update_obj(params)
+    when 'dbo.NEGOCIOS'
+      NegociosTEMP.update_obj(params)
+    when 'dbo.LOCAL_NEGOCIO'
+      LocalNegocioTEMP.update_obj(params)
+    when 'dbo.DESCUENTO'
+      DescuentoTEMP.update_obj(params)
     end
     check_if_no_more_wrongs
   end

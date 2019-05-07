@@ -14,6 +14,7 @@ class DashboardController < ApplicationController
       @estancia_cajero = EstanciaCajero.all.where(sistema: 'E', wrong: 1)
       @pasillos = PasilloTEMP.all.where(sistema: 'E', wrong: 1)
       @sensores = SensorTEMP.all.where(sistema: 'E', wrong: 1)
+      @descuentos = DescuentoTEMP.all.where(sistema: 'E', wrong: 1)
 
       @empleados_M = Empleado.all.where(sistema: 'M', wrong: 1)
       @tipos_empleado_M = TipoEmpleado.all.where(sistema: 'M', wrong: 1)
@@ -25,6 +26,8 @@ class DashboardController < ApplicationController
       @empleados_F = Empleado.all.where(sistema: 'F', wrong: 1)
       @tipos_empleado_F = TipoEmpleado.all.where(sistema: 'F', wrong: 1)
       @locales = LocalTEMP.all.where(sistema: 'F', wrong: 1)
+      @negocios = NegociosTEMP.all.where(sistema: 'F', wrong: 1)
+      @negocios_locales = LocalNegocioTEMP.all.where(sistema: 'F', wrong: 1)
     end
   end
 end
