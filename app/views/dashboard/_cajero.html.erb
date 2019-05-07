@@ -1,0 +1,12 @@
+<h2>Cajero</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% cajeros.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.dineroactual %></p>
+      <p><%= e.fechaactual %></p>
+      <p><%= e.periodicidadmantenimiento %></p>
+      <p><%= e.estado %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.CAJERO' } %>
+    </div>
+  <% end %>
+</div>

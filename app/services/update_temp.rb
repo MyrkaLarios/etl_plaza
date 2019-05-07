@@ -12,6 +12,12 @@ class UpdateTemp
       TarjetasTEMP.update_obj(params)
     when 'dbo.ESTANCIA'
       EstanciaTEMP.update_obj(params)
+    when 'dbo.TIPO_AREA'
+      TipoAreaTEMP.update_obj(params)
+    when 'dbo.AREA'
+      AreasTEMP.update_obj(params)
+    when 'dbo.CAJERO'
+      CajeroTEMP.update_obj(params)
     end
     check_if_no_more_wrongs
   end

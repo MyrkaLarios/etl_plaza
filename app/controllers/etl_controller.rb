@@ -43,6 +43,12 @@ class EtlController < ApplicationController
         @element = TarjetasTEMP.find(@id)
       when 'dbo.ESTANCIA'
         @element = EstanciaTEMP.find(@id)
+      when 'dbo.TIPO_AREA'
+        @element = TipoAreaTEMP.find(@id)
+      when 'dbo.AREA'
+        @element = AreasTEMP.find(@id)
+      when 'dbo.CAJERO'
+        @element = CajeroTEMP.find(@id)
       end
     end
   end

@@ -50,6 +50,14 @@
         <%= render partial: "estancia", locals: { estancias: @estancia_E, s: 'E' } %>
       <% end %>
 
+      <% if @areas_E.present? %>
+        <%= render partial: "area", locals: { areas:  @areas_E, s: 'E' } %>
+      <% end %>
+
+      <% if @cajeros.present? %>
+        <%= render partial: "cajero", locals: { cajeros:  @cajeros, s: 'E' } %>
+      <% end %>
+
 
     <!-- MANTENIMIENTO Y LIMPIEZA -->
     <% elsif current_user.user_type == 4 %>
@@ -65,6 +73,14 @@
 
       <% if @recursos_materiales_M.present? %>
         <%= render partial: "recurso_material", locals: { recursos_materiales: @recursos_materiales_M, s: 'M' } %>
+      <% end %>
+
+      <% if @tipo_area.present? %>
+        <%= render partial: "tipo_area", locals: { tipos_areas:  @tipo_area, s: 'M' } %>
+      <% end %>
+
+      <% if @areas_M.present? %>
+        <%= render partial: "area", locals: { areas:  @areas_M, s: 'M' } %>
       <% end %>
 
 

@@ -40,6 +40,31 @@
       <%= text_field_tag (:total), @element.total %>
       <%= label_tag :placa %>
       <%= text_field_tag (:placa), @element.placa %>
+
+    <%elsif @table == 'dbo.TIPO_AREA'%>
+      <p>Modifcando el tipo de area </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+
+    <%elsif @table == 'dbo.AREA'%>
+      <p>Modifcando el area </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= label_tag :descripcion %>
+      <%= text_field_tag (:descripcion), @element.descripcion %>
+      <%= label_tag :id_tipoarea %>
+      <%= text_field_tag (:id_tipoarea), @element.id_tipoarea %>
+
+    <%elsif @table == 'dbo.CAJERO'%>
+      <p>Modifcando el cajero </p>
+      <%= label_tag :dineroactual %>
+      <%= text_field_tag (:dineroactual), @element.dineroactual %>
+      <%= label_tag :fechaactual %>
+      <%= text_field_tag (:fechaactual), @element.fechaactual %>
+      <%= label_tag :periodicidadmantenimiento %>
+      <%= text_field_tag (:periodicidadmantenimiento), @element.periodicidadmantenimiento %>
+      <%= label_tag :estado %>
+      <%= text_field_tag (:estado), @element.estado %>
     <% end %>
 
     <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />

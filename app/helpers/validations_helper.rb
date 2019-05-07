@@ -64,7 +64,7 @@ module ValidationsHelper
   end
 
   def valid_estado_cajero?(estado)
-    estado.scan(/(Mantenimiento|Activado|Desactivado)/).present?
+    estado.scan(/^(Mantenimiento|Activado|Desactivado)$/).present?
   end
 
   def available?(num)
