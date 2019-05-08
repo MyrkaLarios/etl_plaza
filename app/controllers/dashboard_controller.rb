@@ -21,6 +21,8 @@ class DashboardController < ApplicationController
       @tipos_materiales_E = TiposMaterialesTEMP.all.where(sistema: 'E', wrong: 1)
       @proveedores_materiales_E = ProveedoresMaterialesTEMP.all.where(sistema: 'E', wrong: 1)
       @solicitudes_compras_E = SolicitudCompraTEMP.all.where(sistema: 'E', wrong: 1)
+      @orden_despacho_E = OrdenDespachoTEMP.all.where(sistema: 'E', wrong: 1)
+      @orden_despacho_materiales_E = OrdenDespachoMaterialesTEMP.all.where(sistema: 'E', wrong: 1)
 
       @empleados_M = Empleado.all.where(sistema: 'M', wrong: 1)
       @tipos_empleado_M = TipoEmpleado.all.where(sistema: 'M', wrong: 1)
@@ -37,6 +39,16 @@ class DashboardController < ApplicationController
       @servicios_materiales = ServiciosMaterialesTEMP.all.where(sistema: 'M', wrong: 1)
       @tareas = TareasTEMP.all.where(sistema: 'M', wrong: 1)
       @tareas_materiales = TareasMaterialesTEMP.all.where(sistema: 'M', wrong: 1)
+      @secciones = SeccionesBodegaTEMP.all.where(sistema: 'M', wrong: 1)
+      @horarios = HorariosTEMP.all.where(sistema: 'M', wrong: 1)
+      @tipos_incidentes = TiposIncidentesTEMP.all.where(sistema: 'M', wrong: 1)
+      @incidentes = IncidentesTEMP.all.where(sistema: 'M', wrong: 1)
+      @ordenes_servicio = OrdenesServicioTEMP.all.where(sistema: 'M', wrong: 1)
+      @contratistas = ContratistasTEMP.all.where(sistema: 'M', wrong: 1)
+      @orden_servicio_contratistas = OrdenServicioContratistasTEMP.all.where(sistema: 'M', wrong: 1)
+      @areas_servicios = AreasServiciosTEMP.all.where(sistema: 'M', wrong: 1)
+      @orden_despacho_M = OrdenDespachoTEMP.all.where(sistema: 'M', wrong: 1)
+      @orden_despacho_materiales_M = OrdenDespachoMaterialesTEMP.all.where(sistema: 'M', wrong: 1)
 
       @empleados_F = Empleado.all.where(sistema: 'F', wrong: 1)
       @tipos_empleado_F = TipoEmpleado.all.where(sistema: 'F', wrong: 1)
@@ -46,6 +58,11 @@ class DashboardController < ApplicationController
       @clientes = ClienteTEMP.all.where(sistema: 'F', wrong: 1)
       @contratos = ContratoTEMP.all.where(sistema: 'F', wrong: 1)
       @rentas = RentasTEMP.all.where(sistema: 'F', wrong: 1)
+      @ganancias = GananciasTEMP.all.where(sistema: 'F', wrong: 1)
+      @ingresos_estacionamiento = IngresoEstacionamientoTEMP.all.where(sistema: 'F', wrong: 1)
+      @egresos_mantenimiento = EgresoMantenimientoTEMP.all.where(sistema: 'F', wrong: 1)
+      @pagos = PagosTEMP.all.where(sistema: 'F', wrong: 1)
+      @abonos = AbonosTEMP.all.where(sistema: 'F', wrong: 1)
     end
   end
 end

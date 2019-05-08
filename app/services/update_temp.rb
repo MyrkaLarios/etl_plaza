@@ -62,6 +62,36 @@ class UpdateTemp
       TareasTEMP.update_obj(params)
     when 'dbo.TAREA_MATERIAL'
       TareasMaterialesTEMP.update_obj(params)
+    when 'dbo.SECCION_BODEGA'
+      SeccionesBodegaTEMP.update_obj(params)
+    when 'dbo.HORARIO'
+      HorariosTEMP.update_obj(params)
+    when 'dbo.TIPO_INCIDENTE'
+      TiposIncidentesTEMP.update_obj(params)
+    when 'dbo.INCIDENTE'
+      IncidentesTEMP.update_obj(params)
+    when 'dbo.ORDEN_SERVICIO'
+      OrdenesServicioTEMP.update_obj(params)
+    when 'dbo.CONTRATANTE'
+      ContratistasTEMP.update_obj(params)
+    when 'dbo.ORDENSERVICIO_CONTRATANTE'
+      OrdenServicioContratistasTEMP.update_obj(params)
+    when 'dbo.AREA_SERVICIO'
+      AreasServiciosTEMP.update_obj(params)
+    when 'dbo.ORDEN_DESPACHO'
+      OrdenDespachoTEMP.update_obj(params)
+    when 'dbo.ORDENDESPACHO_MATERIAL'
+      OrdenDespachoMaterialesTEMP.update_obj(params)
+    when 'dbo.GANANCIAS'
+      GananciasTEMP.update_obj(params)
+    when 'dbo.INGRESO_ESTACIONAMIENTO'
+      IngresoEstacionamientoTEMP.update_obj(params)
+    when 'dbo.EGRESO_MANTENIMIENTO'
+      EgresoMantenimientoTEMP.update_obj(params)
+    when 'dbo.PAGOS'
+      PagosTEMP.update_obj(params)
+    when 'dbo.ABONOS'
+      AbonosTEMP.update_obj(params)
     end
     check_if_no_more_wrongs
   end

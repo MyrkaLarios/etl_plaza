@@ -18,13 +18,23 @@
     <!-- FINANZAS -->
     <% elsif current_user.user_type == 2 %>
       <h1>Datos a corregir</h1>
-      <% if @tipos_empleado_F.present? %>
-        <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_F, s: 'F' } %>
-      <% end %>
 
-      <% if @empleados_F.present? %>
-        <%= render partial: "empleado", locals: { empleados: @empleados_F, s: 'F' } %>
-      <% end %>
+      <div id="accordion">
+        <% if @tipos_empleado_F.present? %>
+          <div class="card">
+            <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_F, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @empleados_F.present? %>
+          <div class="card">
+            <%= render partial: "empleado", locals: { empleados: @empleados_F, s: 'F' } %>
+          </div>
+        <% end %>
+
+      </div>
+
+
 
       <% if @locales.present? %>
         <%= render partial: "locales", locals: { locales: @locales, s: 'F' } %>
@@ -48,6 +58,26 @@
 
       <% if @rentas.present? %>
         <%= render partial: "rentas", locals: { rentas: @rentas, s: 'F' } %>
+      <% end %>
+
+      <% if @ganancias.present? %>
+        <%= render partial: "ganancias", locals: { ganancias: @ganancias, s: 'F' } %>
+      <% end %>
+
+      <% if @ingresos_estacionamiento.present? %>
+        <%= render partial: "ingreso_estacionamiento", locals: { ingreso_estacionamiento: @ingresos_estacionamiento, s: 'F' } %>
+      <% end %>
+
+      <% if @egresos_mantenimiento.present? %>
+        <%= render partial: "egreso_mantenimiento", locals: { egreso_mantenimiento: @egresos_mantenimiento, s: 'F' } %>
+      <% end %>
+
+      <% if @pagos.present? %>
+        <%= render partial: "pagos", locals: { pagos: @pagos, s: 'F' } %>
+      <% end %>
+
+      <% if @abonos.present? %>
+        <%= render partial: "abonos", locals: { abonos: @abonos, s: 'F' } %>
       <% end %>
 
 
@@ -96,7 +126,7 @@
         <%= render partial: "sensor", locals: { sensores:  @sensores, s: 'E' } %>
       <% end %>
 
-       <% if @descuentos.present? %>
+      <% if @descuentos.present? %>
         <%= render partial: "descuento", locals: { descuentos: @descuentos, s: 'E' } %>
       <% end %>
 
@@ -122,6 +152,14 @@
 
       <% if @solicitudes_compras_E.present? %>
         <%= render partial: "solicitud_compra", locals: { solicitudes_compras:  @solicitudes_compras_E, s: 'E' } %>
+      <% end %>
+
+      <% if @orden_despacho_E.present? %>
+        <%= render partial: "orden_despacho", locals: { orden_despacho:  @orden_despacho_E, s: 'E' } %>
+      <% end %>
+
+      <% if @orden_despacho_materiales_E.present? %>
+        <%= render partial: "ordendespacho_material", locals: { ordendespacho_material:  @orden_despacho_materiales_E, s: 'E' } %>
       <% end %>
 
 
@@ -189,6 +227,46 @@
 
       <% if @tareas_materiales.present? %>
         <%= render partial: "tarea_material", locals: { tareas_materiales:  @tareas_materiales, s: 'M' } %>
+      <% end %>
+
+      <% if @secciones.present? %>
+        <%= render partial: "seccion_bodega", locals: { secciones:  @secciones, s: 'M' } %>
+      <% end %>
+
+      <% if @horarios.present? %>
+        <%= render partial: "horario", locals: { horarios:  @horarios, s: 'M' } %>
+      <% end %>
+
+      <% if @tipos_incidentes.present? %>
+        <%= render partial: "tipo_incidente", locals: { tipos_incidentes:  @tipos_incidentes, s: 'M' } %>
+      <% end %>
+
+      <% if @incidentes.present? %>
+        <%= render partial: "incidente", locals: { incidentes:  @incidentes, s: 'M' } %>
+      <% end %>
+
+      <% if @ordenes_servicio.present? %>
+        <%= render partial: "orden_servicio", locals: { ordenes_servicio:  @ordenes_servicio, s: 'M' } %>
+      <% end %>
+
+      <% if @contratistas.present? %>
+        <%= render partial: "contratante", locals: { contratantes:  @contratistas, s: 'M' } %>
+      <% end %>
+
+      <% if @orden_servicio_contratistas.present? %>
+        <%= render partial: "ordenservicio_contratante", locals: { ordenservicio_contratante:  @orden_servicio_contratistas, s: 'M' } %>
+      <% end %>
+
+      <% if @areas_servicios.present? %>
+        <%= render partial: "area_servicio", locals: { areas_servicios:  @areas_servicios, s: 'M' } %>
+      <% end %>
+
+      <% if @orden_despacho_M.present? %>
+        <%= render partial: "orden_despacho", locals: { orden_despacho:  @orden_despacho_M, s: 'M' } %>
+      <% end %>
+
+      <% if @orden_despacho_materiales_M.present? %>
+        <%= render partial: "ordendespacho_material", locals: { ordendespacho_material:  @orden_despacho_materiales_M, s: 'M' } %>
       <% end %>
 
 

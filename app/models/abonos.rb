@@ -5,6 +5,6 @@ class Abonos < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    valid_number?(monto) && valid_number?(saldorestante)
+    valid_number?(monto) && valid_date?(fechacobro)
   end
 end

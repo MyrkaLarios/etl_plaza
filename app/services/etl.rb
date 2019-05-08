@@ -336,7 +336,7 @@ class Etl
       send_to_DWH_TEMP(OrdenDespacho.all, 'M')
     end
     Octopus.using(:E) do
-      send_to_DWH_TEMP(OrdenDespachoE.all, 'M')
+      send_to_DWH_TEMP(OrdenDespachoE.all, 'E')
     end
   end
 
@@ -345,7 +345,7 @@ class Etl
       send_to_DWH_TEMP(OrdenDespachoMateriales.all, 'M')
     end
     Octopus.using(:E) do
-      send_to_DWH_TEMP(OrdenDespachoMaterialesE.all, 'M')
+      send_to_DWH_TEMP(OrdenDespachoMaterialesE.all, 'E')
     end
   end
 
@@ -718,7 +718,7 @@ class Etl
       end
 
       if k == IngresoEstacionamiento
-        sql = "INSERT INTO dbo.GANANCIAS (ingresos, fechacorte, sistema, wrong) VALUES (#{object[:cantidad]}, '#{object[:fecha].strftime('%Y-%m-%d')}', '#{s}', #{0});"
+        sql = "INSERT INTO dbo.GANANCIAS (ingresos, fechacorte, sistema, wrong) VALUES (#{object[:cantidad]}, '#{object[:fecha].strftime('%Y-%m-%d')}', '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
 
         id_g = ActiveRecord::Base.connection.exec_query("SELECT TOP 1(id) FROM GANANCIAS ORDER BY ID DESC").rows[0][0]
@@ -728,7 +728,7 @@ class Etl
       end
 
       if k == GastoMantenimiento
-        sql = "INSERT INTO dbo.GANANCIAS (egresos, fechacorte, sistema, wrong) VALUES (#{object[:cantidad]}, '#{object[:fecha].strftime('%Y-%m-%d')}', '#{s}', #{0});"
+        sql = "INSERT INTO dbo.GANANCIAS (egresos, fechacorte, sistema, wrong) VALUES (#{object[:cantidad]}, '#{object[:fecha].strftime('%Y-%m-%d')}', '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
 
         id_g = ActiveRecord::Base.connection.exec_query("SELECT TOP 1(id) FROM GANANCIAS ORDER BY ID DESC").rows[0][0]
@@ -738,7 +738,7 @@ class Etl
       end
 
       if k == Pagos
-        sql = "INSERT INTO dbo.GANANCIAS (egresos, fechacorte, sistema, wrong) VALUES (#{object[:monto]}, '#{object[:fecha].strftime('%Y-%m-%d')}', '#{s}', #{0});"
+        sql = "INSERT INTO dbo.GANANCIAS (egresos, fechacorte, sistema, wrong) VALUES (#{object[:monto]}, '#{object[:fecha].strftime('%Y-%m-%d')}', '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
 
         id_g = ActiveRecord::Base.connection.exec_query("SELECT TOP 1(id) FROM GANANCIAS ORDER BY ID DESC").rows[0][0]
@@ -750,7 +750,7 @@ class Etl
       end
 
       if k == Abonos
-        sql = "INSERT INTO dbo.GANANCIAS (ingresos, fechacorte, sistema, wrong) VALUES (#{object[:monto]}, '#{object[:fechacobro].strftime('%Y-%m-%d')}', '#{s}', #{0});"
+        sql = "INSERT INTO dbo.GANANCIAS (ingresos, fechacorte, sistema, wrong) VALUES (#{object[:monto]}, '#{object[:fechacobro].strftime('%Y-%m-%d')}', '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
 
         id_g = ActiveRecord::Base.connection.exec_query("SELECT TOP 1(id) FROM GANANCIAS ORDER BY ID DESC").rows[0][0]

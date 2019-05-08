@@ -4,6 +4,6 @@ class TiposIncidentes < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    true
+    valid_name?(nombre)
   end
 end

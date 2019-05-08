@@ -91,6 +91,36 @@ class EtlController < ApplicationController
         @element = TareasTEMP.find(@id)
       when 'dbo.TAREA_MATERIAL'
         @element = TareasMaterialesTEMP.find(@id)
+      when 'dbo.SECCION_BODEGA'
+        @element = SeccionesBodegaTEMP.find(@id)
+      when 'dbo.HORARIO'
+        @element = HorariosTEMP.find(@id)
+      when 'dbo.TIPO_INCIDENTE'
+        @element = TiposIncidentesTEMP.find(@id)
+      when 'dbo.INCIDENTE'
+        @element = IncidentesTEMP.find(@id)
+      when 'dbo.ORDEN_SERVICIO'
+        @element = OrdenesServicioTEMP.find(@id)
+      when 'dbo.CONTRATANTE'
+        @element = ContratistasTEMP.find(@id)
+      when 'dbo.ORDENSERVICIO_CONTRATANTE'
+        @element = OrdenServicioContratistasTEMP.find(@id)
+      when 'dbo.AREA_SERVICIO'
+        @element = AreasServiciosTEMP.find(@id)
+      when 'dbo.ORDEN_DESPACHO'
+        @element = OrdenDespachoTEMP.find(@id)
+      when 'dbo.ORDENDESPACHO_MATERIAL'
+        @element = OrdenDespachoMaterialesTEMP.find(@id)
+      when 'dbo.GANANCIAS'
+        @element = GananciasTEMP.find(@id)
+      when 'dbo.INGRESO_ESTACIONAMIENTO'
+        @element = IngresoEstacionamientoTEMP.find(@id)
+      when 'dbo.EGRESO_MANTENIMIENTO'
+        @element = EgresoMantenimientoTEMP.find(@id)
+      when 'dbo.PAGOS'
+        @element = PagosTEMP.find(@id)
+      when 'dbo.ABONOS'
+        @element = AbonosTEMP.find(@id)
       end
     end
   end

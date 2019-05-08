@@ -5,6 +5,6 @@ class OrdenesServicio < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    valid_prioridad?(prioridad.to_s)
+    valid_prioridad?(prioridad.to_s) && valid_date?(fecha)
   end
 end

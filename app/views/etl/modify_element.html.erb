@@ -209,6 +209,103 @@
       <%= label_tag :cantidadentregada %>
       <%= text_field_tag (:cantidadentregada), @element.cantidadentregada %>
 
+    <%elsif @table == 'dbo.SECCION_BODEGA'%>
+      <p>Modifcando la sección de bodega con id <%= @element.id %> </p>
+      <%= label_tag :tamaño %>
+      <%= text_field_tag (:tamaño), @element.tamaño %>
+
+    <%elsif @table == 'dbo.HORARIO'%>
+      <p>Modifcando el horario con id <%= @element.id %> </p>
+      <%= label_tag :fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= label_tag :fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin %>
+
+    <%elsif @table == 'dbo.TIPO_INCIDENTE'%>
+      <p>Modifcando el tipo de incidente con id <%= @element.id %> </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+
+    <%elsif @table == 'dbo.INCIDENTE'%>
+      <p>Modifcando el incidente con id <%= @element.id %> </p>
+      <%= label_tag :fecha %>
+      <%= text_field_tag (:fecha), @element.fecha %>
+
+    <%elsif @table == 'dbo.ORDEN_SERVICIO'%>
+      <p>Modifcando la orden de servicio con id <%= @element.id %> </p>
+      <%= label_tag :fecha %>
+      <%= text_field_tag (:fecha), @element.fecha %>
+      <%= label_tag :prioridad %>
+      <%= text_field_tag (:prioridad), @element.prioridad %>
+
+    <%elsif @table == 'dbo.CONTRATANTE'%>
+      <p>Modifcando la orden de servicio con id <%= @element.id %> </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= label_tag :numero %>
+      <%= text_field_tag (:numero), @element.numero %>
+
+    <%elsif @table == 'dbo.ORDENSERVICIO_CONTRATANTE'%>
+      <p>Modifcando el detalle de la orden de servicio y los contratantes con id <%= @element.id %> </p>
+      <%= label_tag :costo %>
+      <%= text_field_tag (:costo), @element.costo %>
+      <%= label_tag :tiempo %>
+      <%= text_field_tag (:tiempo), @element.tiempo %>
+
+    <%elsif @table == 'dbo.AREA_SERVICIO'%>
+      <p>Modifcando el detalle de areas y servicios con id <%= @element.id %> </p>
+      <%= label_tag :periodicidad %>
+      <%= text_field_tag (:periodicidad), @element.periodicidad %>
+
+    <%elsif @table == 'dbo.ORDEN_DESPACHO'%>
+      <p>Modifcando la orden de despacho con id <%= @element.id %> </p>
+      <%= label_tag :fechaentrega %>
+      <%= text_field_tag (:fechaentrega), @element.fechaentrega %>
+
+    <%elsif @table == 'dbo.ORDENDESPACHO_MATERIAL'%>
+      <p>Modifcando el detalle de la orden de despacho y los materiales con id <%= @element.id %> </p>
+      <%= label_tag :cantidadrecibida %>
+      <%= text_field_tag (:cantidadrecibida), @element.cantidadrecibida %>
+      <%= label_tag :fechadecaducidad %>
+      <%= text_field_tag (:fechadecaducidad), @element.fechadecaducidad %>
+
+    <%elsif @table == 'dbo.GANANCIAS'%>
+      <p>Modifcando la ganancia con id <%= @element.id %> </p>
+      <%= label_tag :ingresos %>
+      <%= text_field_tag (:ingresos), @element.ingresos %>
+      <%= label_tag :egresos %>
+      <%= text_field_tag (:egresos), @element.egresos %>
+      <%= label_tag :fechacorte %>
+      <%= text_field_tag (:fechacorte), @element.fechacorte %>
+
+    <%elsif @table == 'dbo.INGRESO_ESTACIONAMIENTO'%>
+      <p>Modifcando ingreso esacionamiento con id <%= @element.id %> </p>
+      <%= label_tag :cantidad %>
+      <%= text_field_tag (:cantidad), @element.cantidad %>
+      <%= label_tag :fecha %>
+      <%= text_field_tag (:fecha), @element.fecha %>
+
+    <%elsif @table == 'dbo.EGRESO_MANTENIMIENTO'%>
+      <p>Modifcando egreso mantenimiento con id <%= @element.id %> </p>
+      <%= label_tag :cantidad %>
+      <%= text_field_tag (:cantidad), @element.cantidad %>
+      <%= label_tag :fecha %>
+      <%= text_field_tag (:fecha), @element.fecha %>
+
+    <%elsif @table == 'dbo.PAGOS'%>
+      <p>Modifcando pagos con id <%= @element.id %> </p>
+      <%= label_tag :monto %>
+      <%= text_field_tag (:monto), @element.monto %>
+      <%= label_tag :fecha %>
+      <%= text_field_tag (:fecha), @element.fecha %>
+
+    <%elsif @table == 'dbo.ABONOS'%>
+      <p>Modifcando pagos con id <%= @element.id %> </p>
+      <%= label_tag :monto %>
+      <%= text_field_tag (:monto), @element.monto %>
+      <%= label_tag :fechapago %>
+      <%= text_field_tag (:fechapago), @element.fechapago %>
+
     <% end %>
 
     <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />

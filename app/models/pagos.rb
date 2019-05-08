@@ -5,6 +5,6 @@ class Pagos < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    valid_number?(monto)
+    valid_number?(monto) && valid_date?(fecha)
   end
 end

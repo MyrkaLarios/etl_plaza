@@ -5,6 +5,6 @@ class OrdenDespachoMaterialesE < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    valid_number?(cantidad)
+    false ##porque no trae fecha
   end
 end

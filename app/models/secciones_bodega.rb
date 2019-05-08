@@ -5,6 +5,6 @@ class SeccionesBodega < ApplicationRecord
 
   self.table_name = 'secciones_bodega'
   def valid?(s)
-    true
+    valid_salary?(tamaño)
   end
 end

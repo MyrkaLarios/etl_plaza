@@ -5,6 +5,6 @@ class IngresoEstacionamiento < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    valid_number?(cantidad)
+    valid_number?(cantidad) && valid_date?(fecha)
   end
 end
