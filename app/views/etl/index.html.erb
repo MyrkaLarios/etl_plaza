@@ -1,0 +1,17 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <%= link_to 'Salir', destroy_user_session_path, method: 'delete'%>
+</nav>
+<% Octopus.using(:TEMP) do %>
+  <div class="container etl">
+    <% if @tipos_empleados.present? %>
+      <%= render partial: "dashboard/tipo_empleado", locals: { tipos_empleado: @tipos_empleados } %>
+    <% end %>
+    <% if @empleados.present? %>
+      <%= render partial: "dashboard/empleado", locals: { empleados: @empleados } %>
+    <% end %>
+    <% if @tarjetas.present? %>
+      <%= render partial: "dashboard/tarjeta", locals: { tarjetas: @tarjetas } %>
+    <% end %>
+  </div>
+<%end%>

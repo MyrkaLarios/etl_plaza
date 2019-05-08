@@ -1,0 +1,10 @@
+<h2>Orden de Despacho de Material</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% ordendespacho_material.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.cantidadrecibida %></p>
+      <p><%= e.fechadecaducidad %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ORDENDESPACHO_MATERIAL' } %>
+    </div>
+  <% end %>
+</div>

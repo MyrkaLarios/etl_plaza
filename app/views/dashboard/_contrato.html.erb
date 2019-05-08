@@ -1,0 +1,11 @@
+<h2>Contrato</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% contratos.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.fechainicio %></p>
+      <p><%= e.fechafin %></p>
+      <p><%= e.costo %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.CONTRATO' } %>
+    </div>
+  <% end %>
+</div>

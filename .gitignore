@@ -28,3 +28,7 @@
 
 # Ignore Coverage files 
 /coverage
+
+#Ignore dbs
+./RF
+./myrka

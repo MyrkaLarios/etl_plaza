@@ -1,0 +1,12 @@
+<h2>Proveedor</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% proveedores.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.nombre %></p>
+      <p><%= e.rfc %></p>
+      <p><%= e.telefono %></p>
+      <p><%= e.direccion %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.PROVEEDOR' } %>
+    </div>
+  <% end %>
+</div>

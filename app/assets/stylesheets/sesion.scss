@@ -1,0 +1,49 @@
+body {
+  background-image: image-url('mall1.jpg');
+  background-size: cover;
+}
+
+html,
+body,
+.container,
+form {
+display: flex;
+flex-direction: column;
+min-height: 100%;
+}
+
+.container{
+flex-direction: column;
+margin-top: 5%;
+height: 100%;
+min-height: 100vh;
+background-color: white;
+
+}
+
+.actions{
+text-align: center;
+padding-top: 10px;
+padding-bottom: 40px;
+}
+
+.title{
+padding-top: 30px;
+padding-bottom: 20px;
+}
+
+.field{
+padding-bottom: 15px;
+}
+
+.links{
+padding-bottom: 15px;
+}
+
+.btn_s{
+width: 100%;
+}
+
+.etl{
+height: 80%;
+}

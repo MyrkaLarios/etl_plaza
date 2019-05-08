@@ -1,0 +1,9 @@
+<h2>Accidentes</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% accidentes.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.fecha %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ACCIDENTES' } %>
+    </div>
+  <% end %>
+</div>
