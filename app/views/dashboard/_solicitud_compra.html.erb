@@ -1,0 +1,10 @@
+<h2>Solicitud de Compra</h2>
+<div style='display: flex; flex-direction: column;'>
+  <% solicitudes_compras.each do |e| %>
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p><%= e.cantidad_total %></p>
+      <p><%= e.costototal %></p>
+      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SOLICITUD_COMPRA' } %>
+    </div>
+  <% end %>
+</div>

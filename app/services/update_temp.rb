@@ -42,6 +42,26 @@ class UpdateTemp
       ClienteTEMP.update_obj(params)
     when 'dbo.CONTRATO'
       ContratoTEMP.update_obj(params)
+    when 'dbo.RENTAS'
+      RentasTEMP.update_obj(params)
+    when 'dbo.PROVEEDOR'
+      ProveedoresTEMP.update_obj(params)
+    when 'dbo.CATEGORIA'
+      CategoriasTEMP.update_obj(params)
+    when 'dbo.TIPO_MATERIAL'
+      TiposMaterialesTEMP.update_obj(params)
+    when 'dbo.PROVEEDOR_MATERIAL'
+      ProveedoresMaterialesTEMP.update_obj(params)
+    when 'dbo.SOLICITUD_COMPRA'
+      SolicitudCompraTEMP.update_obj(params)
+    when 'dbo.SERVICIO'
+      ServiciosTEMP.update_obj(params)
+    when 'dbo.SERVICIO_MATERIAL'
+      ServiciosMaterialesTEMP.update_obj(params)
+    when 'dbo.TAREA'
+      TareasTEMP.update_obj(params)
+    when 'dbo.TAREA_MATERIAL'
+      TareasMaterialesTEMP.update_obj(params)
     end
     check_if_no_more_wrongs
   end

@@ -46,6 +46,10 @@
         <%= render partial: "contrato", locals: { contratos: @contratos, s: 'F' } %>
       <% end %>
 
+      <% if @rentas.present? %>
+        <%= render partial: "rentas", locals: { rentas: @rentas, s: 'F' } %>
+      <% end %>
+
 
 
     <!-- ESTACIONAMIENTO -->
@@ -104,6 +108,22 @@
         <%= render partial: "accidentes", locals: { accidentes: @accidentes, s: 'E' } %>
       <% end %>
 
+      <% if @proveedores_E.present? %>
+        <%= render partial: "proveedor", locals: { proveedores: @proveedores_E, s: 'E' } %>
+      <% end %>
+
+      <% if @tipos_materiales_E.present? %>
+        <%= render partial: "tipo_material", locals: { tipos_materiales:  @tipos_materiales_E, s: 'E' } %>
+      <% end %>
+
+      <% if @proveedores_materiales_E.present? %>
+        <%= render partial: "proveedor_material", locals: { proveedores_materiales:  @proveedores_materiales_E, s: 'E' } %>
+      <% end %>
+
+      <% if @solicitudes_compras_E.present? %>
+        <%= render partial: "solicitud_compra", locals: { solicitudes_compras:  @solicitudes_compras_E, s: 'E' } %>
+      <% end %>
+
 
 
 
@@ -133,6 +153,42 @@
 
       <% if @horarios_disp.present? %>
         <%= render partial: "horario_disponible", locals: { horarios:  @horarios_disp, s: 'M' } %>
+      <% end %>
+
+      <% if @proveedores_M.present? %>
+        <%= render partial: "proveedor", locals: { proveedores:  @proveedores_M, s: 'M' } %>
+      <% end %>
+
+      <% if @categorias.present? %>
+        <%= render partial: "categoria", locals: { categorias:  @categorias, s: 'M' } %>
+      <% end %>
+
+      <% if @tipos_materiales_M.present? %>
+        <%= render partial: "tipo_material", locals: { tipos_materiales:  @tipos_materiales_M, s: 'M' } %>
+      <% end %>
+
+      <% if @proveedores_materiales_M.present? %>
+        <%= render partial: "proveedor_material", locals: { proveedores_materiales:  @proveedores_materiales_M, s: 'M' } %>
+      <% end %>
+
+      <% if @solicitudes_compras_M.present? %>
+        <%= render partial: "solicitud_compra", locals: { solicitudes_compras:  @solicitudes_compras_M, s: 'M' } %>
+      <% end %>
+
+      <% if @servicios.present? %>
+        <%= render partial: "servicio", locals: { servicios:  @servicios, s: 'M' } %>
+      <% end %>
+
+      <% if @servicios_materiales.present? %>
+        <%= render partial: "servicio_material", locals: { servicios_materiales:  @servicios_materiales, s: 'M' } %>
+      <% end %>
+
+      <% if @tareas.present? %>
+        <%= render partial: "tarea", locals: { tareas:  @tareas, s: 'M' } %>
+      <% end %>
+
+      <% if @tareas_materiales.present? %>
+        <%= render partial: "tarea_material", locals: { tareas_materiales:  @tareas_materiales, s: 'M' } %>
       <% end %>
 
 

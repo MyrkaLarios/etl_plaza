@@ -144,6 +144,71 @@
       <%= text_field_tag (:fechafin), @element.fechafin %>
       <%= label_tag :costo %>
       <%= text_field_tag (:costo), @element.costo %>
+
+    <%elsif @table == 'dbo.RENTAS'%>
+      <p>Modifcando las rentas </p>
+      <%= label_tag :fechacobro %>
+      <%= text_field_tag (:fechacobro), @element.fechacobro %>
+      <%= label_tag :statusretraso %>
+      <%= text_field_tag (:statusretraso), @element.statusretraso %>
+      <%= label_tag :statuspagado %>
+      <%= text_field_tag (:statuspagado), @element.statuspagado %>
+
+    <%elsif @table == 'dbo.PROVEEDOR'%>
+      <p>Modifcando las rentas </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= label_tag :rfc %>
+      <%= text_field_tag (:rfc), @element.rfc %>
+      <%= label_tag :telefono %>
+      <%= text_field_tag (:telefono), @element.telefono %>
+
+    <%elsif @table == 'dbo.CATEGORIA'%>
+      <p>Modifcando categoria con id <%= @element.id %> </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+
+    <%elsif @table == 'dbo.TIPO_MATERIAL'%>
+      <p>Modifcando tipo material con id <%= @element.id %> </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+
+    <%elsif @table == 'dbo.PROVEEDOR_MATERIAL'%>
+      <p>Modifcando detalle proveedor material con id <%= @element.id %> </p>
+      <%= label_tag :costo %>
+      <%= text_field_tag (:costo), @element.costo %>
+      <%= label_tag :minimo %>
+      <%= text_field_tag (:minimo), @element.minimo %>
+
+    <%elsif @table == 'dbo.SOLICITUD_COMPRA'%>
+      <p>Modifcando la solicitud de compra con id <%= @element.id %> </p>
+      <%= label_tag :cantidad_total %>
+      <%= text_field_tag (:cantidad_total), @element.cantidad_total %>
+      <%= label_tag :costototal %>
+      <%= text_field_tag (:costototal), @element.costototal %>
+
+    <%elsif @table == 'dbo.SERVICIO'%>
+      <p>Modifcando el servicio con id <%= @element.id %> </p>
+      <%= label_tag :nombre %>
+      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= label_tag :duracion %>
+      <%= text_field_tag (:duracion), @element.duracion %>
+
+    <%elsif @table == 'dbo.SERVICIO_MATERIAL'%>
+      <p>Modifcando el detalle servicio material con id <%= @element.id %> </p>
+      <%= label_tag :cantidad %>
+      <%= text_field_tag (:cantidad), @element.cantidad %>
+
+    <%elsif @table == 'dbo.TAREA'%>
+      <p>Modifcando la tarea con id <%= @element.id %> </p>
+      <%= label_tag :duracion %>
+      <%= text_field_tag (:duracion), @element.duracion %>
+
+    <%elsif @table == 'dbo.TAREA_MATERIAL'%>
+      <p>Modifcando detalle tarea material con id <%= @element.id %> </p>
+      <%= label_tag :cantidadentregada %>
+      <%= text_field_tag (:cantidadentregada), @element.cantidadentregada %>
+
     <% end %>
 
     <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />

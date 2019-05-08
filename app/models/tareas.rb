@@ -4,6 +4,6 @@ class Tareas < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    true
+    valid_number?(duracion)
   end
 end

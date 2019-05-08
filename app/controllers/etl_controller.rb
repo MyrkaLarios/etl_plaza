@@ -71,6 +71,26 @@ class EtlController < ApplicationController
         @element = AccidenteTEMP.find(@id)
       when 'dbo.CONTRATO'
         @element = ContratoTEMP.find(@id)
+      when 'dbo.RENTAS'
+        @element = RentasTEMP.find(@id)
+      when 'dbo.PROVEEDOR'
+        @element = ProveedoresTEMP.find(@id)
+      when 'dbo.CATEGORIA'
+        @element = CategoriasTEMP.find(@id)
+      when 'dbo.TIPO_MATERIAL'
+        @element = TiposMaterialesTEMP.find(@id)
+      when 'dbo.PROVEEDOR_MATERIAL'
+        @element = ProveedoresMaterialesTEMP.find(@id)
+      when 'dbo.SOLICITUD_COMPRA'
+        @element = SolicitudCompraTEMP.find(@id)
+      when 'dbo.SERVICIO'
+        @element = ServiciosTEMP.find(@id)
+      when 'dbo.SERVICIO_MATERIAL'
+        @element = ServiciosMaterialesTEMP.find(@id)
+      when 'dbo.TAREA'
+        @element = TareasTEMP.find(@id)
+      when 'dbo.TAREA_MATERIAL'
+        @element = TareasMaterialesTEMP.find(@id)
       end
     end
   end

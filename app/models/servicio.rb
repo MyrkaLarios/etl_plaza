@@ -4,6 +4,6 @@ class Servicio < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    true
+    valid_name?(nombre) && valid_number?(duracion)
   end
 end

@@ -536,7 +536,7 @@ class Etl
       end
 
       if k == Proveedores || k == ProveedoresMyl
-        sql = "INSERT INTO dbo.PROVEEDOR (nombre, rfc, telefono, direccion, original_id, sistema, wrong) VALUES ('#{object[:nombre]}', '#{object[:rfc]}', '#{object[:telefono]}', '#{object[:telefono]}', #{object[:id]}, '#{s}', #{wrong});"
+        sql = "INSERT INTO dbo.PROVEEDOR (nombre, rfc, telefono, direccion, original_id, sistema, wrong) VALUES ('#{object[:nombre]}', '#{object[:rfc]}', '#{object[:telefono]}', '#{object[:direccion]}', #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
@@ -606,7 +606,7 @@ class Etl
       if k == Tareas
         id_servicio = find_foreign_key_from_original_using_system('SERVICIO', object[:servicio], 0, s)
         id_area = find_foreign_key_from_original_using_system('AREA', object[:area], 0, s)
-        sql = "INSERT INTO dbo.TAREA (duracion, id_servicio, id_area, original_id, sistema, wrong) VALUES ('#{object[:cantidad]}', #{id_servicio}, #{id_area}, #{object[:id]}, '#{s}', #{wrong});"
+        sql = "INSERT INTO dbo.TAREA (duracion, id_servicio, id_area, original_id, sistema, wrong) VALUES ('#{object[:duracion]}', #{id_servicio}, #{id_area}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
 

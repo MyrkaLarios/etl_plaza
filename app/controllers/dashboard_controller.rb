@@ -17,6 +17,10 @@ class DashboardController < ApplicationController
       @descuentos = DescuentoTEMP.all.where(sistema: 'E', wrong: 1)
       @tipos_accidentes = TipoAccidenteTEMP.all.where(sistema: 'E', wrong: 1)
       @accidentes = AccidenteTEMP.all.where(sistema: 'E', wrong: 1)
+      @proveedores_E = ProveedoresTEMP.all.where(sistema: 'E', wrong: 1)
+      @tipos_materiales_E = TiposMaterialesTEMP.all.where(sistema: 'E', wrong: 1)
+      @proveedores_materiales_E = ProveedoresMaterialesTEMP.all.where(sistema: 'E', wrong: 1)
+      @solicitudes_compras_E = SolicitudCompraTEMP.all.where(sistema: 'E', wrong: 1)
 
       @empleados_M = Empleado.all.where(sistema: 'M', wrong: 1)
       @tipos_empleado_M = TipoEmpleado.all.where(sistema: 'M', wrong: 1)
@@ -24,6 +28,15 @@ class DashboardController < ApplicationController
       @tipo_area = TipoAreaTEMP.all.where(sistema: 'M', wrong: 1)
       @areas_M = AreasTEMP.all.where(sistema: 'M', wrong: 1)
       @horarios_disp = HorariosDisponiblesTEMP.all.where(sistema: 'M', wrong: 1)
+      @proveedores_M = ProveedoresTEMP.all.where(sistema: 'M', wrong: 1)
+      @categorias = ProveedoresTEMP.all.where(sistema: 'M', wrong: 1)
+      @tipos_materiales_M = TiposMaterialesTEMP.all.where(sistema: 'M', wrong: 1)
+      @proveedores_materiales_M = ProveedoresMaterialesTEMP.all.where(sistema: 'M', wrong: 1)
+      @solicitudes_compras_M = SolicitudCompraTEMP.all.where(sistema: 'M', wrong: 1)
+      @servicios = ServiciosTEMP.all.where(sistema: 'M', wrong: 1)
+      @servicios_materiales = ServiciosMaterialesTEMP.all.where(sistema: 'M', wrong: 1)
+      @tareas = TareasTEMP.all.where(sistema: 'M', wrong: 1)
+      @tareas_materiales = TareasMaterialesTEMP.all.where(sistema: 'M', wrong: 1)
 
       @empleados_F = Empleado.all.where(sistema: 'F', wrong: 1)
       @tipos_empleado_F = TipoEmpleado.all.where(sistema: 'F', wrong: 1)
@@ -32,6 +45,7 @@ class DashboardController < ApplicationController
       @negocios_locales = LocalNegocioTEMP.all.where(sistema: 'F', wrong: 1)
       @clientes = ClienteTEMP.all.where(sistema: 'F', wrong: 1)
       @contratos = ContratoTEMP.all.where(sistema: 'F', wrong: 1)
+      @rentas = RentasTEMP.all.where(sistema: 'F', wrong: 1)
     end
   end
 end

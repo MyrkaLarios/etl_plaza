@@ -4,6 +4,6 @@ class ServiciosMateriales < ApplicationRecord
   include ValidationsHelper
 
   def valid?(s)
-    true
+    valid_salary?(cantidad)
   end
 end
