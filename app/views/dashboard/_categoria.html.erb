@@ -1,9 +1,28 @@
-<h2>Categoria</h2>
-<div style='display: flex; flex-direction: column;'>
-  <% categorias.each do |e| %>
-    <div style='display: flex; justify-content: space-between;' class='my-2'>
-      <p><%= e.nombre %></p>
-      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.CATEGORIA' } %>
-    </div>
-  <% end %>
+<div class="card-header" id="heading21">
+  <h2 class="mb-0">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
+      + Categoría
+    </button>
+  </h2>
 </div>
+
+<div id="collapse21" class="collapse" aria-labelledby="heading21" data-parent="#accordion">
+  <div class="card-body">
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p class="border-bottom" id="top">Id</p>
+      <p class="border-bottom" id="top">Nombre</p>
+      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+    </div>
+
+    <div style='display: flex; flex-direction: column;'>
+      <% categorias.each do |e| %>
+        <div style='display: flex; justify-content: space-between;' class='my-2'>
+          <p><%= e.id %></p>
+          <p><%= e.nombre %></p>
+          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.CATEGORIA' } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

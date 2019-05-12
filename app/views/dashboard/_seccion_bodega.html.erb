@@ -1,9 +1,35 @@
-<h2>Seccion Bodega</h2>
-<div style='display: flex; flex-direction: column;'>
-  <% secciones.each do |e| %>
+<div class="card-header" id="heading26">
+  <h2 class="mb-0">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse26" aria-expanded="false" aria-controls="collapse26">
+      + Sección Bodega
+    </button>
+  </h2>
+</div>
+
+<div id="collapse26" class="collapse" aria-labelledby="heading26" data-parent="#accordion">
+  <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
-      <p><%= e.tamaño %></p>
-      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SECCION_BODEGA' } %>
+      <p class="border-bottom" id="top">Id</p>
+      <p class="border-bottom" id="top">Nombre</p>
+      <p class="border-bottom" id="top">Tamaño</p>
+      <p class="border-bottom" id="top">Estante</p>
+      <p class="border-bottom" id="top">Número</p>
+      <p class="border-bottom" id="top">Id Recurso Material</p>
+      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
     </div>
-  <% end %>
+
+    <div style='display: flex; flex-direction: column;'>
+      <% secciones.each do |e| %>
+        <div style='display: flex; justify-content: space-between;' class='my-2'>
+          <p><%= e.id %></p>
+          <p><%= e.nombre %></p>
+          <p><%= e.tamaño %></p>
+          <p><%= e.estante %></p>
+          <p><%= e.numero %></p>
+          <p><%= e.id_recursomaterial %></p>
+          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SECCION_BODEGA' } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

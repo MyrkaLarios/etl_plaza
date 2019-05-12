@@ -1,12 +1,35 @@
-<h2>Cajero</h2>
-<div style='display: flex; flex-direction: column;'>
-  <% cajeros.each do |e| %>
+<div class="card-header" id="heading7">
+  <h2 class="mb-0">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+      + Cajero
+    </button>
+  </h2>
+</div>
+
+<div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordion">
+  <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
-      <p><%= e.dineroactual %></p>
-      <p><%= e.fechaactual %></p>
-      <p><%= e.periodicidadmantenimiento %></p>
-      <p><%= e.estado %></p>
-      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.CAJERO' } %>
+      <p class="border-bottom" id="top">Id</p>
+      <p class="border-bottom" id="top">Dinero Actual</p>
+      <p class="border-bottom" id="top">Fecha Actual</p>
+      <p class="border-bottom" id="top">Periodicidad Mantenimiento</p>
+      <p class="border-bottom" id="top">Estado</p>
+      <p class="border-bottom" id="top">Id Área</p>
+      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
     </div>
-  <% end %>
+
+    <div style='display: flex; flex-direction: column;'>
+      <% cajeros.each do |e| %>
+        <div style='display: flex; justify-content: space-between;' class='my-2'>
+          <p><%= e.id %></p>
+          <p><%= e.dineroactual %></p>
+          <p><%= e.fechaactual %></p>
+          <p><%= e.periodicidadmantenimiento %></p>
+          <p><%= e.estado %></p>
+          <p><%= e.id_area %></p>
+          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.CAJERO' } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

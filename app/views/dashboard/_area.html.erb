@@ -1,11 +1,31 @@
-<h2>Area</h2>
-<div style='display: flex; flex-direction: column;'>
-  <% areas.each do |e| %>
+<div class="card-header" id="heading6">
+  <h2 class="mb-0">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+      + Área
+    </button>
+  </h2>
+</div>
+
+<div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion">
+  <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
-      <p><%= e.nombre %></p>
-      <p><%= e.descripcion %></p>
-      <p><%= e.id_tipoarea %></p>
-      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.AREA' } %>
+      <p class="border-bottom" id="top">Id</p>
+      <p class="border-bottom" id="top">Nombre</p>
+      <p class="border-bottom" id="top">Categoria</p>
+      <p class="border-bottom" id="top">Id Tipo Área</p>
+      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
     </div>
-  <% end %>
+
+    <div style='display: flex; flex-direction: column;'>
+      <% areas.each do |e| %>
+        <div style='display: flex; justify-content: space-between;' class='my-2'>
+          <p><%= e.id %></p>
+          <p><%= e.nombre %></p>
+          <p><%= e.descripcion %></p>
+          <p><%= e.id_tipoarea %></p>
+          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.AREA' } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

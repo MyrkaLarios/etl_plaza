@@ -1,10 +1,10 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg bg-dark">
   <%= link_to 'Salir', destroy_user_session_path, method: 'delete'%>
 </nav>
 
 <% Octopus.using(:TEMP) do %>
-  <div class="container etl">
+  <div class="container etl shadow">
     <% if current_user.user_type == 1 && @etl %>
       <%= link_to 'Hacer correcciones', etl_index_path, class: 'btn btn-primary' %>
 
@@ -17,9 +17,10 @@
 
     <!-- FINANZAS -->
     <% elsif current_user.user_type == 2 %>
-      <h1>Datos a corregir</h1>
+      <p>Datos a corregir<p>
 
       <div id="accordion">
+
         <% if @tipos_empleado_F.present? %>
           <div class="card">
             <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_F, s: 'F' } %>
@@ -32,243 +33,353 @@
           </div>
         <% end %>
 
+        <% if @locales.present? %>
+          <div class="card">
+            <%= render partial: "locales", locals: { locales: @locales, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @negocios.present? %>
+          <div class="card">
+            <%= render partial: "negocios", locals: { negocios: @negocios, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @negocios_locales.present? %>
+          <div class="card">
+            <%= render partial: "local_negocio", locals: { negocios_locales: @negocios_locales, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @clientes.present? %>
+          <div class="card">
+            <%= render partial: "cliente", locals: { clientes: @clientes, s: 'F' } %>
+          <div>
+        <% end %>
+
+        <% if @contratos.present? %>
+          <div class="card">
+            <%= render partial: "contrato", locals: { contratos: @contratos, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @rentas.present? %>
+          <div class="card">
+            <%= render partial: "rentas", locals: { rentas: @rentas, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @ganancias.present? %>
+          <div class="card">
+            <%= render partial: "ganancias", locals: { ganancias: @ganancias, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @ingresos_estacionamiento.present? %>
+          <%= render partial: "ingreso_estacionamiento", locals: { ingreso_estacionamiento: @ingresos_estacionamiento, s: 'F' } %>
+        <% end %>
+
+        <% if @egresos_mantenimiento.present? %>
+          <div class="card">
+            <%= render partial: "egreso_mantenimiento", locals: { egreso_mantenimiento: @egresos_mantenimiento, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @pagos.present? %>
+          <div class="card">
+            <%= render partial: "pagos", locals: { pagos: @pagos, s: 'F' } %>
+          </div>
+        <% end %>
+
+        <% if @abonos.present? %>
+          <div class="card">
+            <%= render partial: "abonos", locals: { abonos: @abonos, s: 'F' } %>
+          </div>
+        <% end %>
+
       </div>
-
-
-
-      <% if @locales.present? %>
-        <%= render partial: "locales", locals: { locales: @locales, s: 'F' } %>
-      <% end %>
-
-      <% if @negocios.present? %>
-        <%= render partial: "negocios", locals: { negocios: @negocios, s: 'F' } %>
-      <% end %>
-
-      <% if @negocios_locales.present? %>
-        <%= render partial: "local_negocio", locals: { negocios_locales: @negocios_locales, s: 'F' } %>
-      <% end %>
-
-      <% if @clientes.present? %>
-        <%= render partial: "cliente", locals: { clientes: @clientes, s: 'F' } %>
-      <% end %>
-
-      <% if @contratos.present? %>
-        <%= render partial: "contrato", locals: { contratos: @contratos, s: 'F' } %>
-      <% end %>
-
-      <% if @rentas.present? %>
-        <%= render partial: "rentas", locals: { rentas: @rentas, s: 'F' } %>
-      <% end %>
-
-      <% if @ganancias.present? %>
-        <%= render partial: "ganancias", locals: { ganancias: @ganancias, s: 'F' } %>
-      <% end %>
-
-      <% if @ingresos_estacionamiento.present? %>
-        <%= render partial: "ingreso_estacionamiento", locals: { ingreso_estacionamiento: @ingresos_estacionamiento, s: 'F' } %>
-      <% end %>
-
-      <% if @egresos_mantenimiento.present? %>
-        <%= render partial: "egreso_mantenimiento", locals: { egreso_mantenimiento: @egresos_mantenimiento, s: 'F' } %>
-      <% end %>
-
-      <% if @pagos.present? %>
-        <%= render partial: "pagos", locals: { pagos: @pagos, s: 'F' } %>
-      <% end %>
-
-      <% if @abonos.present? %>
-        <%= render partial: "abonos", locals: { abonos: @abonos, s: 'F' } %>
-      <% end %>
-
 
 
     <!-- ESTACIONAMIENTO -->
     <% elsif current_user.user_type == 3 %>
-      <h1>Datos a corregir</h1>
+      <p class="title center"><h1>Datos a corregir</h1></p>
 
-      <% if @tipos_empleado_E.present? %>
-        <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_E, s: 'E' } %>
-      <% end %>
+      <div id="accordion">
 
-      <% if @empleados_E.present? %>
-        <%= render partial: "empleado", locals: { empleados: @empleados_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @tipos_empleado_E.present? %>
+            <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @recursos_materiales_E.present? %>
-        <%= render partial: "recurso_material", locals: { recursos_materiales: @recursos_materiales_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @empleados_E.present? %>
+            <%= render partial: "empleado", locals: { empleados: @empleados_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @tarjeta_E.present? %>
-        <%= render partial: "tarjeta", locals: { tarjetas: @tarjeta_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @recursos_materiales_E.present? %>
+            <%= render partial: "recurso_material", locals: { recursos_materiales: @recursos_materiales_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @estancia_E.present? %>
-        <%= render partial: "estancia", locals: { estancias: @estancia_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @tarjeta_E.present? %>
+            <%= render partial: "tarjeta", locals: { tarjetas: @tarjeta_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @areas_E.present? %>
-        <%= render partial: "area", locals: { areas:  @areas_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @estancia_E.present? %>
+            <%= render partial: "estancia", locals: { estancias: @estancia_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @cajeros.present? %>
-        <%= render partial: "cajero", locals: { cajeros:  @cajeros, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @areas_E.present? %>
+            <%= render partial: "area", locals: { areas:  @areas_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @estancia_cajero.present? %>
-        <%= render partial: "estancia_cajero", locals: { estancias_cajeros:  @estancia_cajero, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @cajeros.present? %>
+            <%= render partial: "cajero", locals: { cajeros:  @cajeros, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @pasillos.present? %>
-        <%= render partial: "pasillo", locals: { pasillos:  @pasillos, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @estancia_cajero.present? %>
+            <%= render partial: "estancia_cajero", locals: { estancias_cajeros:  @estancia_cajero, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @sensores.present? %>
-        <%= render partial: "sensor", locals: { sensores:  @sensores, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @pasillos.present? %>
+            <%= render partial: "pasillo", locals: { pasillos:  @pasillos, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @descuentos.present? %>
-        <%= render partial: "descuento", locals: { descuentos: @descuentos, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @sensores.present? %>
+            <%= render partial: "sensor", locals: { sensores:  @sensores, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @tipos_accidentes.present? %>
-        <%= render partial: "tipo_accidente", locals: { tipos_accidentes: @tipos_accidentes, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @descuentos.present? %>
+            <%= render partial: "descuento", locals: { descuentos: @descuentos, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @accidentes.present? %>
-        <%= render partial: "accidentes", locals: { accidentes: @accidentes, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @tipos_accidentes.present? %>
+            <%= render partial: "tipo_accidente", locals: { tipos_accidentes: @tipos_accidentes, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @proveedores_E.present? %>
-        <%= render partial: "proveedor", locals: { proveedores: @proveedores_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @accidentes.present? %>
+            <%= render partial: "accidentes", locals: { accidentes: @accidentes, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @tipos_materiales_E.present? %>
-        <%= render partial: "tipo_material", locals: { tipos_materiales:  @tipos_materiales_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @proveedores_E.present? %>
+            <%= render partial: "proveedor", locals: { proveedores: @proveedores_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @proveedores_materiales_E.present? %>
-        <%= render partial: "proveedor_material", locals: { proveedores_materiales:  @proveedores_materiales_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @tipos_materiales_E.present? %>
+            <%= render partial: "tipo_material", locals: { tipos_materiales:  @tipos_materiales_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @solicitudes_compras_E.present? %>
-        <%= render partial: "solicitud_compra", locals: { solicitudes_compras:  @solicitudes_compras_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @proveedores_materiales_E.present? %>
+            <%= render partial: "proveedor_material", locals: { proveedores_materiales:  @proveedores_materiales_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @orden_despacho_E.present? %>
-        <%= render partial: "orden_despacho", locals: { orden_despacho:  @orden_despacho_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @solicitudes_compras_E.present? %>
+            <%= render partial: "solicitud_compra", locals: { solicitudes_compras:  @solicitudes_compras_E, s: 'E' } %>
+          <% end %>
+        </div>
 
-      <% if @orden_despacho_materiales_E.present? %>
-        <%= render partial: "ordendespacho_material", locals: { ordendespacho_material:  @orden_despacho_materiales_E, s: 'E' } %>
-      <% end %>
+        <div class="card">
+          <% if @orden_despacho_E.present? %>
+            <%= render partial: "orden_despacho", locals: { orden_despacho:  @orden_despacho_E, s: 'E' } %>
+          <% end %>
+        </div>
 
+        <div class="card">
+          <% if @orden_despacho_materiales_E.present? %>
+            <%= render partial: "ordendespacho_material", locals: { ordendespacho_material:  @orden_despacho_materiales_E, s: 'E' } %>
+          <% end %>
+        </div>
 
+      </div>
 
 
     <!-- MANTENIMIENTO Y LIMPIEZA -->
     <% elsif current_user.user_type == 4 %>
       <h1>Datos a corregir</h1>
 
-      <% if @tipos_empleado_E.present? %>
-        <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_M, s: 'M' } %>
-      <% end %>
+      <div id="accordion">
 
-      <% if @empleados_M.present? %>
-        <%= render partial: "empleado", locals: { empleados: @empleados_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @tipos_empleado_E.present? %>
+            <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_M, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @recursos_materiales_M.present? %>
-        <%= render partial: "recurso_material", locals: { recursos_materiales: @recursos_materiales_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @empleados_M.present? %>
+            <%= render partial: "empleado", locals: { empleados: @empleados_M, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @tipo_area.present? %>
-        <%= render partial: "tipo_area", locals: { tipos_areas:  @tipo_area, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @recursos_materiales_M.present? %>
+            <%= render partial: "recurso_material", locals: { recursos_materiales: @recursos_materiales_M, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @areas_M.present? %>
-        <%= render partial: "area", locals: { areas:  @areas_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @tipo_area.present? %>
+            <%= render partial: "tipo_area", locals: { tipos_areas:  @tipo_area, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @horarios_disp.present? %>
-        <%= render partial: "horario_disponible", locals: { horarios:  @horarios_disp, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @areas_M.present? %>
+            <%= render partial: "area", locals: { areas:  @areas_M, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @proveedores_M.present? %>
-        <%= render partial: "proveedor", locals: { proveedores:  @proveedores_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @horarios_disp.present? %>
+            <%= render partial: "horario_disponible", locals: { horarios:  @horarios_disp, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @categorias.present? %>
-        <%= render partial: "categoria", locals: { categorias:  @categorias, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @proveedores_M.present? %>
+            <%= render partial: "proveedor", locals: { proveedores:  @proveedores_M, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @tipos_materiales_M.present? %>
-        <%= render partial: "tipo_material", locals: { tipos_materiales:  @tipos_materiales_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @categorias.present? %>
+            <%= render partial: "categoria", locals: { categorias:  @categorias, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @proveedores_materiales_M.present? %>
-        <%= render partial: "proveedor_material", locals: { proveedores_materiales:  @proveedores_materiales_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @tipos_materiales_M.present? %>
+            <%= render partial: "tipo_material", locals: { tipos_materiales:  @tipos_materiales_M, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @solicitudes_compras_M.present? %>
-        <%= render partial: "solicitud_compra", locals: { solicitudes_compras:  @solicitudes_compras_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @proveedores_materiales_M.present? %>
+            <%= render partial: "proveedor_material", locals: { proveedores_materiales:  @proveedores_materiales_M, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @servicios.present? %>
-        <%= render partial: "servicio", locals: { servicios:  @servicios, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @solicitudes_compras_M.present? %>
+            <%= render partial: "solicitud_compra", locals: { solicitudes_compras:  @solicitudes_compras_M, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @servicios_materiales.present? %>
-        <%= render partial: "servicio_material", locals: { servicios_materiales:  @servicios_materiales, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @servicios.present? %>
+            <%= render partial: "servicio", locals: { servicios:  @servicios, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @tareas.present? %>
-        <%= render partial: "tarea", locals: { tareas:  @tareas, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @servicios_materiales.present? %>
+            <%= render partial: "servicio_material", locals: { servicios_materiales:  @servicios_materiales, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @tareas_materiales.present? %>
-        <%= render partial: "tarea_material", locals: { tareas_materiales:  @tareas_materiales, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @tareas.present? %>
+            <%= render partial: "tarea", locals: { tareas:  @tareas, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @secciones.present? %>
-        <%= render partial: "seccion_bodega", locals: { secciones:  @secciones, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @tareas_materiales.present? %>
+            <%= render partial: "tarea_material", locals: { tareas_materiales:  @tareas_materiales, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @horarios.present? %>
-        <%= render partial: "horario", locals: { horarios:  @horarios, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @secciones.present? %>
+            <%= render partial: "seccion_bodega", locals: { secciones:  @secciones, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @tipos_incidentes.present? %>
-        <%= render partial: "tipo_incidente", locals: { tipos_incidentes:  @tipos_incidentes, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @horarios.present? %>
+            <%= render partial: "horario", locals: { horarios:  @horarios, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @incidentes.present? %>
-        <%= render partial: "incidente", locals: { incidentes:  @incidentes, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @tipos_incidentes.present? %>
+            <%= render partial: "tipo_incidente", locals: { tipos_incidentes:  @tipos_incidentes, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @ordenes_servicio.present? %>
-        <%= render partial: "orden_servicio", locals: { ordenes_servicio:  @ordenes_servicio, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @incidentes.present? %>
+            <%= render partial: "incidente", locals: { incidentes:  @incidentes, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @contratistas.present? %>
-        <%= render partial: "contratante", locals: { contratantes:  @contratistas, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @ordenes_servicio.present? %>
+            <%= render partial: "orden_servicio", locals: { ordenes_servicio:  @ordenes_servicio, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @orden_servicio_contratistas.present? %>
-        <%= render partial: "ordenservicio_contratante", locals: { ordenservicio_contratante:  @orden_servicio_contratistas, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @contratistas.present? %>
+            <%= render partial: "contratante", locals: { contratantes:  @contratistas, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @areas_servicios.present? %>
-        <%= render partial: "area_servicio", locals: { areas_servicios:  @areas_servicios, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @orden_servicio_contratistas.present? %>
+            <%= render partial: "ordenservicio_contratante", locals: { ordenservicio_contratante:  @orden_servicio_contratistas, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @orden_despacho_M.present? %>
-        <%= render partial: "orden_despacho", locals: { orden_despacho:  @orden_despacho_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @areas_servicios.present? %>
+            <%= render partial: "area_servicio", locals: { areas_servicios:  @areas_servicios, s: 'M' } %>
+          <% end %>
+        </div>
 
-      <% if @orden_despacho_materiales_M.present? %>
-        <%= render partial: "ordendespacho_material", locals: { ordendespacho_material:  @orden_despacho_materiales_M, s: 'M' } %>
-      <% end %>
+        <div class="card">
+          <% if @orden_despacho_M.present? %>
+            <%= render partial: "orden_despacho", locals: { orden_despacho:  @orden_despacho_M, s: 'M' } %>
+          <% end %>
+        </div>
 
+        <div class="card">
+          <% if @orden_despacho_materiales_M.present? %>
+            <%= render partial: "ordendespacho_material", locals: { ordendespacho_material:  @orden_despacho_materiales_M, s: 'M' } %>
+          <% end %>
+        </div>
+
+      </div>
 
     <%end%>
   </div>

@@ -1,315 +1,315 @@
-<div class="container">
-  <form action="/update?table=<%=@table%>&id=<%=@element.id%>&s=<%=@system%>", method='post'>
+<div class="container col-4 shadow-lg bg-light rounded" id="contU">
+  <form id="formU" action="/update?table=<%=@table%>&id=<%=@element.id%>&s=<%=@system%>", method='post'>
     <% if @table == 'dbo.EMPLEADOS' %>
-      <p>Modifcando Empleado</p>
+      <p>Modifcando Empleado con Id   <%= @element.id %></p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'marg' %>
       <%= label_tag :curp %>
-      <%= text_field_tag (:curp), @element.curp %>
+      <%= text_field_tag (:curp), @element.curp, class: 'margL'  %>
 
     <%elsif @table == 'dbo.TIPO_EMPLEADOS'%>
-      <p>Modifcando tipo de empleado</p>
+      <p>Modificando tipo de empleado con Id <%= @element.id%></p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'marg' %>
       <%= label_tag :salario %>
-      <%= text_field_tag (:salario), @element.salario %>
+      <%= text_field_tag (:salario), @element.salario, class: 'margL' %>
 
     <%elsif @table == 'dbo.RECURSO_MATERIAL'%>
-      <p>Modifcando el recurso material</p>
+      <p>Modifcando el recurso material con Id <%= @element.id %></p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'marg' %>
       <%= label_tag :categoria %>
-      <%= text_field_tag (:categoria), @element.categoria %>
+      <%= text_field_tag (:categoria), @element.categoria, class: 'margL' %>
 
     <%elsif @table == 'dbo.TARJETA'%>
-      <p>Modifcando la tarjeta</p>
+      <p>Modifcando la tarjeta con Id <%= @element.id %></p>
       <%= label_tag :estado %>
-      <%= text_field_tag (:estado), @element.estado %>
+      <%= text_field_tag (:estado), @element.estado, class: 'margL' %>
 
     <%elsif @table == 'dbo.ESTANCIA'%>
-      <p>Modifcando la estancia</p>
+      <p>Modifcando la estancia con Id <%= @element.id %></p>
       <%= label_tag :fechainicio %>
-      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio, class: 'marg' %>
       <%= label_tag :fechafin %>
-      <%= text_field_tag (:fechafin), @element.fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin, class: 'marg' %>
       <%= label_tag :duracion %>
-      <%= text_field_tag (:duracion), @element.duracion %>
+      <%= text_field_tag (:duracion), @element.duracion, class: 'marg' %>
       <%= label_tag :subtotal %>
-      <%= text_field_tag (:subtotal), @element.subtotal %>
+      <%= text_field_tag (:subtotal), @element.subtotal, class: 'marg' %>
       <%= label_tag :total %>
-      <%= text_field_tag (:total), @element.total %>
+      <%= text_field_tag (:total), @element.total, class: 'marg' %>
       <%= label_tag :placa %>
-      <%= text_field_tag (:placa), @element.placa %>
+      <%= text_field_tag (:placa), @element.placa, class: 'margL' %>
 
     <%elsif @table == 'dbo.TIPO_AREA'%>
-      <p>Modifcando el tipo de area </p>
+      <p>Modifcando el tipo de area con Id <%= @element.id %></p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'margL' %>
 
     <%elsif @table == 'dbo.AREA'%>
-      <p>Modifcando el area </p>
+      <p>Modifcando el area con Id <%= @element.id %></p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'marg' %>
       <%= label_tag :descripcion %>
-      <%= text_field_tag (:descripcion), @element.descripcion %>
+      <%= text_field_tag (:descripcion), @element.descripcion, class: 'marg' %>
       <%= label_tag :id_tipoarea %>
-      <%= text_field_tag (:id_tipoarea), @element.id_tipoarea %>
+      <%= text_field_tag (:id_tipoarea), @element.id_tipoarea, class: 'margL' %>
 
     <%elsif @table == 'dbo.CAJERO'%>
-      <p>Modifcando el cajero </p>
+      <p>Modifcando el cajero con Id <%= @element.id %></p>
       <%= label_tag :dineroactual %>
-      <%= text_field_tag (:dineroactual), @element.dineroactual %>
+      <%= text_field_tag (:dineroactual), @element.dineroactual, class: 'marg' %>
       <%= label_tag :fechaactual %>
-      <%= text_field_tag (:fechaactual), @element.fechaactual %>
+      <%= text_field_tag (:fechaactual), @element.fechaactual, class: 'marg' %>
       <%= label_tag :periodicidadmantenimiento %>
-      <%= text_field_tag (:periodicidadmantenimiento), @element.periodicidadmantenimiento %>
+      <%= text_field_tag (:periodicidadmantenimiento), @element.periodicidadmantenimiento, class: 'marg' %>
       <%= label_tag :estado %>
-      <%= text_field_tag (:estado), @element.estado %>
+      <%= text_field_tag (:estado), @element.estado, class: 'margL' %>
 
     <%elsif @table == 'dbo.ESTANCIA_CAJERO'%>
-      <p>Modifcando el cajero </p>
+      <p>Modifcando el cajero con Id <%= @element.id %></p>
       <%= label_tag :tarifa %>
-      <%= text_field_tag (:tarifa), @element.tarifa %>
+      <%= text_field_tag (:tarifa), @element.tarifa, class: 'marg' %>
       <%= label_tag :fechainicio %>
-      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio, class: 'marg' %>
       <%= label_tag :fechafin %>
-      <%= text_field_tag (:fechafin), @element.fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin, class: 'margL' %>
 
     <%elsif @table == 'dbo.PASILLO'%>
-      <p>Modifcando el pasillo </p>
+      <p>Modifcando el pasillo con Id <%= @element.id %></p>
       <%= label_tag :numero %>
-      <%= text_field_tag (:numero), @element.numero %>
+      <%= text_field_tag (:numero), @element.numero, class: 'marg' %>
       <%= label_tag :cantidad_ocupados %>
-      <%= text_field_tag (:cantidad_ocupados), @element.cantidad_ocupados %>
+      <%= text_field_tag (:cantidad_ocupados), @element.cantidad_ocupados, class: 'marg' %>
       <%= label_tag :cantidad_libres %>
-      <%= text_field_tag (:cantidad_libres), @element.cantidad_libres %>
+      <%= text_field_tag (:cantidad_libres), @element.cantidad_libres, class: 'margL' %>
 
     <%elsif @table == 'dbo.SENSOR'%>
-      <p>Modifcando el sensor </p>
+      <p>Modifcando el sensor con Id <%= @element.id %></p>
       <%= label_tag :estado %>
-      <%= text_field_tag (:estado), @element.estado %>
+      <%= text_field_tag (:estado), @element.estado, class: 'marg' %>
       <%= label_tag :fecha %>
-      <%= text_field_tag (:fecha), @element.fecha %>
+      <%= text_field_tag (:fecha), @element.fecha, class: 'margL' %>
 
     <%elsif @table == 'dbo.HORARIO_DISPONIBLE'%>
-      <p>Modifcando los horarios disponibles </p>
+      <p>Modifcando los horarios disponibles con Id <%= @element.id %></p>
       <%= label_tag :dia %>
-      <%= text_field_tag (:dia), @element.dia %>
+      <%= text_field_tag (:dia), @element.dia, class: 'marL' %>
 
     <%elsif @table == 'dbo.LOCALES'%>
-      <p>Modifcando los locales </p>
+      <p>Modifcando los locales con Id <%= @element.id %></p>
       <%= label_tag :dimensiones %>
-      <%= text_field_tag (:dimensiones), @element.dimensiones %>
+      <%= text_field_tag (:dimensiones), @element.dimensiones, class: 'marg' %>
       <%= label_tag :estado %>
-      <%= text_field_tag (:estado), @element.estado %>
+      <%= text_field_tag (:estado), @element.estado, class: 'marg' %>
       <%= label_tag :costo %>
-      <%= text_field_tag (:costo), @element.costo %>
+      <%= text_field_tag (:costo), @element.costo, class: 'margL' %>
 
     <%elsif @table == 'dbo.NEGOCIOS'%>
-      <p>Modifcando los locales </p>
+      <p>Modifcando los locales con Id <%= @element.id %></p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'marg' %>
       <%= label_tag :giro %>
-      <%= text_field_tag (:giro), @element.giro %>
+      <%= text_field_tag (:giro), @element.giro, class: 'marg' %>
       <%= label_tag :estado %>
-      <%= text_field_tag (:estado), @element.estado %>
+      <%= text_field_tag (:estado), @element.estado, class: 'margL' %>
 
     <%elsif @table == 'dbo.LOCAL_NEGOCIO'%>
-      <p>Modifcando los locales y sus respectivos negocios </p>
+      <p>Modifcando los locales y sus respectivos negocios con Id <%= @element.id %> </p>
       <%= label_tag :fechainicio %>
-      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio, class: 'marg' %>
       <%= label_tag :fechafin %>
-      <%= text_field_tag (:fechafin), @element.fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin, class: 'margL' %>
 
     <%elsif @table == 'dbo.DESCUENTO'%>
-      <p>Modifcando los descuentos </p>
+      <p>Modifcando los descuentos con Id <%= @element.id %></p>
       <%= label_tag :cantidad %>
-      <%= text_field_tag (:cantidad), @element.cantidad %>
+      <%= text_field_tag (:cantidad), @element.cantidad, class: 'margL' %>
 
     <%elsif @table == 'dbo.TIPO_ACCIDENTE'%>
-      <p>Modifcando los tipos de accidente </p>
+      <p>Modifcando los tipos de accidente con Id <%= @element.id %></p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'margL' %>
 
     <%elsif @table == 'dbo.ACCIDENTES'%>
-      <p>Modifcando los accidentes </p>
+      <p>Modifcando los accidentes con Id <%= @element.id %></p>
       <%= label_tag :fecha %>
-      <%= text_field_tag (:fecha), @element.fecha %>
+      <%= text_field_tag (:fecha), @element.fecha, class: 'margL' %>
 
     <%elsif @table == 'dbo.CONTRATO'%>
-      <p>Modifcando los contratos </p>
+      <p>Modifcando los contratos con Id <%= @element.id %></p>
       <%= label_tag :fechainicio %>
-      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio, class: 'marg' %>
       <%= label_tag :fechafin %>
-      <%= text_field_tag (:fechafin), @element.fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin, class: 'marg' %>
       <%= label_tag :costo %>
-      <%= text_field_tag (:costo), @element.costo %>
+      <%= text_field_tag (:costo), @element.costo, class: 'margL' %>
 
     <%elsif @table == 'dbo.RENTAS'%>
-      <p>Modifcando las rentas </p>
+      <p>Modifcando las rentas con Id <%= @element.id %></p>
       <%= label_tag :fechacobro %>
-      <%= text_field_tag (:fechacobro), @element.fechacobro %>
+      <%= text_field_tag (:fechacobro), @element.fechacobro, class: 'marg' %>
       <%= label_tag :statusretraso %>
-      <%= text_field_tag (:statusretraso), @element.statusretraso %>
+      <%= text_field_tag (:statusretraso), @element.statusretraso, class: 'marg' %>
       <%= label_tag :statuspagado %>
-      <%= text_field_tag (:statuspagado), @element.statuspagado %>
+      <%= text_field_tag (:statuspagado), @element.statuspagado, class: 'margL' %>
 
     <%elsif @table == 'dbo.PROVEEDOR'%>
-      <p>Modifcando las rentas </p>
+      <p>Modifcando las rentas con Id <%= @element.id %> </p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'marg' %>
       <%= label_tag :rfc %>
-      <%= text_field_tag (:rfc), @element.rfc %>
+      <%= text_field_tag (:rfc), @element.rfc, class: 'marg' %>
       <%= label_tag :telefono %>
-      <%= text_field_tag (:telefono), @element.telefono %>
+      <%= text_field_tag (:telefono), @element.telefono, class: 'margL' %>
 
     <%elsif @table == 'dbo.CATEGORIA'%>
       <p>Modifcando categoria con id <%= @element.id %> </p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'margL' %>
 
     <%elsif @table == 'dbo.TIPO_MATERIAL'%>
       <p>Modifcando tipo material con id <%= @element.id %> </p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'margL' %>
 
     <%elsif @table == 'dbo.PROVEEDOR_MATERIAL'%>
       <p>Modifcando detalle proveedor material con id <%= @element.id %> </p>
       <%= label_tag :costo %>
-      <%= text_field_tag (:costo), @element.costo %>
+      <%= text_field_tag (:costo), @element.costo, class: 'marg' %>
       <%= label_tag :minimo %>
-      <%= text_field_tag (:minimo), @element.minimo %>
+      <%= text_field_tag (:minimo), @element.minimo, class: 'margL' %>
 
     <%elsif @table == 'dbo.SOLICITUD_COMPRA'%>
       <p>Modifcando la solicitud de compra con id <%= @element.id %> </p>
       <%= label_tag :cantidad_total %>
-      <%= text_field_tag (:cantidad_total), @element.cantidad_total %>
+      <%= text_field_tag (:cantidad_total), @element.cantidad_total, class: 'marg' %>
       <%= label_tag :costototal %>
-      <%= text_field_tag (:costototal), @element.costototal %>
+      <%= text_field_tag (:costototal), @element.costototal, class: 'margL' %>
 
     <%elsif @table == 'dbo.SERVICIO'%>
       <p>Modifcando el servicio con id <%= @element.id %> </p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'marg' %>
       <%= label_tag :duracion %>
-      <%= text_field_tag (:duracion), @element.duracion %>
+      <%= text_field_tag (:duracion), @element.duracion, class: 'margL' %>
 
     <%elsif @table == 'dbo.SERVICIO_MATERIAL'%>
       <p>Modifcando el detalle servicio material con id <%= @element.id %> </p>
       <%= label_tag :cantidad %>
-      <%= text_field_tag (:cantidad), @element.cantidad %>
+      <%= text_field_tag (:cantidad), @element.cantidad, class: 'margL' %>
 
     <%elsif @table == 'dbo.TAREA'%>
       <p>Modifcando la tarea con id <%= @element.id %> </p>
       <%= label_tag :duracion %>
-      <%= text_field_tag (:duracion), @element.duracion %>
+      <%= text_field_tag (:duracion), @element.duracion, class: 'margL' %>
 
     <%elsif @table == 'dbo.TAREA_MATERIAL'%>
       <p>Modifcando detalle tarea material con id <%= @element.id %> </p>
       <%= label_tag :cantidadentregada %>
-      <%= text_field_tag (:cantidadentregada), @element.cantidadentregada %>
+      <%= text_field_tag (:cantidadentregada), @element.cantidadentregada, class: 'margL' %>
 
     <%elsif @table == 'dbo.SECCION_BODEGA'%>
       <p>Modifcando la sección de bodega con id <%= @element.id %> </p>
       <%= label_tag :tamaño %>
-      <%= text_field_tag (:tamaño), @element.tamaño %>
+      <%= text_field_tag (:tamaño), @element.tamaño, class: 'margL' %>
 
     <%elsif @table == 'dbo.HORARIO'%>
       <p>Modifcando el horario con id <%= @element.id %> </p>
       <%= label_tag :fechainicio %>
-      <%= text_field_tag (:fechainicio), @element.fechainicio %>
+      <%= text_field_tag (:fechainicio), @element.fechainicio, class: 'marg' %>
       <%= label_tag :fechafin %>
-      <%= text_field_tag (:fechafin), @element.fechafin %>
+      <%= text_field_tag (:fechafin), @element.fechafin, class: 'margL' %>
 
     <%elsif @table == 'dbo.TIPO_INCIDENTE'%>
       <p>Modifcando el tipo de incidente con id <%= @element.id %> </p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'margL' %>
 
     <%elsif @table == 'dbo.INCIDENTE'%>
       <p>Modifcando el incidente con id <%= @element.id %> </p>
       <%= label_tag :fecha %>
-      <%= text_field_tag (:fecha), @element.fecha %>
+      <%= text_field_tag (:fecha), @element.fecha, class: 'margL' %>
 
     <%elsif @table == 'dbo.ORDEN_SERVICIO'%>
       <p>Modifcando la orden de servicio con id <%= @element.id %> </p>
       <%= label_tag :fecha %>
-      <%= text_field_tag (:fecha), @element.fecha %>
+      <%= text_field_tag (:fecha), @element.fecha, class: 'marg' %>
       <%= label_tag :prioridad %>
-      <%= text_field_tag (:prioridad), @element.prioridad %>
+      <%= text_field_tag (:prioridad), @element.prioridad, class: 'margL' %>
 
     <%elsif @table == 'dbo.CONTRATANTE'%>
       <p>Modifcando la orden de servicio con id <%= @element.id %> </p>
       <%= label_tag :nombre %>
-      <%= text_field_tag (:nombre), @element.nombre %>
+      <%= text_field_tag (:nombre), @element.nombre, class: 'marg' %>
       <%= label_tag :numero %>
-      <%= text_field_tag (:numero), @element.numero %>
+      <%= text_field_tag (:numero), @element.numero, class: 'margL' %>
 
     <%elsif @table == 'dbo.ORDENSERVICIO_CONTRATANTE'%>
       <p>Modifcando el detalle de la orden de servicio y los contratantes con id <%= @element.id %> </p>
       <%= label_tag :costo %>
-      <%= text_field_tag (:costo), @element.costo %>
+      <%= text_field_tag (:costo), @element.costo, class: 'marg' %>
       <%= label_tag :tiempo %>
-      <%= text_field_tag (:tiempo), @element.tiempo %>
+      <%= text_field_tag (:tiempo), @element.tiempo, class: 'margL' %>
 
     <%elsif @table == 'dbo.AREA_SERVICIO'%>
       <p>Modifcando el detalle de areas y servicios con id <%= @element.id %> </p>
       <%= label_tag :periodicidad %>
-      <%= text_field_tag (:periodicidad), @element.periodicidad %>
+      <%= text_field_tag (:periodicidad), @element.periodicidad , class: 'margL'%>
 
     <%elsif @table == 'dbo.ORDEN_DESPACHO'%>
       <p>Modifcando la orden de despacho con id <%= @element.id %> </p>
       <%= label_tag :fechaentrega %>
-      <%= text_field_tag (:fechaentrega), @element.fechaentrega %>
+      <%= text_field_tag (:fechaentrega), @element.fechaentrega, class: 'margL' %>
 
     <%elsif @table == 'dbo.ORDENDESPACHO_MATERIAL'%>
       <p>Modifcando el detalle de la orden de despacho y los materiales con id <%= @element.id %> </p>
       <%= label_tag :cantidadrecibida %>
-      <%= text_field_tag (:cantidadrecibida), @element.cantidadrecibida %>
+      <%= text_field_tag (:cantidadrecibida), @element.cantidadrecibida, class: 'marg' %>
       <%= label_tag :fechadecaducidad %>
-      <%= text_field_tag (:fechadecaducidad), @element.fechadecaducidad %>
+      <%= text_field_tag (:fechadecaducidad), @element.fechadecaducidad, class: 'margL' %>
 
     <%elsif @table == 'dbo.GANANCIAS'%>
       <p>Modifcando la ganancia con id <%= @element.id %> </p>
       <%= label_tag :ingresos %>
-      <%= text_field_tag (:ingresos), @element.ingresos %>
+      <%= text_field_tag (:ingresos), @element.ingresos, class: 'marg' %>
       <%= label_tag :egresos %>
-      <%= text_field_tag (:egresos), @element.egresos %>
+      <%= text_field_tag (:egresos), @element.egresos, class: 'marg' %>
       <%= label_tag :fechacorte %>
-      <%= text_field_tag (:fechacorte), @element.fechacorte %>
+      <%= text_field_tag (:fechacorte), @element.fechacorte, class: 'margL' %>
 
     <%elsif @table == 'dbo.INGRESO_ESTACIONAMIENTO'%>
       <p>Modifcando ingreso esacionamiento con id <%= @element.id %> </p>
       <%= label_tag :cantidad %>
-      <%= text_field_tag (:cantidad), @element.cantidad %>
+      <%= text_field_tag (:cantidad), @element.cantidad, class: 'marg' %>
       <%= label_tag :fecha %>
-      <%= text_field_tag (:fecha), @element.fecha %>
+      <%= text_field_tag (:fecha), @element.fecha, class: 'margL' %>
 
     <%elsif @table == 'dbo.EGRESO_MANTENIMIENTO'%>
       <p>Modifcando egreso mantenimiento con id <%= @element.id %> </p>
       <%= label_tag :cantidad %>
-      <%= text_field_tag (:cantidad), @element.cantidad %>
+      <%= text_field_tag (:cantidad), @element.cantidad, class: 'marg' %>
       <%= label_tag :fecha %>
-      <%= text_field_tag (:fecha), @element.fecha %>
+      <%= text_field_tag (:fecha), @element.fecha, class: 'margL' %>
 
     <%elsif @table == 'dbo.PAGOS'%>
       <p>Modifcando pagos con id <%= @element.id %> </p>
       <%= label_tag :monto %>
-      <%= text_field_tag (:monto), @element.monto %>
+      <%= text_field_tag (:monto), @element.monto, class: 'marg' %>
       <%= label_tag :fecha %>
-      <%= text_field_tag (:fecha), @element.fecha %>
+      <%= text_field_tag (:fecha), @element.fecha , class: 'margL'%>
 
     <%elsif @table == 'dbo.ABONOS'%>
       <p>Modifcando pagos con id <%= @element.id %> </p>
       <%= label_tag :monto %>
-      <%= text_field_tag (:monto), @element.monto %>
+      <%= text_field_tag (:monto), @element.monto, class: 'marg' %>
       <%= label_tag :fechapago %>
-      <%= text_field_tag (:fechapago), @element.fechapago %>
+      <%= text_field_tag (:fechapago), @element.fechapago, class: 'margL' %>
 
     <% end %>
 
-    <input type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />
-    <%= link_to 'Cancelar', authenticated_root_path, class: 'btn btn-dark' %>
+    <input class="btn btn-outline-primary" type="submit" name="commit" value="Guardar" data-disable-with="Guardar" />
+    <%= link_to 'Cancelar', authenticated_root_path, class: 'btn btn-outline-danger' %>
   </form>
 
 </div>

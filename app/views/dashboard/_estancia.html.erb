@@ -1,14 +1,46 @@
-<h2>ESTANCIAS</h2>
-<div style='display: flex; flex-direction: column;'>
-  <% estancias.each do |e| %>
-    <div class='my-2' style='display: flex; justify-content: space-between;'>
-      <p><%= e.fechainicio %></p>
-      <p><%= e.fechafin %></p>
-      <p><%= e.duracion %></p>
-      <p><%= e.subtotal %></p>
-      <p><%= e.total %></p>
-      <p><%= e.placa %></p>
-      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ESTANCIA' } %>
-    </div>
-  <% end %>
+<div class="card-header" id="heading5">
+  <h2 class="mb-0">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+      + Estancia
+    </button>
+  </h2>
 </div>
+
+<div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+  <div class="card-body">
+    <div style='display: flex; justify-content: space-between;' class='my-2'>
+      <p class="border-bottom" id="top">Id</p>
+      <p class="border-bottom" id="top">Fecha Inicio</p>
+      <p class="border-bottom" id="top">Fecha Fin</p>
+      <p class="border-bottom" id="top">Hora Inicio</p>
+      <p class="border-bottom" id="top">Hora Fin</p>
+      <p class="border-bottom" id="top">Duración</p>
+      <p class="border-bottom" id="top">Estado</p>
+      <p class="border-bottom" id="top">Subtotal</p>
+      <p class="border-bottom" id="top">Total</p>
+      <p class="border-bottom" id="top">Placa</p>
+      <p class="border-bottom" id="top">Id Tarjeta</p>
+      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+    </div>
+
+    <div style='display: flex; flex-direction: column;'>
+      <% estancias.each do |e| %>
+        <div class='my-2' style='display: flex; justify-content: space-between;'>
+          <p><%= e.id %></p>
+          <p><%= e.fechainicio %></p>
+          <p><%= e.fechafin %></p>
+          <p><%= e.horainicio %></p>
+          <p><%= e.horafin %></p>
+          <p><%= e.duracion %></p>
+          <p><%= e.estado %></p>
+          <p><%= e.subtotal %></p>
+          <p><%= e.total %></p>
+          <p><%= e.placa %></p>
+          <p><%= e.id_tarjeta %></p>
+          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ESTANCIA' } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

@@ -1,11 +1,31 @@
-<h2>Ganancias</h2>
-<div style='display: flex; flex-direction: column;'>
-  <% ganancias.each do |e| %>
+<div class="card-header" id="heading9">
+  <h2 class="mb-0">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+      + Ganancias
+    </button>
+  </h2>
+</div>
+
+<div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordion">
+  <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
-      <p><%= e.ingresos %></p>
-      <p><%= e.egresos %></p>
-      <p><%= e.fechacorte %></p>
-      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.GANANCIAS' } %>
+      <p class="border-bottom" id="top">Id</p>
+      <p class="border-bottom" id="top">Ingresos</p>
+      <p class="border-bottom" id="top">Egresos</p>
+      <p class="border-bottom" id="top">Fecha Corte</p>
+      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
     </div>
-  <% end %>
+
+    <% ganancias.each do |e| %>
+      <div style='display: flex; justify-content: space-between;' class='my-2'>
+        <p><%= e.id %></p>
+        <p><%= e.ingresos %></p>
+        <p><%= e.egresos %></p>
+        <p><%= e.fechacorte %></p>
+        <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.GANANCIAS' } %>
+      </div>
+    <% end %>
+    </div>
+
+  </div>
 </div>
