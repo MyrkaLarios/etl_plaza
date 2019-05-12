@@ -13,7 +13,9 @@
       <p class="border-bottom" id="top">Nombre</p>
       <p class="border-bottom" id="top">Categoria</p>
       <p class="border-bottom" id="top">Tipo</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -23,7 +25,9 @@
           <p><%= e.nombre %></p>
           <p><%= e.categoria %></p>
           <p><%= e.tipo %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.RECURSO_MATERIAL' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.RECURSO_MATERIAL' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

@@ -12,16 +12,20 @@
       <p class="border-bottom" id="top">Id</p>
       <p class="border-bottom" id="top">Nombre</p>
       <p class="border-bottom" id="top">Salario</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem' ></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem' ></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
       <% tipos_empleado.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
-          <p><%= e.nombre %></p>
-          <p><%= e.salario %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.TIPO_EMPLEADOS' } %>
+          <p class='text-center'><%= e.id %></p>
+          <p class='text-center'><%= e.nombre %></p>
+          <p class='text-center'><%= e.salario %></p>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.TIPO_EMPLEADOS' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

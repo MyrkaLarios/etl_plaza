@@ -16,7 +16,9 @@
       <p class="border-bottom" id="top">Fecha Fin</p>
       <p class="border-bottom" id="top">Id Tarea</p>
       <p class="border-bottom" id="top">Id Empleado</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -29,7 +31,9 @@
           <p><%= e.fechafin %></p>
           <p><%= e.id_tarea %></p>
           <p><%= e.id_empleado %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.HORARIO' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.HORARIO' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

@@ -20,7 +20,9 @@
       <p class="border-bottom" id="top">Total</p>
       <p class="border-bottom" id="top">Placa</p>
       <p class="border-bottom" id="top">Id Tarjeta</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -37,7 +39,9 @@
           <p><%= e.total %></p>
           <p><%= e.placa %></p>
           <p><%= e.id_tarjeta %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ESTANCIA' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ESTANCIA' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

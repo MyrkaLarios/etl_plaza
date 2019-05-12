@@ -15,7 +15,9 @@
       <p class="border-bottom" id="top">Estante</p>
       <p class="border-bottom" id="top">Número</p>
       <p class="border-bottom" id="top">Id Recurso Material</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -27,7 +29,9 @@
           <p><%= e.estante %></p>
           <p><%= e.numero %></p>
           <p><%= e.id_recursomaterial %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SECCION_BODEGA' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SECCION_BODEGA' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

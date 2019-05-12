@@ -16,7 +16,9 @@
       <p class="border-bottom" id="top">Dimensiones</p>
       <p class="border-bottom" id="top">Estado</p>
       <p class="border-bottom" id="top">Costo</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
     <div style='display: flex; flex-direction: column;'>
       <% locales.each do |e| %>
@@ -27,7 +29,9 @@
           <p><%= e.dimensiones %></p>
           <p><%= e.estado %></p>
           <p><%= e.costo %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.LOCALES' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.LOCALES' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

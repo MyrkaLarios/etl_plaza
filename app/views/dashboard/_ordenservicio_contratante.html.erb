@@ -13,7 +13,9 @@
       <p class="border-bottom" id="top">Nombre</p>
       <p class="border-bottom" id="top">Giro</p>
       <p class="border-bottom" id="top">Estado</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -24,7 +26,9 @@
           <p><%= e.tiempo %></p>
           <p><%= e.id_ordenservicio %></p>
           <p><%= e.id_contratante %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ORDENSERVICIO_CONTRATANTE' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ORDENSERVICIO_CONTRATANTE' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

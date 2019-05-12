@@ -13,7 +13,9 @@
       <p class="border-bottom" id="top">Hora Inicio</p>
       <p class="border-bottom" id="top">Hora Fin</p>
       <p class="border-bottom" id="top">Día</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -23,7 +25,9 @@
           <p><%= e.horainicio %></p>
           <p><%= e.horafin %></p>
           <p><%= e.dia %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.HORARIO_DISPONIBLE' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.HORARIO_DISPONIBLE' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

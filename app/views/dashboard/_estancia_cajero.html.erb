@@ -14,7 +14,9 @@
       <p class="border-bottom" id="top">Fecha Inicio</p>
       <p class="border-bottom" id="top">Fecha Fin</p>
       <p class="border-bottom" id="top">Id Estancia</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -25,7 +27,9 @@
           <p><%= e.fechainicio %></p>
           <p><%= e.fechafin %></p>
           <p><%= e.id_estancia %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ESTANCIA_CAJERO' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ESTANCIA_CAJERO' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

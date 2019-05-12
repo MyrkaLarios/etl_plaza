@@ -14,7 +14,9 @@
       <p class="border-bottom" id="top">RFC</p>
       <p class="border-bottom" id="top">Teléfono</p>
       <p class="border-bottom" id="top">Dirección</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -25,7 +27,9 @@
       <p><%= e.rfc %></p>
       <p><%= e.telefono %></p>
       <p><%= e.direccion %></p>
-      <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.PROVEEDOR' } %>
+      <% if current_user.user_type != 1 %>
+        <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.PROVEEDOR' } %>
+      <% end %>
     </div>
   <% end %>
     </div>

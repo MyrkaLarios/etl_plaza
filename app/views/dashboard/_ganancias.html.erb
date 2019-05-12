@@ -13,7 +13,9 @@
       <p class="border-bottom" id="top">Ingresos</p>
       <p class="border-bottom" id="top">Egresos</p>
       <p class="border-bottom" id="top">Fecha Corte</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <% ganancias.each do |e| %>
@@ -22,7 +24,9 @@
         <p><%= e.ingresos %></p>
         <p><%= e.egresos %></p>
         <p><%= e.fechacorte %></p>
-        <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.GANANCIAS' } %>
+        <% if current_user.user_type != 1 %>
+          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.GANANCIAS' } %>
+        <% end %>
       </div>
     <% end %>
     </div>

@@ -1,6 +1,13 @@
 
-<nav class="navbar navbar-expand-lg bg-dark">
+<nav class="navbar navbar-expand-lg bg-dark" style='justify-content: space-between;'>
   <%= link_to 'Salir', destroy_user_session_path, method: 'delete'%>
+  <div class='d-flex'>
+    <div style='display: flex; flex-direction: column; color: #fff;'>
+      <p style='margin: 0;'>Usuario: <%= current_user.email %></p>
+      <p style='margin: 0;'>Tipo usuario: <%= current_user.user_type_name %></p>
+    </div>
+    <%= image_tag 'user.png', style: 'height: 50px; margin-left: 15px;' %>
+  </div>
 </nav>
 
 <% Octopus.using(:TEMP) do %>

@@ -13,7 +13,9 @@
       <p class="border-bottom" id="top">Nombre</p>
       <p class="border-bottom" id="top">Curp</p>
       <p class="border-bottom" id="top">Id Tipo Empleado</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -23,7 +25,9 @@
           <p><%= e.nombre %></p>
           <p><%= e.curp %></p>
           <p><%= e.id_tipoempleado %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.EMPLEADOS' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.EMPLEADOS' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

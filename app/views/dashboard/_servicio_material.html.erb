@@ -13,7 +13,9 @@
       <p>Cantidad</p>
       <p>Id Servicio</p>
       <p>Recurso Material</p>
-      <div style='width: 180px;'></div>
+      <% if current_user.user_type != 1 %>
+        <div style='width: 180px;'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -23,7 +25,9 @@
           <p><%= e.cantidad %></p>
           <p><%= e.id_servicio %></p>
           <p><%= e.recurso_material %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SERVICIO_MATERIAL' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SERVICIO_MATERIAL' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

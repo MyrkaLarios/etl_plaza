@@ -13,7 +13,9 @@
       <p class="border-bottom" id="top">Cantidad Recibida</p>
       <p class="border-bottom" id="top">Fecha Caducidad</p>
       <p class="border-bottom" id="top">Id Orden Despacho</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -23,7 +25,9 @@
           <p><%= e.cantidadrecibida %></p>
           <p><%= e.fechadecaducidad %></p>
           <p><%= e.id_ordendespacho %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ORDENDESPACHO_MATERIAL' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ORDENDESPACHO_MATERIAL' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

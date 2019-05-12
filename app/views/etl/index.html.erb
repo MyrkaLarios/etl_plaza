@@ -1,17 +1,286 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg bg-dark" style='justify-content: space-between;'>
   <%= link_to 'Salir', destroy_user_session_path, method: 'delete'%>
+  <div class='d-flex'>
+    <div style='display: flex; flex-direction: column; color: #fff;'>
+      <p style='margin: 0;'>Usuario: <%= current_user.email %></p>
+      <p style='margin: 0;'>Tipo usuario: <%= current_user.user_type_name %></p>
+    </div>
+    <%= image_tag 'user.png', style: 'height: 50px; margin-left: 15px;' %>
+  </div>
 </nav>
 <% Octopus.using(:TEMP) do %>
   <div class="container etl">
-    <% if @tipos_empleados.present? %>
-      <%= render partial: "dashboard/tipo_empleado", locals: { tipos_empleado: @tipos_empleados } %>
-    <% end %>
-    <% if @empleados.present? %>
-      <%= render partial: "dashboard/empleado", locals: { empleados: @empleados } %>
-    <% end %>
-    <% if @tarjetas.present? %>
-      <%= render partial: "dashboard/tarjeta", locals: { tarjetas: @tarjetas } %>
-    <% end %>
+    <h2 class='m-2'>Datos a corregir por los dueños de los sistemas</h2>
+
+    <div id="accordion">
+
+      <% if @empleados.present? %>
+        <div class="card">
+          <%= render partial: "dashboard/empleado", locals: { empleados: @empleados } %>
+        </div>
+      <% end %>
+      <% if @tipos_empleado.present? %>
+        <div class="card">
+          <%= render partial: "dashboard/tipo_empleado", locals: { tipos_empleado: @tipos_empleado } %>
+        </div>
+      <% end %>
+      <div class="card">
+          <% if @recursos_materiales.present? %>
+            <%= render partial: "dashboard/recurso_material", locals: { recursos_materiales: @recursos_materiales } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @tarjeta.present? %>
+            <%= render partial: "dashboard/tarjeta", locals: { tarjetas: @tarjeta } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @estancia.present? %>
+            <%= render partial: "dashboard/estancia", locals: { estancias: @estancia } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @tipo_area.present? %>
+            <%= render partial: "dashboard/tipo_area", locals: { tipos_areas:  @tipo_area } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @areas.present? %>
+            <%= render partial: "dashboard/area", locals: { areas:  @areas } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @cajeros.present? %>
+            <%= render partial: "dashboard/cajero", locals: { cajeros:  @cajeros } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @estancia_cajero.present? %>
+            <%= render partial: "dashboard/estancia_cajero", locals: { estancias_cajeros:  @estancia_cajero } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @pasillos.present? %>
+            <%= render partial: "dashboard/pasillo", locals: { pasillos:  @pasillos } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @sensores.present? %>
+            <%= render partial: "dashboard/sensor", locals: { sensores:  @sensores } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @descuentos.present? %>
+            <%= render partial: "dashboard/descuento", locals: { descuentos: @descuentos } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @tipos_accidentes.present? %>
+            <%= render partial: "dashboard/tipo_accidente", locals: { tipos_accidentes: @tipos_accidentes } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @accidentes.present? %>
+            <%= render partial: "dashboard/accidentes", locals: { accidentes: @accidentes } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @proveedores.present? %>
+            <%= render partial: "dashboard/proveedor", locals: { proveedores: @proveedores } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @tipos_materiales.present? %>
+            <%= render partial: "dashboard/tipo_material", locals: { tipos_materiales:  @tipos_materiales } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @categorias.present? %>
+            <%= render partial: "dashboard/categoria", locals: { categorias:  @categorias } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @proveedores_materiales.present? %>
+            <%= render partial: "dashboard/proveedor_material", locals: { proveedores_materiales:  @proveedores_materiales } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @solicitudes_compras.present? %>
+            <%= render partial: "dashboard/solicitud_compra", locals: { solicitudes_compras:  @solicitudes_compras } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @orden_despacho.present? %>
+            <%= render partial: "dashboard/orden_despacho", locals: { orden_despacho:  @orden_despacho } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @orden_despacho_materiales.present? %>
+            <%= render partial: "dashboard/ordendespacho_material", locals: { ordendespacho_material:  @orden_despacho_materiales } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @horarios_disp.present? %>
+            <%= render partial: "dashboard/horario_disponible", locals: { horarios:  @horarios_disp } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @servicios.present? %>
+            <%= render partial: "dashboard/servicio", locals: { servicios:  @servicios } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @servicios_materiales.present? %>
+            <%= render partial: "dashboard/servicio_material", locals: { servicios_materiales:  @servicios_materiales } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @tareas.present? %>
+            <%= render partial: "dashboard/tarea", locals: { tareas:  @tareas } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @tareas_materiales.present? %>
+            <%= render partial: "dashboard/tarea_material", locals: { tareas_materiales:  @tareas_materiales } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @secciones.present? %>
+            <%= render partial: "dashboard/seccion_bodega", locals: { secciones:  @secciones } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @horarios.present? %>
+            <%= render partial: "dashboard/horario", locals: { horarios:  @horarios } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @tipos_incidentes.present? %>
+            <%= render partial: "dashboard/tipo_incidente", locals: { tipos_incidentes:  @tipos_incidentes } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @incidentes.present? %>
+            <%= render partial: "dashboard/incidente", locals: { incidentes:  @incidentes } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @ordenes_servicio.present? %>
+            <%= render partial: "dashboard/orden_servicio", locals: { ordenes_servicio:  @ordenes_servicio } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @contratistas.present? %>
+            <%= render partial: "dashboard/contratante", locals: { contratantes:  @contratistas } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @orden_servicio_contratistas.present? %>
+            <%= render partial: "dashboard/ordenservicio_contratante", locals: { ordenservicio_contratante:  @orden_servicio_contratistas } %>
+          <% end %>
+        </div>
+
+        <div class="card">
+          <% if @areas_servicios.present? %>
+            <%= render partial: "dashboard/area_servicio", locals: { areas_servicios:  @areas_servicios } %>
+          <% end %>
+        </div>
+
+         <% if @locales.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/locales", locals: { locales: @locales } %>
+          </div>
+        <% end %>
+
+        <% if @negocios.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/negocios", locals: { negocios: @negocios } %>
+          </div>
+        <% end %>
+
+        <% if @negocios_locales.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/local_negocio", locals: { negocios_locales: @negocios_locales } %>
+          </div>
+        <% end %>
+
+        <% if @clientes.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/cliente", locals: { clientes: @clientes } %>
+          <div>
+        <% end %>
+
+        <% if @contratos.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/contrato", locals: { contratos: @contratos } %>
+          </div>
+        <% end %>
+
+        <% if @rentas.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/rentas", locals: { rentas: @rentas } %>
+          </div>
+        <% end %>
+
+        <% if @ganancias.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/ganancias", locals: { ganancias: @ganancias } %>
+          </div>
+        <% end %>
+
+        <% if @ingresos_estacionamiento.present? %>
+          <%= render partial: "dashboard/ingreso_estacionamiento", locals: { ingreso_estacionamiento: @ingresos_estacionamiento } %>
+        <% end %>
+
+        <% if @egresos_mantenimiento.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/egreso_mantenimiento", locals: { egreso_mantenimiento: @egresos_mantenimiento } %>
+          </div>
+        <% end %>
+
+        <% if @pagos.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/pagos", locals: { pagos: @pagos } %>
+          </div>
+        <% end %>
+
+        <% if @abonos.present? %>
+          <div class="card">
+            <%= render partial: "dashboard/abonos", locals: { abonos: @abonos } %>
+          </div>
+        <% end %>
+
+    </div>
   </div>
 <%end%>

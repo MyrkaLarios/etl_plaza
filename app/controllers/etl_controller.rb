@@ -1,17 +1,60 @@
 class EtlController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
-    if Empleado.all.empty?
-      Etl.start
-      # redirect_to etl_index_path
-    else
+    actual_etl = false
+    Octopus.using(:TEMP) do
+      actual_etl = Empleado.all.present?
+    end
+    if actual_etl
       Octopus.using(:TEMP) do
-        @tipos_empleados = TipoEmpleado.all
-        @empleados = Empleado.all
-        @tarjetas = TarjetasTEMP.all
-
-
+        @empleados = Empleado.all.where(wrong: 1)
+        @tipos_empleado = TipoEmpleado.all.where(wrong: 1)
+        @recursos_materiales = RecursoMaterial.all.where(wrong: 1)
+        @tarjeta = TarjetasTEMP.all.where(wrong: 1)
+        @estancia = EstanciaTEMP.all.where(wrong: 1)
+        @areas = AreasTEMP.all.where(wrong: 1)
+        @cajeros = CajeroTEMP.all.where(wrong: 1)
+        @estancia_cajero = EstanciaCajero.all.where(wrong: 1)
+        @pasillos = PasilloTEMP.all.where(wrong: 1)
+        @sensores = SensorTEMP.all.where(wrong: 1)
+        @descuentos = DescuentoTEMP.all.where(wrong: 1)
+        @tipos_accidentes = TipoAccidenteTEMP.all.where(wrong: 1)
+        @accidentes = AccidenteTEMP.all.where(wrong: 1)
+        @proveedores = ProveedoresTEMP.all.where(wrong: 1)
+        @tipos_materiales = TiposMaterialesTEMP.all.where(wrong: 1)
+        @proveedores_materiales = ProveedoresMaterialesTEMP.all.where(wrong: 1)
+        @solicitudes_compras = SolicitudCompraTEMP.all.where(wrong: 1)
+        @orden_despacho = OrdenDespachoTEMP.all.where(wrong: 1)
+        @orden_despacho_materiales = OrdenDespachoMaterialesTEMP.all.where(wrong: 1)
+        @tipo_area = TipoAreaTEMP.all.where(wrong: 1)
+        @horarios_disp = HorariosDisponiblesTEMP.all.where(wrong: 1)
+        @servicios = ServiciosTEMP.all.where(wrong: 1)
+        @servicios_materiales = ServiciosMaterialesTEMP.all.where(wrong: 1)
+        @tareas = TareasTEMP.all.where(wrong: 1)
+        @tareas_materiales = TareasMaterialesTEMP.all.where(wrong: 1)
+        @secciones = SeccionesBodegaTEMP.all.where(wrong: 1)
+        @horarios = HorariosTEMP.all.where(wrong: 1)
+        @tipos_incidentes = TiposIncidentesTEMP.all.where(wrong: 1)
+        @incidentes = IncidentesTEMP.all.where(wrong: 1)
+        @ordenes_servicio = OrdenesServicioTEMP.all.where(wrong: 1)
+        @contratistas = ContratistasTEMP.all.where(wrong: 1)
+        @orden_servicio_contratistas = OrdenServicioContratistasTEMP.all.where(wrong: 1)
+        @areas_servicios = AreasServiciosTEMP.all.where(wrong: 1)
+        @locales = LocalTEMP.all.where(wrong: 1)
+        @negocios = NegociosTEMP.all.where(wrong: 1)
+        @negocios_locales = LocalNegocioTEMP.all.where(wrong: 1)
+        @clientes = ClienteTEMP.all.where(wrong: 1)
+        @contratos = ContratoTEMP.all.where(wrong: 1)
+        @rentas = RentasTEMP.all.where(wrong: 1)
+        @ganancias = GananciasTEMP.all.where(wrong: 1)
+        @ingresos_estacionamiento = IngresoEstacionamientoTEMP.all.where(wrong: 1)
+        @egresos_mantenimiento = EgresoMantenimientoTEMP.all.where(wrong: 1)
+        @pagos = PagosTEMP.all.where(wrong: 1)
+        @abonos = AbonosTEMP.all.where(wrong: 1)
       end
+    else
+      Etl.start
+      redirect_to etl_index_path
     end
   end
 

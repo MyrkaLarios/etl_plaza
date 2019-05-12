@@ -14,7 +14,9 @@
       <p class="border-bottom" id="top">Mínimo</p>
       <p class="border-bottom" id="top">Id Recurso Material</p>
       <p class="border-bottom" id="top">Id Proveedor</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -25,7 +27,9 @@
           <p><%= e.minimo %></p>
           <p><%= e.id_recursomaterial %></p>
           <p><%= e.id_proveedor %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.PROVEEDOR_MATERIAL' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.PROVEEDOR_MATERIAL' } %>
+          <% end %>
         </div>
       <% end %>
     </div>

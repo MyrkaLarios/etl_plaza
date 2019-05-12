@@ -20,4 +20,17 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :rememberable, :validatable
+
+  def user_type_name
+    case user_type
+    when 1
+      "Administrador"
+    when 2
+      "Finanzas"
+    when 3
+      "Estacionamiento"
+    when 4
+      "Mantenimiento y limpieza"
+    end
+  end
 end

@@ -13,7 +13,9 @@
       <p class="border-bottom" id="top">Periodicidad</p>
       <p class="border-bottom" id="top">Id Servicio</p>
       <p class="border-bottom" id="top">Id Tipo Área</p>
-      <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% if current_user.user_type != 1 %>
+        <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
+      <% end %>
     </div>
 
     <div style='display: flex; flex-direction: column;'>
@@ -23,7 +25,9 @@
           <p><%= e.periodicidad %></p>
           <p><%= e.id_servicio %></p>
           <p><%= e.id_tipoarea %></p>
-          <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.AREA_SERVICIO' } %>
+          <% if current_user.user_type != 1 %>
+            <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.AREA_SERVICIO' } %>
+          <% end %>
         </div>
       <% end %>
     </div>
