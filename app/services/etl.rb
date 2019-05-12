@@ -509,9 +509,10 @@ class Etl
 
       if k == Accidente
         fecha = Time.new(object[:fecha].year, object[:fecha].month, object[:fecha].day, object[:hora].strftime('%H'), object[:hora].strftime('%M'), object[:hora].strftime('%S')).strftime('%Y-%m-%d %H:%M:%S')
+        id_empleado = find_empleado_id(s, object[:id_empleado])
         tipo_a = find_foreign_key_from_original_using_system('TIPO_ACCIDENTE', object[:id_tipoAccidente], 0, s)
         area = find_foreign_key_from_original_using_system('AREA', object[:id_Area], 0, s)
-        sql = "INSERT INTO dbo.ACCIDENTES (fecha, id_tipoaccidente, id_area, original_id, sistema, wrong) VALUES ('#{fecha}', #{tipo_a}, #{area},  #{object[:id_Accidente]}, '#{s}', #{wrong});"
+        sql = "INSERT INTO dbo.ACCIDENTES (fecha, id_tipoaccidente, id_area, id_empleado, original_id, sistema, wrong) VALUES ('#{fecha}', #{tipo_a}, #{area}, #{id_empleado}, #{object[:id_Accidente]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
@@ -574,14 +575,14 @@ class Etl
       end
 
       if k == SolicitudesCompras
-        id_empleado = find_foreign_key_from_original_using_system('EMPLEADOS', object[:id_Empleado], 0, s)
+        id_empleado = find_empleado_id(s, object[:id_Empleado])
         id_proveedor = find_foreign_key_from_original_using_system('PROVEEDOR', object[:id_Proveedor], 0, s)
         sql = "INSERT INTO dbo.SOLICITUD_COMPRA (cantidad_total, fechaemision, costototal, id_empleado, id_proveedor, original_id, sistema, wrong) VALUES (#{object[:cantidad_Total]}, '#{object[:fecha_Emision]}', #{object[:costo_Total]}, #{id_empleado}, #{id_proveedor}, #{object[:id_Solicitud]}, '#{s}', #{wrong} );"
         ActiveRecord::Base.connection.execute(sql)
       end
 
       if k == SolicitudesCompraMyl
-        id_empleado = find_foreign_key_from_original_using_system('EMPLEADOS', object[:persona], 0, s)
+        id_empleado = find_empleado_id(s, object[:persona])
         id_proveedor = find_foreign_key_from_original_using_system('PROVEEDOR', object[:proveedor], 0, s)
         sql = "INSERT INTO dbo.SOLICITUD_COMPRA (cantidad_total, fechaemision, costototal, id_empleado, id_proveedor, original_id, sistema, wrong) VALUES (#{object[:cantidad_total]}, '#{object[:fecha_emision]}', #{object[:costo_total]}, #{id_empleado}, #{id_proveedor}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
@@ -609,7 +610,7 @@ class Etl
       if k == TareasMateriales
         id_tarea = find_foreign_key_from_original_using_system('TAREA', object[:tarea], 0, s)
         id_material = find_foreign_key_from_original_using_system('RECURSO_MATERIAL', object[:recurso_material], 0, s)
-        id_supervisor = find_foreign_key_from_original_using_system('EMPLEADOS', object[:persona], 0, s)
+        id_supervisor = find_empleado_id(s, object[:persona])
         sql = "INSERT INTO dbo.TAREA_MATERIAL (cantidadentregada, id_tarea, id_recursomaterial, id_empleado, original_id, sistema, wrong) VALUES ('#{object[:cantidad_entregada]}', #{id_tarea}, #{id_material}, #{id_supervisor}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
@@ -621,14 +622,14 @@ class Etl
       end
 
       if k == Horarios
-        id_persona = find_foreign_key_from_original_using_system('EMPLEADOS', object[:persona], 0, s)
+        id_persona = find_empleado_id(s, object[:persona])
         id_tarea = find_foreign_key_from_original_using_system('TAREA', object[:tarea], 0, s)
         sql = "INSERT INTO dbo.HORARIO (horainicio, horafin, fechainicio, fechafin, id_empleado, id_tarea, original_id, sistema, wrong) VALUES ('#{object[:hora_inicio].strftime('%H:%M:%S')}', '#{object[:hora_fin].strftime('%H:%M:%S')}', '#{object[:fecha_inicio]}', '#{object[:fecha_fin]}', #{id_persona}, #{id_tarea}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
 
       if k == Supervisiones
-        id_persona = find_foreign_key_from_original_using_system('EMPLEADOS', object[:persona], 0, s)
+        id_persona = find_empleado_id(s, object[:persona])
         id_tarea = find_foreign_key_from_original_using_system('TAREA', object[:tarea], 0, s)
         sql = "INSERT INTO dbo.SUPERVISION (valoracion, id_empleado, id_tarea, original_id, sistema, wrong) VALUES (#{object[:valoracion]}, #{id_persona}, #{id_tarea}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
@@ -640,7 +641,7 @@ class Etl
       end
 
       if k == Incidentes
-        persona = find_foreign_key_from_original_using_system('EMPLEADOS', object[:persona], 0, s)
+        persona = find_empleado_id(s, object[:persona])
         id_material = find_foreign_key_from_original_using_system('RECURSO_MATERIAL', object[:recurso_material], 0, s)
         sql = "INSERT INTO dbo.INCIDENTE (fecha, clavenotacredito, clavenotadebito, id_tipoincidente, id_empleado, id_recurso_material, original_id, sistema, wrong) VALUES ('#{object[:fecha].strftime('%Y-%m-%d')}', '#{object[:clave_nota_credito]}', '#{object[:clave_nota_debito]}', #{object[:tipo_incidente]}, #{persona}, #{id_material}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
@@ -793,5 +794,30 @@ class Etl
       result = ActiveRecord::Base.connection.exec_query(sql).rows
       result = result.present? ? result[0][0] : 'null'
     end
+  end
+
+  def self.find_empleado_id(s, id)
+    curp = ''
+    new_id = ''
+    case s
+    when 'E'
+      Octopus.using(:E) do
+        sql = "SELECT curp from empleado_estacionamientos where id = '#{id}'"
+        curp = ActiveRecord::Base.connection.exec_query(sql).rows
+        curp = curp.present? ? curp[0][0] : 'null'
+      end
+    when 'M'
+      Octopus.using(:MYL) do
+        sql = "SELECT CURP from personas where id = '#{id}'"
+        curp = ActiveRecord::Base.connection.exec_query(sql).rows
+        curp = curp.present? ? curp[0][0] : 'null'
+      end
+    end
+    Octopus.using(:TEMP) do
+      sql = "SELECT id from dbo.EMPLEADOS where curp = '#{curp}'"
+      new_id = ActiveRecord::Base.connection.exec_query(sql).rows
+      new_id = new_id.present? ? new_id[0][0] : 'null'
+    end
+    new_id
   end
 end
