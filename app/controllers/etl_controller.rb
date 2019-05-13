@@ -54,7 +54,7 @@ class EtlController < ApplicationController
       end
     else
       Etl.start
-      redirect_to etl_index_path
+      redirect_to authenticated_root_path
     end
   end
 

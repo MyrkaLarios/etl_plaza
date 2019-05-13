@@ -11,7 +11,12 @@
 </nav>
 <% Octopus.using(:TEMP) do %>
   <div class="container etl">
-    <h2 class='m-2'>Datos a corregir por los dueños de los sistemas</h2>
+    <div class="d-flex justify-content-between mt-4">
+      <h2 class='m-2'>Datos a corregir por los dueños de los sistemas</h2>
+      <%= link_to authenticated_root_path do %>
+        <%= image_tag 'home.png', style: 'height: 50px;' %>
+      <% end %>
+    </div>
 
     <div id="accordion">
 

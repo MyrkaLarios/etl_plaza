@@ -13,10 +13,52 @@
 <% Octopus.using(:TEMP) do %>
   <div class="container etl shadow">
     <% if current_user.user_type == 1 && @etl %>
-      <%= link_to 'Hacer correcciones', etl_index_path, class: 'btn btn-primary' %>
+      <div class='m-5 text-center'>
+        <h4 class='font-weight-bold mb-5'>Actualmente hay un ETL en proceso</h4>
+        <p class='font-italic' style='color: #001fff;'>Notifica a los dueños de cada sistema que hay datos que deben corregir y/o eliminar</p>
+        <%= image_tag 'transform.png', style: 'height: 150px;' %>
+        <p class='font-italic font-weight-bold'>Etapa de trasnformación de los datos</p>
+        <p style='justify-content: center;'>E <b style='color: #001fff;'> T </b> L</p>
+        <%= link_to 'Ver datos que necesitan correcciones', etl_index_path, class: 'btn btn-secondary' %>
+      </div>
 
     <% elsif current_user.user_type == 1 %>
-      <%= link_to 'Iniciar proceso ETL', etl_index_path, class: 'btn btn-primary' %>
+      <div class='m-5 text-center'>
+        <div class='etl-info'>
+          <h4 class='font-weight-bold mb-5'>¿Qué es un ETL?</h4>
+          <div style='display: flex;'>
+            <div style='flex: 2;'>
+              <p style='justify-content: flex-start; text-align: left;'>La palabra ETL corresponde a las siglas en inglés de:</p>
+              <ul style='text-align: left;'>
+                <li>Extraer: extract.</li>
+                <li>Transformar: transform.</li>
+                <li>Cargar: load.</li>
+              </ul>
+              <p style='justify-content: flex-start; text-align: left;'>
+                Este proceso (ETL) se lleva a cabo cuando se desean integrar datos de distintas fuentes, en este caso de
+                3 bases de datos distintas, con el fin de realizar análisis de datos sobre la nueva estructura.
+              </p>
+              <p style='justify-content: flex-start; text-align: left;'>
+                La nueva estructura, generalmente un Data warehouse, contendrá información histórica de una empresa, por lo tanto
+                la información que se obtenga de ella será más precisa y real.
+              </p>
+            </div>
+            <div style='flex:3;'>
+              <%= image_tag 'etl.png', style: 'width: 100%;' %>
+            </div>
+          </div>
+
+          <%= link_to 'Iniciar proceso de extracción', etl_index_path, id: 'etl-start', class: 'btn btn-success mt-5' %>
+        </div>
+
+        <div class='extract-info d-none'>
+          <h4 class='font-weight-bold mb-5'>Esta en proceso la etapa de extracción...</h4>
+          <%= image_tag 'espera.gif', style: 'height: 300px;' %>
+          <p class='font-italic font-weight-bold'>Etapa de extracción de los datos</p>
+          <p style='justify-content: center;'> <b style='color: #001fff;'> E </b> TL</p>
+        </div>
+
+      </div>
 
     <% elsif current_user.user_type != 1 && !@etl %>
       <p>No tienes registros que corregir</p>
