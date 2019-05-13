@@ -32,15 +32,15 @@
       <% estancias.each do |e| %>
         <div class='my-2' style='display: flex; justify-content: space-between;'>
           <p><%= e.id %></p>
-          <p><%= e.fechainicio %></p>
-          <p><%= e.fechafin %></p>
+          <p class="<%= 'wrong' if !valid_date?(e.fechainicio) %>"><%= e.fechainicio %></p>
+          <p class="<%= 'wrong' if !valid_date?(e.fechafin) %>"><%= e.fechafin %></p>
           <p><%= e.horainicio %></p>
           <p><%= e.horafin %></p>
-          <p><%= e.duracion %></p>
+          <p class="<%= 'wrong' if !valid_number?(e.duracion) %>"><%= e.duracion %></p>
           <p><%= e.estado %></p>
-          <p><%= e.subtotal %></p>
-          <p><%= e.total %></p>
-          <p><%= e.placa %></p>
+          <p class="<%= 'wrong' if !valid_number?(e.subtotal) %>"><%= e.subtotal %></p>
+          <p class="<%= 'wrong' if !valid_number?(e.total) %>"><%= e.total %></p>
+          <p class="<%= 'wrong' if !valid_placa?(e.placa) %>"><%= e.placa %></p>
           <p><%= e.id_tarjeta %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ESTANCIA' } %>

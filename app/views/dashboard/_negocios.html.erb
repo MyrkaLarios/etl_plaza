@@ -25,9 +25,9 @@
       <% negocios.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.nombre %></p>
-          <p><%= e.giro %></p>
-          <p><%= e.estado %></p>
+          <p class="<%= 'wrong' if !valid_business_name?(e.nombre) %>"><%= e.nombre %></p>
+          <p class="<%= 'wrong' if !valid_giro_name?(e.giro) %>"><%= e.giro %></p>
+          <p class="<%= 'wrong' if !valid_estado_negocio?(e.estado) %>"><%= e.estado %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.NEGOCIOS' } %>
           <% end %>

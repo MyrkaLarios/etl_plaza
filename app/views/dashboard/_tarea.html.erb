@@ -25,7 +25,7 @@
       <% tareas.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.duracion %></p>
+          <p class='wrong'><%= e.duracion %></p>
           <p><%= e.id_servicio %></p>
           <p><%= e.id_area %></p>
           <% if current_user.user_type != 1 %>

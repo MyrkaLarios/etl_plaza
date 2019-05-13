@@ -26,8 +26,8 @@
       <% negocios_locales.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.fechainicio %></p>
-          <p><%= e.fechafin %></p>
+          <p class="<%= 'wrong' if !valid_business_date?(e.fechainicio) %>"><%= e.fechainicio %></p>
+          <p class="<%= 'wrong' if !valid_business_date?(e.fechafin) %>"><%= e.fechafin %></p>
           <p><%= e.id_negocio %></p>
           <p><%= e.id_locales %></p>
           <% if current_user.user_type != 1 %>

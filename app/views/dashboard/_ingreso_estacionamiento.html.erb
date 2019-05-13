@@ -25,8 +25,8 @@
       <% ingreso_estacionamiento.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.cantidad %></p>
-          <p><%= e.fecha %></p>
+          <p class="<%= 'wrong' if !valid_number?(e.cantidad) %>"><%= e.cantidad %></p>
+          <p class="<%= 'wrong' if !valid_date?(e.fecha) %>"><%= e.fecha %></p>
           <p><%= e.id_ganacia %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.INGRESO_ESTACIONAMIENTO' } %>

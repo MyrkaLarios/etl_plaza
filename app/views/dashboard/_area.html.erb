@@ -14,7 +14,7 @@
     <div style='display: flex; justify-content: space-between;' class='my-2'>
       <p class="border-bottom" id="top">Id</p>
       <p class="border-bottom" id="top">Nombre</p>
-      <p class="border-bottom" id="top">Categoria</p>
+      <p class="border-bottom" id="top">Descripción</p>
       <p class="border-bottom" id="top">Id Tipo Área</p>
       <% if current_user.user_type != 1 %>
         <div class="border-bottom" id="top" style='width: 180px; margin-bottom: 1rem'></div>
@@ -25,8 +25,8 @@
       <% areas.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.nombre %></p>
-          <p><%= e.descripcion %></p>
+          <p class="<%= 'wrong' if !valid_zone_name?(e.nombre) %>"><%= e.nombre %></p>
+          <p class="<%= 'wrong' if !valid_name?(e.descripcion) %>"><%= e.descripcion %></p>
           <p><%= e.id_tipoarea %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.AREA' } %>

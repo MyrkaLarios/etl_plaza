@@ -26,7 +26,7 @@
       <% tareas_materiales.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.cantidadentregada %></p>
+          <p class='wrong'><%= e.cantidadentregada %></p>
           <p><%= e.id_tarea %></p>
           <p><%= e.id_recursomaterial %></p>
           <p><%= e.id_empleado %></p>

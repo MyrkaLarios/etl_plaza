@@ -25,7 +25,7 @@
       <% orden_despacho.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.fechaentrega %></p>
+          <p class='wrong'><%= e.fechaentrega %></p>
           <p><%= e.id_solicitud %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.ORDEN_DESPACHO' } %>

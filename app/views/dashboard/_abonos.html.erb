@@ -27,9 +27,9 @@
       <% abonos.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.fechapago %></p>
+          <p class="<%= 'wrong' if !valid_date?(e.fechapago) %>"><%= e.fechapago %></p>
           <p><%= e.saldorestante %></p>
-          <p><%= e.monto %></p>
+          <p class="<%= 'wrong' if !valid_number?(e.monto) %>"><%= e.monto %></p>
           <p><%= e.id_renta %></p>
           <p><%= e.id_ganancia %></p>
           <% if current_user.user_type != 1 %>

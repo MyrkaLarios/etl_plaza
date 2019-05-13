@@ -23,7 +23,7 @@
       <% tarjetas.each do |e| %>
         <div class='my-2' style='display: flex; justify-content: space-between;'>
           <p><%= e.id %></p>
-          <p><%= e.estado %></p>
+          <p class='wrong'><%= e.estado %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.TARJETA' } %>
           <% end %>

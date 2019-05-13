@@ -25,8 +25,8 @@
       <% servicios.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.nombre %></p>
-          <p><%= e.duracion %></p>
+          <p class="<%= 'wrong' if !valid_name?(e.nombre) %>"><%= e.nombre %></p>
+          <p class="<%= 'wrong' if !valid_number?(e.duracion) %>"><%= e.duracion %></p>
           <p><%= e.tipo_servicio %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.SERVICIO' } %>

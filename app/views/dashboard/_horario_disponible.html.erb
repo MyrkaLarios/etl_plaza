@@ -27,7 +27,7 @@
           <p><%= e.id %></p>
           <p><%= e.horainicio %></p>
           <p><%= e.horafin %></p>
-          <p><%= e.dia %></p>
+          <p class='wrong'><%= e.dia %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.HORARIO_DISPONIBLE' } %>
           <% end %>

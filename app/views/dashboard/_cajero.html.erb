@@ -27,10 +27,10 @@
       <% cajeros.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.dineroactual %></p>
-          <p><%= e.fechaactual %></p>
-          <p><%= e.periodicidadmantenimiento %></p>
-          <p><%= e.estado %></p>
+          <p class="<%= 'wrong' if !valid_salary?(e.dineroactual) %>"><%= e.dineroactual %></p>
+          <p class="<%= 'wrong' if !valid_date?(e.fechaactual) %>"><%= e.fechaactual %></p>
+          <p class="<%= 'wrong' if !valid_periodicidad?(e.periodicidadmantenimiento) %>"><%= e.periodicidadmantenimiento %></p>
+          <p class="<%= 'wrong' if !valid_estado_cajero?(e.estado) %>"><%= e.estado %></p>
           <p><%= e.id_area %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.CAJERO' } %>

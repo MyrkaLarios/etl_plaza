@@ -3,12 +3,7 @@ class GananciasTEMP < ApplicationRecord
   self.table_name = 'GANANCIAS'
 
   def valid?(s)
-    if ingresos.present?
-      valid_salary?(ingresos) && valid_date?(fechacorte)
-    else
-      valid_salary?(egresos) && valid_date?(fechacorte)
-    end
-
+    valid_number?(ingresos) && valid_number?(egresos) && valid_date?(fechacorte) && (ingresos != 0 || egresos != 0)
   end
 
   def update_wrong

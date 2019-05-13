@@ -24,8 +24,8 @@
       <% tipos_empleado.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p class='text-center'><%= e.id %></p>
-          <p class='text-center'><%= e.nombre %></p>
-          <p class='text-center'><%= e.salario %></p>
+          <p class="text-center <%= 'wrong' if !valid_name?(e.nombre) %>"><%= e.nombre %></p>
+          <p class="text-center <%= 'wrong' if !valid_salary?(e.salario) %>"><%= e.salario %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.TIPO_EMPLEADOS' } %>
           <% end %>

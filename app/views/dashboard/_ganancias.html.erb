@@ -24,9 +24,9 @@
     <% ganancias.each do |e| %>
       <div style='display: flex; justify-content: space-between;' class='my-2'>
         <p><%= e.id %></p>
-        <p><%= e.ingresos %></p>
-        <p><%= e.egresos %></p>
-        <p><%= e.fechacorte %></p>
+        <p class="<%= 'wrong' if !valid_number?(e.ingresos) %>"><%= e.ingresos %></p>
+        <p class="<%= 'wrong' if !valid_number?(e.egresos) %>"><%= e.egresos %></p>
+        <p class="<%= 'wrong' if !valid_date?(e.fechacorte) %>"><%= e.fechacorte %></p>
         <% if current_user.user_type != 1 %>
           <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.GANANCIAS' } %>
         <% end %>

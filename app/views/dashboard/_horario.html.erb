@@ -30,8 +30,8 @@
           <p><%= e.id %></p>
           <p><%= e.horainicio %></p>
           <p><%= e.horafin %></p>
-          <p><%= e.fechainicio %></p>
-          <p><%= e.fechafin %></p>
+          <p class="<%= 'wrong' if !valid_date?(e.fechainicio) %>"><%= e.fechainicio %></p>
+          <p class="<%= 'wrong' if !valid_date?(e.fechafin) %>"><%= e.fechafin %></p>
           <p><%= e.id_tarea %></p>
           <p><%= e.id_empleado %></p>
           <% if current_user.user_type != 1 %>

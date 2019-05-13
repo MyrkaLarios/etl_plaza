@@ -16,6 +16,10 @@ p {
   display: flex;
   flex: 1;
   justify-content: space-around;
+
+  &.wrong {
+    color: red;
+  }
 }
 
 #top {

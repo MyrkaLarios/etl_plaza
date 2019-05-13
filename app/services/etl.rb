@@ -374,7 +374,7 @@ class Etl
         if s == 'F'
           sql = "INSERT INTO dbo.TIPO_EMPLEADOS (nombre, salario, original_id, sistema, wrong) VALUES ('#{object[:nombre]}', #{object[:salario] ? object[:salario] : 0}, #{object[:id]}, '#{s}', #{wrong})"
         else
-          sql = "INSERT INTO dbo.TIPO_EMPLEADOS (nombre, original_id, sistema, wrong) VALUES ('#{object[:nombre]}', #{object[:id]}, '#{s}', #{wrong})"
+          sql = "INSERT INTO dbo.TIPO_EMPLEADOS (nombre, salario, original_id, sistema, wrong) VALUES ('#{object[:nombre]}', 0, #{object[:id]}, '#{s}', #{wrong})"
         end
         ActiveRecord::Base.connection.execute(sql)
       end
@@ -424,7 +424,7 @@ class Etl
 
       if k == Area
         tipo_area = find_foreign_key_from_original_using_system('TIPO_AREA', object[:tipo_area], 0, s)
-        sql = "INSERT INTO dbo.AREA (original_id, nombre, id_tipoarea, wrong, sistema) VALUES (#{object[:id]}, '#{object[:nombre]}', #{tipo_area}, #{wrong}, '#{s}');"
+        sql = "INSERT INTO dbo.AREA (original_id, nombre, descripcion, id_tipoarea, wrong, sistema) VALUES (#{object[:id]}, '#{object[:nombre]}', '', #{tipo_area}, #{wrong}, '#{s}');"
         ActiveRecord::Base.connection.execute(sql)
       end
 
@@ -710,7 +710,7 @@ class Etl
         id_od = find_foreign_key_from_original_using_system('ORDEN_DESPACHO', object[:id_ordenDespacho], 0, s)
         id_rm = find_foreign_key_from_original_using_system('RECURSO_MATERIAL', object[:id_Equipo], 0, s)
 
-        sql = "INSERT INTO dbo.ORDENDESPACHO_MATERIAL (cantidadrecibida, id_ordendespacho, id_recursomaterial, original_id, sistema, wrong) VALUES (#{object[:cantidad]}, #{id_od}, #{id_rm}, #{object[:id]}, '#{s}', #{wrong});"
+        sql = "INSERT INTO dbo.ORDENDESPACHO_MATERIAL (cantidadrecibida, fechadecaducidad, id_ordendespacho, id_recursomaterial, original_id, sistema, wrong) VALUES (#{object[:cantidad]}, '1900-01-01', #{id_od}, #{id_rm}, #{object[:id]}, '#{s}', #{wrong});"
         ActiveRecord::Base.connection.execute(sql)
       end
 

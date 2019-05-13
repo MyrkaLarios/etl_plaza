@@ -25,7 +25,7 @@
       <% descuentos.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.cantidad %></p>
+          <p class='wrong'><%= e.cantidad %></p>
           <p><%= e.id_negocio %></p>
           <p><%= e.id_estancia %></p>
           <% if current_user.user_type != 1 %>

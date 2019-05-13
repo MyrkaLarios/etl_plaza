@@ -25,8 +25,8 @@
       <% empleados.each do |e| %>
         <div class='my-2' style='display: flex; justify-content: space-between;'>
           <p><%= e.id %></p>
-          <p><%= e.nombre %></p>
-          <p><%= e.curp %></p>
+          <p class="<%= 'wrong' if !valid_name?(e.nombre) %>"><%= e.nombre %></p>
+          <p class="<%= 'wrong' if !valid_CURP?(e.curp) %>"><%= e.curp %></p>
           <p><%= e.id_tipoempleado %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.EMPLEADOS' } %>

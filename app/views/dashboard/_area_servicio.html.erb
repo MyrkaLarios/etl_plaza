@@ -25,7 +25,7 @@
       <% areas_servicios.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
           <p><%= e.id %></p>
-          <p><%= e.periodicidad %></p>
+          <p class='wrong'><%= e.periodicidad %></p>
           <p><%= e.id_servicio %></p>
           <p><%= e.id_tipoarea %></p>
           <% if current_user.user_type != 1 %>
