@@ -1,8 +1,11 @@
 <div class="card-header" id="heading19">
-  <h2 class="mb-0">
+  <h2 class="mb-0 d-flex justify-content-between">
     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
       + Orden Despacho Materiales
     </button>
+    <% if current_user.user_type != 1 %>
+      <%= link_to 'Eliminar', "/delete_table?table=dbo.ORDENDESPACHO_MATERIAL&sistema=#{s}", method: :delete, class: 'btn btn-dark' %>
+    <% end %>
   </h2>
 </div>
 

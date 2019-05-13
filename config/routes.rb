@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get '/delete' => 'etl#delete_element', as: :delete_register
       get '/modify' => 'etl#modify_element', as: :modify_register
       post '/update' => 'etl#update', as: :update_register
+      delete '/delete_table' => 'etl#delete_table', as: :delete_table
     end
 
     unauthenticated do

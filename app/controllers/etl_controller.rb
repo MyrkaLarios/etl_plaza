@@ -63,11 +63,15 @@ class EtlController < ApplicationController
       sql = "DELETE FROM #{params[:table]} WHERE id = #{params[:id]}"
       ActiveRecord::Base.connection.execute(sql)
     end
-    if current_user.user_type == 1
-      redirect_to etl_index_path
-    else
-      redirect_to authenticated_root_path
+    redirect_to authenticated_root_path
+  end
+
+  def delete_table
+    Octopus.using(:TEMP) do
+      sql = "DELETE FROM #{params[:table]} WHERE sistema = '#{params[:sistema]}' and wrong = 1;"
+      ActiveRecord::Base.connection.execute(sql)
     end
+    redirect_to authenticated_root_path
   end
 
   def modify_element
@@ -173,10 +177,6 @@ class EtlController < ApplicationController
     Octopus.using(:TEMP) do
       UpdateTemp.update_object(params)
     end
-    if current_user.user_type == 1
-      redirect_to etl_index_path
-    else
-      redirect_to authenticated_root_path
-    end
+    redirect_to authenticated_root_path
   end
 end

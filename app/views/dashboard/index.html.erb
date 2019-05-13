@@ -24,7 +24,7 @@
 
     <!-- FINANZAS -->
     <% elsif current_user.user_type == 2 %>
-      <p>Datos a corregir<p>
+      <h1>Datos a corregir</h1>
 
       <div id="accordion">
 
@@ -109,7 +109,7 @@
 
     <!-- ESTACIONAMIENTO -->
     <% elsif current_user.user_type == 3 %>
-      <p class="title center"><h1>Datos a corregir</h1></p>
+      <h1>Datos a corregir</h1>
 
       <div id="accordion">
 
@@ -237,7 +237,7 @@
       <div id="accordion">
 
         <div class="card">
-          <% if @tipos_empleado_E.present? %>
+          <% if @tipos_empleado_M.present? %>
             <%= render partial: "tipo_empleado", locals: { tipos_empleado: @tipos_empleado_M, s: 'M' } %>
           <% end %>
         </div>
