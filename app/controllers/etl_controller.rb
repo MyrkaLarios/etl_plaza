@@ -1,3 +1,4 @@
+require 'axlsx'
 class EtlController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
@@ -311,7 +312,6 @@ class EtlController < ApplicationController
         end
       end
     end
-    generate_excel
   end
 
 
@@ -323,10 +323,56 @@ class EtlController < ApplicationController
   end
 
   def generate_excel_get
+    @empleados = Empleado.all
+    @tipos_empleado = TipoEmpleado.all.to_a
+    @recursos_materiales = RecursoMaterial.all.to_a
+    @tarjeta = TarjetasTEMP.all.to_a
+    @estancia = EstanciaTEMP.all.to_a
+    @areas = AreasTEMP.all.to_a
+    @cajeros = CajeroTEMP.all.to_a
+    @estancia_cajero = EstanciaCajero.all.to_a
+    @pasillos = PasilloTEMP.all.to_a
+    @sensores = SensorTEMP.all.to_a
+    @descuentos = DescuentoTEMP.all.to_a
+    @tipos_accidentes = TipoAccidenteTEMP.all.to_a
+    @accidentes = AccidenteTEMP.all.to_a
+    @proveedores = ProveedoresTEMP.all.to_a
+    @tipos_materiales = TiposMaterialesTEMP.all.to_a
+    @proveedores_materiales = ProveedoresMaterialesTEMP.all.to_a
+    @solicitudes_compras = SolicitudCompraTEMP.all.to_a
+    @orden_despacho = OrdenDespachoTEMP.all.to_a
+    @orden_despacho_materiales = OrdenDespachoMaterialesTEMP.all.to_a
+    @tipo_area = TipoAreaTEMP.all.to_a
+    @horarios_disp = HorariosDisponiblesTEMP.all.to_a
+    @servicios = ServiciosTEMP.all.to_a
+    @servicios_materiales = ServiciosMaterialesTEMP.all.to_a
+    @tareas = TareasTEMP.all.to_a
+    @tareas_materiales = TareasMaterialesTEMP.all.to_a
+    @secciones = SeccionesBodegaTEMP.all.to_a
+    @horarios = HorariosTEMP.all.to_a
+    @tipos_incidentes = TiposIncidentesTEMP.all.to_a
+    @incidentes = IncidentesTEMP.all.to_a
+    @ordenes_servicio = OrdenesServicioTEMP.all.to_a
+    @contratistas = ContratistasTEMP.all.to_a
+    @orden_servicio_contratistas = OrdenServicioContratistasTEMP.all.to_a
+    @areas_servicios = AreasServiciosTEMP.all.to_a
+    @locales = LocalTEMP.all.to_a
+    @negocios = NegociosTEMP.all.to_a
+    @negocios_locales = LocalNegocioTEMP.all.to_a
+    @clientes = ClienteTEMP.all.to_a
+    @contratos = ContratoTEMP.all.to_a
+    @rentas = RentasTEMP.all.to_a
+    @ganancias = GananciasTEMP.all.to_a
+    @ingresos_estacionamiento = IngresoEstacionamientoTEMP.all.to_a
+    @egresos_mantenimiento = EgresoMantenimientoTEMP.all.to_a
+    @pagos = PagosTEMP.all.to_a
+    @abonos = AbonosTEMP.all.to_a
+    respond_to do |format|
+      format.html
+      format.xlsx{
+        response.headers['Content-Disposition'] = 'attachment; filename="datawarehouse.xlsx"'
+      }
+    end
   end
 
-  private
-
-  def generate_excel
-  end
 end

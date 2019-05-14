@@ -1,0 +1,310 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Empleados") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'CURP', 'ID_TIPO_EMPLEADO']
+  @empleados.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.curp.to_s, e.id_tipoempleado.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Tipos empleado") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'SALARIO']
+  @tipos_empleado.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.salario.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Recursos materiales") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'CATEGORIA', 'TIPO']
+  @recursos_materiales.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.categoria.to_s, e.tipo.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Tarjetas") do |sheet|
+  sheet.add_row ['ID', 'ESTADO']
+  @tarjeta.each do |e|
+    sheet.add_row [e.id.to_s, e.estado.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Estancias") do |sheet|
+  sheet.add_row ['ID', 'FECHA_INICIO', 'FECHA_FIN', 'HORA_INICIO', 'HORA_FIN', 'DURACION', 'ESTADO', 'SUBTOTAL', 'TOTAL', 'PLACA', 'ID_TARJETA']
+  @estancia.each do |e|
+    sheet.add_row [e.id.to_s, e.fechainicio.to_s, e.fechafin.to_s, e.horainicio.to_s, e.horafin.to_s, e.duracion.to_s, e.estado.to_s, e.subtotal.to_s, e.total.to_s, e.placa.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Areas") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'DESCRIPCION', 'ID_TIPO_AREA']
+  @areas.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.descripcion.to_s, e.id_tipoarea.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Cajeros") do |sheet|
+  sheet.add_row ['ID', 'DINERO_ACTUAL', 'FECHA_ACTUAL', 'PERIODICIDAD_MANTENIMIENTO', 'ESTADO', 'ID_AREA']
+  @cajeros.each do |e|
+    sheet.add_row [e.id.to_s, e.dineroactual.to_s, e.fechaactual.to_s, e.periodicidadmantenimiento.to_s, e.estado.to_s, e.id_area.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Estancia - Cajero") do |sheet|
+  sheet.add_row ['ID', 'TARIFA', 'FECHA_INICIO', 'FECHA_FIN', 'ID_ESTANCIA']
+  @estancia_cajero.each do |e|
+    sheet.add_row [e.id.to_s, e.tarifa.to_s, e.fechainicio.to_s, e.fechafin.to_s, e.id_estancia.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Pasillos") do |sheet|
+  sheet.add_row ['ID', 'NUMERO', 'CANTIDAD_OCUPADOS', 'CANTIDAD_DISP', 'ID_AREA']
+  @pasillos.each do |e|
+    sheet.add_row [e.id.to_s, e.numero.to_s, e.cantidad_ocupados.to_s, e.cantidad_libres.to_s, e.id_area.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Sensores") do |sheet|
+  sheet.add_row ['ID', 'ESTADO', 'FECHA', 'ID_PASILLO']
+  @sensores.each do |e|
+    sheet.add_row [e.id.to_s, e.estado.to_s, e.fecha.to_s, e.id_pasillo.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Descuentos") do |sheet|
+  sheet.add_row ['ID', 'CANTIDAD', 'ID_NEGOCIO', 'ID_ESTANCIA']
+  @descuentos.each do |e|
+    sheet.add_row [e.id.to_s, e.cantidad.to_s, e.id_negocio.to_s, e.id_estancia.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Tipos accidentes") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE']
+  @tipos_accidentes.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Accidentes") do |sheet|
+  sheet.add_row ['ID', 'FECHA', 'ID_TIPO_ACCIDENTE', 'ID_EMPLEADO', 'ID_AREA']
+  @accidentes.each do |e|
+    sheet.add_row [e.id.to_s, e.fecha.to_s, e.id_tipoaccidente.to_s, e.id_empleado.to_s, e.id_area.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Proveedores") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'RFC', 'TELEFONO', 'DIRECCION']
+  @proveedores.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.rfc.to_s, e.telefono.to_s, e.direccion.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Tipos materiales") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE']
+  @tipos_materiales.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Proveedores materiales") do |sheet|
+  sheet.add_row ['ID', 'COSTO', 'MINIMO', 'ID_RECURSO_MATERIAL', 'ID_PROVEEDOR']
+  @proveedores.each do |e|
+    sheet.add_row [e.id.to_s, e.costo.to_s, e.minimo.to_s, e.id_recursomaterial.to_s, e.id_proveedor.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Solicitudes de compra") do |sheet|
+  sheet.add_row ['ID', 'CANTIDAD_TOTAL', 'FECHA_EMISION', 'COSTO_TOTAL', 'ID_PROVEEDOR', 'ID_EMPLEADO']
+  @solicitudes_compras.each do |e|
+    sheet.add_row [e.id.to_s, e.cantidad_total.to_s, e.fechaemision.to_s, e.costototal.to_s, e.id_proveedor.to_s, e.id_empleado.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Órdenes de despacho") do |sheet|
+  sheet.add_row ['ID', 'FECHA_ENTREGA', 'ID_SOLICITUD']
+  @orden_despacho.each do |e|
+    sheet.add_row [e.id.to_s, e.fechaentrega.to_s, e.id_solicitud.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Orden despacho - material") do |sheet|
+  sheet.add_row ['ID', 'CANTIDAD_RECIBIDA', 'FECHA_CADUCIDAD', 'ID_RECURSO_MATERIAL', 'ID_ORDEN_DESPACHO']
+  @orden_despacho_materiales.each do |e|
+    sheet.add_row [e.id.to_s, e.cantidadrecibida.to_s, e.fechadecaducidad.to_s, e.id_recursomaterial.to_s, e.id_ordendespacho.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Tipo área") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE']
+  @tipo_area.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s]
+  end
+end
+
+
+wb.add_worksheet(name: "Horarios disponibles") do |sheet|
+  sheet.add_row ['ID', 'HORA_INICIO', 'HORA_FIN', 'DIA']
+  @horarios_disp.each do |e|
+    sheet.add_row [e.id.to_s, e.horainicio.to_s, e.horafin.to_s, e.dia.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Servicios") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'DURACION', 'TIPO_SERVICIO']
+  @servicios.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.duracion.to_s, e.tipo_servicio.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Servicios - materiales") do |sheet|
+  sheet.add_row ['ID', 'CANTIDAD', 'ID_SERVICIO', 'RECURSO_MATERIAL']
+  @servicios_materiales.each do |e|
+    sheet.add_row [e.id.to_s, e.cantidad.to_s, e.id_servicio.to_s, e.recurso_material.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Tareas") do |sheet|
+  sheet.add_row ['ID', 'DURACION', 'ID_SERVICIO', 'ID_AREA']
+  @tareas.each do |e|
+    sheet.add_row [e.id.to_s, e.duracion.to_s, e.id_servicio.to_s, e.id_area.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Tareas - materiales") do |sheet|
+  sheet.add_row ['ID', 'CANTIDAD_ENTREGADA', 'ID_TAREA', 'ID_RECURSO_MATERIAL', 'ID_EMPLEADO']
+  @tareas_materiales.each do |e|
+    sheet.add_row [e.id.to_s, e.cantidadentregada.to_s, e.id_tarea.to_s, e.id_recursomaterial.to_s, e.id_empleado.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Secciones") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'TAMAÑO', 'ESTANTO', 'NUMERO', 'ID_RECURSO_MATERIAL']
+  @secciones.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.tamaño.to_s, e.estante.to_s, e.numero.to_s, e.id_recursomaterial.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Horarios") do |sheet|
+  sheet.add_row ['ID', 'HORA_INICIO', 'HORA_FIN', 'FECHA_INICIO', 'FECHA_FIN', 'ID_TAREA', 'ID_EMPLEADO']
+  @horarios.each do |e|
+    sheet.add_row [e.id.to_s, e.horainicio.to_s, e.horafin.to_s, e.fechainicio.to_s, e.fechafin.to_s, e.id_tarea.to_s, e.id_empleado.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Tipos incidentes") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'DESCRIPCION']
+  @tipos_incidentes.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.descripcion.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Incidentes") do |sheet|
+  sheet.add_row ['ID', 'FECHA', 'CLAVE_NOTA_CREDITO', 'CLAVE_NOTA_DEBITO', 'ID_TIPO_INCIDENTE', 'ID_EMPLEADO', 'ID_RECURSO_MATERIAL']
+  @incidentes.each do |e|
+    sheet.add_row [e.id.to_s, e.fecha.to_s, e.clavenotacredito.to_s, e.clavenotadebito.to_s, e.id_tipoincidente.to_s, e.id_empleado.to_s, e.id_recurso_material.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Órdenes de servicio") do |sheet|
+  sheet.add_row ['ID', 'FECHA', 'PRIORIDAD', 'ID_TAREA', 'ID_EMPLEADO']
+  @ordenes_servicio.each do |e|
+    sheet.add_row [e.id.to_s, e.fecha.to_s, e.prioridad.to_s, e.id_tarea.to_s, e.id_empleado.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Contratistas") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'DIRECCION', 'NUMERO']
+  @contratistas.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.direccion.to_s, e.numero.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Orden servicio - Contratistas") do |sheet|
+  sheet.add_row ['ID', 'COSTO', 'TIEMPO', 'ID_ORDEN_SERVICIO', 'ID_CONTRATANTE']
+  @orden_servicio_contratistas.each do |e|
+    sheet.add_row [e.id.to_s, e.costo.to_s, e.tiempo.to_s, e.id_ordenservicio.to_s, e.id_contratante.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Areas - servicios") do |sheet|
+  sheet.add_row ['ID', 'PERIODICIDAD', 'ID_SERVICIO', 'ID_TIPO_AREA']
+  @areas_servicios.each do |e|
+    sheet.add_row [e.id.to_s, e.periodicidad.to_s, e.id_servicio.to_s, e.id_tipoarea.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Locales") do |sheet|
+  sheet.add_row ['ID', 'NUMERO', 'UBICACION', 'DIMENSIONES', 'ESTADO', 'COSTO']
+  @locales.each do |e|
+    sheet.add_row [e.id.to_s, e.numero.to_s, e.ubicacion.to_s, e.dimensiones.to_s, e.estado.to_s, e.costo.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Negocios") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'GIRO', 'ESTADO', 'ID_LOCAL']
+  @negocios.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.giro.to_s, e.estado.to_s, e.id_locales.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Negocios - locales") do |sheet|
+  sheet.add_row ['ID', 'FECHA_INICIO', 'FECHA_FIN', 'ID_NEGOCIO', 'ID_LOCALES']
+  @negocios_locales.each do |e|
+    sheet.add_row [e.id.to_s, e.fechainicio.to_s, e.fechafin.to_s, e.id_negocio.to_s, e.id_locales.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Clientes") do |sheet|
+  sheet.add_row ['ID', 'NOMBRE', 'RFC']
+  @clientes.each do |e|
+    sheet.add_row [e.id.to_s, e.nombre.to_s, e.RFC.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Contratos") do |sheet|
+  sheet.add_row ['ID', 'FECHA_INICIO', 'FECHA_FIN', 'COSTO', 'ID_CLIENTE', 'ID_LOCAL']
+  @contratos.each do |e|
+    sheet.add_row [e.id.to_s, e.fechainicio.to_s, e.fechafin.to_s, e.costo.to_s, e.id_cliente.to_s, e.id_local]
+  end
+end
+
+wb.add_worksheet(name: "Rentas") do |sheet|
+  sheet.add_row ['ID', 'FECHA_COBRO', 'STATUS_RETRASO', 'STATUS_PAGADO', 'ID_CONTRATO']
+  @rentas.each do |e|
+    sheet.add_row [e.id.to_s, e.fechacobro.to_s, e.statusretraso.to_s, e.statuspagado.to_s, e.id_contrato.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Ganancias") do |sheet|
+  sheet.add_row ['ID', 'INGRESOS', 'EGRESOS', 'FECHA']
+  @ganancias.each do |e|
+    sheet.add_row [e.id.to_s, e.ingresos.to_s, e.egresos.to_s, e.fechacorte.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Ingresos - estacionamiento") do |sheet|
+  sheet.add_row ['ID', 'CANTIDAD', 'FECHA', 'ID_GANANCIA']
+  @ingresos_estacionamiento.each do |e|
+    sheet.add_row [e.id.to_s, e.cantidad.to_s, e.fecha.to_s, e.id_ganacia.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Egresos - mantenimiento") do |sheet|
+  sheet.add_row ['ID', 'CANTIDAD', 'FECHA', 'ID_GANANCIA']
+  @egresos_mantenimiento.each do |e|
+    sheet.add_row [e.id.to_s, e.cantidad.to_s, e.fecha.to_s, e.id_ganancia.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Pagos") do |sheet|
+  sheet.add_row ['ID', 'FECHA', 'MONTO', 'ID_EMPLEADO', 'ID_GANANCIA']
+  @pagos.each do |e|
+    sheet.add_row [e.id.to_s, e.fecha.to_s, e.monto.to_s, e.id_empleado.to_s, e.id_ganancia.to_s]
+  end
+end
+
+wb.add_worksheet(name: "Abonos") do |sheet|
+  sheet.add_row ['ID', 'FECHA', 'SALDO_RESTANTE', 'MONTO', 'ID_RENTA', 'ID_GANANCIA']
+  @abonos.each do |e|
+    sheet.add_row [e.id.to_s, e.fechapago.to_s, e.saldorestante.to_s, e.monto.to_s, e.id_renta.to_s, e.id_ganancia.to_s]
+  end
+end
+

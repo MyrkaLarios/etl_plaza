@@ -10,6 +10,8 @@ gem "ar-octopus"
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
 gem 'mdb'
 
+gem 'axlsx_rails'
+
 gem "bootsnap", ">= 1.1.0", require: false
 gem "devise"
 gem "bootstrap", "~> 4.3.1"
