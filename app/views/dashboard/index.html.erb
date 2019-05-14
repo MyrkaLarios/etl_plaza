@@ -13,13 +13,22 @@
 <% Octopus.using(:TEMP) do %>
   <div class="container etl shadow">
     <% if current_user.user_type == 1 && @etl && @no_more_errors %>
-      <div class='m-5 text-center'>
-        <h4 class='font-weight-bold mb-5'>Proceso de carga</h4>
-        <p class='font-italic'>El proceso de transformación de la información ha terminado, ahora puedes empezar la carga de datos al Data warehouse</p>
-        <%= image_tag 'carga.png', style: 'height: 150px;' %>
-        <p class='font-italic font-weight-bold'>Etapa de carga de los datos</p>
-        <p style='justify-content: center;'>ET <b style='color: #001fff;'> L </b></p>
-        <%= link_to 'Cargar datos al Data warehouse y generar CSV', send_to_dtwh_path, class: 'btn btn-success mt-5', method: :post %>
+      <div id="load-data-div">
+        <div class='m-5 text-center'>
+          <h4 class='font-weight-bold mb-5'>Proceso de carga</h4>
+          <p class='font-italic'>El proceso de transformación de la información ha terminado, ahora puedes empezar la carga de datos al Data warehouse</p>
+          <%= image_tag 'carga.png', style: 'height: 150px;' %>
+          <p class='font-italic font-weight-bold'>Etapa de carga de los datos</p>
+          <p style='justify-content: center;'>ET <b style='color: #001fff;'> L </b></p>
+          <%= link_to 'Cargar datos al Data warehouse y generar CSV', send_to_dtwh_path, id: 'load-data', class: 'btn btn-success mt-5', method: :post %>
+        </div>
+      </div>
+
+      <div id="loading" class=' d-none text-center'>
+        <h4 class='font-weight-bold my-5'>Esta en proceso la etapa de carga...</h4>
+        <%= image_tag 'espera.gif', style: 'height: 300px;' %>
+        <p class='font-italic font-weight-bold'>Etapa de carga de los datos al Data warehouse</p>
+        <p style='justify-content: center;'> ET<b style='color: #001fff;'>L</b></p>
       </div>
 
     <% elsif current_user.user_type == 1 && @etl %>

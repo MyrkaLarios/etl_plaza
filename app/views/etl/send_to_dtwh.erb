@@ -1,0 +1,11 @@
+<div class="container etl shadow">
+  <div class='m-5 text-center'>
+    <h4 class='font-weight-bold mb-5'>El proceso de carga ha terminado</h4>
+    <p class='font-italic'>El archivo excel se ha generado</p>
+    <div>
+      <%= image_tag 'excel.png', style: 'height: 150px;' %>
+    </div>
+
+    <%= link_to 'Descargar de nuevo archivo excel', generate_excel_get_path, class: 'btn btn-success mt-5', method: :post %>
+  </div>
+</div>

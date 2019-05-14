@@ -5,4 +5,11 @@ $(document).on('turbolinks:load', function () {
       $('.extract-info').removeClass('d-none');
     });
   }
+
+  if ($('#load-data').length > 0) {
+    $('#load-data').on('click', function () {
+      $('#load-data-div').addClass('d-none');
+      $('#loading').removeClass('d-none');
+    });
+  }
 });
