@@ -65,7 +65,58 @@ class DashboardController < ApplicationController
         @egresos_mantenimiento = EgresoMantenimientoTEMP.all.where(sistema: 'F', wrong: 1)
         @pagos = PagosTEMP.all.where(sistema: 'F', wrong: 1)
         @abonos = AbonosTEMP.all.where(sistema: 'F', wrong: 1)
+      elsif @etl
+        @no_more_errors = check_if_no_more_errors
       end
+    end
+  end
+
+  private
+
+  def check_if_no_more_errors
+    Octopus.using(:TEMP) do
+      TipoEmpleado.all.where(wrong: 1).empty? &&
+      Empleado.all.where(wrong: 1).empty? &&
+      TarjetasTEMP.all.where(wrong: 1).empty? &&
+      EstanciaTEMP.all.where(wrong: 1).empty? &&
+      TipoAreaTEMP.all.where(wrong: 1).empty? &&
+      AreasTEMP.all.where(wrong: 1).empty? &&
+      CajeroTEMP.all.where(wrong: 1).empty? &&
+      EstanciaCajero.all.where(wrong: 1).empty? &&
+      PasilloTEMP.all.where(wrong: 1).empty? &&
+      SensorTEMP.all.where(wrong: 1).empty? &&
+      HorariosDisponiblesTEMP.all.where(wrong: 1).empty? &&
+      LocalTEMP.all.where(wrong: 1).empty? &&
+      NegociosTEMP.all.where(wrong: 1).empty? &&
+      LocalNegocioTEMP.all.where(wrong: 1).empty? &&
+      DescuentoTEMP.all.where(wrong: 1).empty? &&
+      TipoAccidenteTEMP.all.where(wrong: 1).empty? &&
+      AccidenteTEMP.all.where(wrong: 1).empty? &&
+      ClienteTEMP.all.where(wrong: 1).empty? &&
+      ContratoTEMP.all.where(wrong: 1).empty? &&
+      RentasTEMP.all.where(wrong: 1).empty? &&
+      ProveedoresTEMP.all.where(wrong: 1).empty? &&
+      CategoriasTEMP.all.where(wrong: 1).empty? &&
+      TiposMaterialesTEMP.all.where(wrong: 1).empty? &&
+      RecursoMaterial.all.where(wrong: 1).empty? &&
+      ProveedoresMaterialesTEMP.all.where(wrong: 1).empty? &&
+      SolicitudCompraTEMP.all.where(wrong: 1).empty? &&
+      ServiciosTEMP.all.where(wrong: 1).empty? &&
+      ServiciosMaterialesTEMP.all.where(wrong: 1).empty? &&
+      TareasTEMP.all.where(wrong: 1).empty? &&
+      TareasMaterialesTEMP.all.where(wrong: 1).empty? &&
+      SeccionesBodegaTEMP.all.where(wrong: 1).empty? &&
+      HorariosTEMP.all.where(wrong: 1).empty? &&
+      TiposIncidentesTEMP.all.where(wrong: 1).empty? &&
+      IncidentesTEMP.all.where(wrong: 1).empty? &&
+      OrdenesServicioTEMP.all.where(wrong: 1).empty? &&
+      OrdenServicioContratistasTEMP.all.where(wrong: 1).empty? &&
+      AreasServiciosTEMP.all.where(wrong: 1).empty? &&
+      OrdenDespachoTEMP.all.where(wrong: 1).empty? &&
+      OrdenDespachoMaterialesTEMP.all.where(wrong: 1).empty? &&
+      GananciasTEMP.all.where(wrong: 1).empty? &&
+      PagosTEMP.all.where(wrong: 1).empty? &&
+      AbonosTEMP.all.where(wrong: 1).empty?
     end
   end
 end

@@ -12,12 +12,22 @@
 
 <% Octopus.using(:TEMP) do %>
   <div class="container etl shadow">
-    <% if current_user.user_type == 1 && @etl %>
+    <% if current_user.user_type == 1 && @etl && @no_more_errors %>
+      <div class='m-5 text-center'>
+        <h4 class='font-weight-bold mb-5'>Proceso de carga</h4>
+        <p class='font-italic'>El proceso de transformación de la información ha terminado, ahora puedes empezar la carga de datos al Data warehouse</p>
+        <%= image_tag 'carga.png', style: 'height: 150px;' %>
+        <p class='font-italic font-weight-bold'>Etapa de carga de los datos</p>
+        <p style='justify-content: center;'>ET <b style='color: #001fff;'> L </b></p>
+        <%= link_to 'Cargar datos al Data warehouse y generar CSV', send_to_dtwh_path, class: 'btn btn-success mt-5', method: :post %>
+      </div>
+
+    <% elsif current_user.user_type == 1 && @etl %>
       <div class='m-5 text-center'>
         <h4 class='font-weight-bold mb-5'>Actualmente hay un ETL en proceso</h4>
         <p class='font-italic' style='color: #001fff;'>Notifica a los dueños de cada sistema que hay datos que deben corregir y/o eliminar</p>
         <%= image_tag 'transform.png', style: 'height: 150px;' %>
-        <p class='font-italic font-weight-bold'>Etapa de trasnformación de los datos</p>
+        <p class='font-italic font-weight-bold'>Etapa de transformación de los datos</p>
         <p style='justify-content: center;'>E <b style='color: #001fff;'> T </b> L</p>
         <%= link_to 'Ver datos que necesitan correcciones', etl_index_path, class: 'btn btn-secondary' %>
       </div>
