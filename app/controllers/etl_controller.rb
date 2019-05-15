@@ -323,6 +323,8 @@ class EtlController < ApplicationController
   def update
     Octopus.using(:TEMP) do
       UpdateTemp.update_object(params)
+    end
+    Octopus.using(:TEMP) do
       registro_bit(params[:table], params[:id], 'Actualizar')
     end
     redirect_to authenticated_root_path
