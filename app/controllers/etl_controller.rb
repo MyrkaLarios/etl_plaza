@@ -63,6 +63,7 @@ class EtlController < ApplicationController
     Octopus.using(:TEMP) do
       sql = "DELETE FROM #{params[:table]} WHERE id = #{params[:id]}"
       ActiveRecord::Base.connection.execute(sql)
+      registro_bit(params[:table], params[:id], 'Borrado')
     end
     redirect_to authenticated_root_path
   end
@@ -71,6 +72,7 @@ class EtlController < ApplicationController
     Octopus.using(:TEMP) do
       sql = "DELETE FROM #{params[:table]} WHERE sistema = '#{params[:sistema]}' and wrong = 1;"
       ActiveRecord::Base.connection.execute(sql)
+      registro_bit(params[:table], '0', "Borrado de elementos incorrectos del sistema #{params[:sistema]}")
     end
     redirect_to authenticated_root_path
   end
@@ -219,6 +221,7 @@ class EtlController < ApplicationController
       @egresos_mantenimiento = EgresoMantenimientoTEMP.all.to_a
       @pagos = PagosTEMP.all.to_a
       @abonos = AbonosTEMP.all.to_a
+      @bitacora = Bitacora.all.to_a
 
       Octopus.using(:DTWH) do
         if Empleado.all.empty?
@@ -309,6 +312,8 @@ class EtlController < ApplicationController
           @pagos.each { |pag| PagosTEMP.create(fecha: pag.fecha, monto: pag.monto, id_empleado: pag.id_empleado, id_ganancia: pag.id_ganancia, original_id: pag.original_id, sistema: pag.sistema) }
 
           @abonos.each { |abon| AbonosTEMP.create(fechapago: abon.fechapago, saldorestante: abon.saldorestante, monto: abon.monto, id_renta: abon.id_renta, id_ganancia: abon.id_ganancia, original_id: abon.original_id, sistema: abon.sistema) }
+
+          @bitacora.each { |bit| Bitacora.create(usuario: bit.usuario, tabla: bit.tabla, registro: bit.registro, accion: bit.accion, fecha: bit.fecha) }
         end
       end
     end
@@ -318,6 +323,7 @@ class EtlController < ApplicationController
   def update
     Octopus.using(:TEMP) do
       UpdateTemp.update_object(params)
+      registro_bit(params[:table], params[:id], 'Actualizar')
     end
     redirect_to authenticated_root_path
   end
@@ -367,11 +373,18 @@ class EtlController < ApplicationController
     @egresos_mantenimiento = EgresoMantenimientoTEMP.all.to_a
     @pagos = PagosTEMP.all.to_a
     @abonos = AbonosTEMP.all.to_a
+    @bitacora = Bitacora.all.to_a
     respond_to do |format|
       format.html
       format.xlsx{
         response.headers['Content-Disposition'] = 'attachment; filename="datawarehouse.xlsx"'
       }
+    end
+  end
+
+  def registro_bit(tabla, registro_id, accion)
+    Octopus.using(:TEMP) do
+      Bitacora.create(usuario: current_user.email, tabla: tabla, registro: registro_id, accion: accion, fecha: Time.zone.now)
     end
   end
 
