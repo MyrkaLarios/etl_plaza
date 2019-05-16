@@ -309,9 +309,9 @@ wb.add_worksheet(name: "Abonos") do |sheet|
 end
 
 wb.add_worksheet(name: "Bitacora") do |sheet|
-  sheet.add_row ['ID', 'USUARIO', 'TABLA', 'REGISTRO', 'ACCION', 'FEHCA']
+  sheet.add_row ['ID', 'USUARIO', 'TABLA', 'REGISTRO', 'ACCION', 'FECHA']
   @bitacora.each do |e|
-    sheet.add_row [e.id.to_s, e.usuario.to_s, e.registro.to_s, e.accion.to_s, e.fecha.to_s, e.accion.to_s]
+    sheet.add_row [e.id.to_s, e.usuario.to_s, e.tabla.to_s, e.registro.to_s, e.accion.to_s, e.fecha.to_s]
   end
 end
 

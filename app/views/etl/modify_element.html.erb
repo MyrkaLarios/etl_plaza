@@ -270,7 +270,7 @@
       <%= text_field_tag (:fechadecaducidad), @element.fechadecaducidad, class: 'margL' %>
 
     <%elsif @table == 'dbo.GANANCIAS'%>
-      <p>Modifcando la ganancia con id <%= @element.original_id %> </p>
+      <p>Modifcando la ganancia con id <%= @element.id %> </p>
       <%= label_tag :ingresos %>
       <%= text_field_tag (:ingresos), @element.ingresos, class: 'marg' %>
       <%= label_tag :egresos %>
