@@ -1,6 +1,6 @@
-<div class="card-header" id="heading4">
+<div class="card-header" id="heading004">
   <h2 class="mb-0 d-flex justify-content-between">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse004" aria-expanded="false" aria-controls="collapse004">
       + Negocios
     </button>
     <% if current_user.user_type != 1 %>
@@ -9,7 +9,7 @@
   </h2>
 </div>
 
-<div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+<div id="collapse004" class="collapse" aria-labelledby="heading004" data-parent="#accordion">
   <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
       <p class="border-bottom" id="top">Id</p>
@@ -24,7 +24,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% negocios.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_business_name?(e.nombre) %>"><%= e.nombre %></p>
           <p class="<%= 'wrong' if !valid_giro_name?(e.giro) %>"><%= e.giro %></p>
           <p class="<%= 'wrong' if !valid_estado_negocio?(e.estado) %>"><%= e.estado %></p>

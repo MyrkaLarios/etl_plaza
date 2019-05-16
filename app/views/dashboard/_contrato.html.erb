@@ -1,6 +1,6 @@
-<div class="card-header" id="heading7">
+<div class="card-header" id="heading07">
   <h2 class="mb-0 d-flex justify-content-between">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse07" aria-expanded="false" aria-controls="collapse07">
       + Contrato
     </button>
     <% if current_user.user_type != 1 %>
@@ -9,7 +9,7 @@
   </h2>
 </div>
 
-<div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordion">
+<div id="collapse07" class="collapse" aria-labelledby="heading07" data-parent="#accordion">
   <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
       <p class="border-bottom" id="top">Id</p>
@@ -26,7 +26,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% contratos.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_date?(e.fechainicio.to_date) %>"><%= e.fechainicio %></p>
           <p class="<%= 'wrong' if !valid_business_date?(e.fechafin.to_date) %>"><%= e.fechafin %></p>
           <p class="<%= 'wrong' if !valid_salary?(e.costo.to_i) %>"><%= e.costo %></p>

@@ -26,7 +26,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% abonos.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_date?(e.fechapago) %>"><%= e.fechapago %></p>
           <p><%= e.saldorestante %></p>
           <p class="<%= 'wrong' if !valid_number?(e.monto) %>"><%= e.monto %></p>

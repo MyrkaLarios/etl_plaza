@@ -1,6 +1,6 @@
-<div class="card-header" id="heading4">
+<div class="card-header" id="heading04">
   <h2 class="mb-0 d-flex justify-content-between">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" aria-controls="collapse04">
       + Tipo Área
     </button>
     <% if current_user.user_type != 1 %>
@@ -9,7 +9,7 @@
   </h2>
 </div>
 
-<div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+<div id="collapse04" class="collapse" aria-labelledby="heading04" data-parent="#accordion">
   <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
       <p class="border-bottom" id="top">Id</p>
@@ -22,7 +22,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% tipos_areas.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class='wrong'><%= e.nombre %></p>
           <% if current_user.user_type != 1 %>
             <%= render partial: "dashboard/links", locals: { e: e, table: 'dbo.TIPO_AREA' } %>

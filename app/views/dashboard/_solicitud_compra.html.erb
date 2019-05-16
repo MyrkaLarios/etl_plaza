@@ -26,7 +26,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% solicitudes_compras.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_salary?(e.cantidad_total) %>"><%= e.cantidad_total %></p>
           <p><%= e.fechaemision %></p>
           <p class="<%= 'wrong' if !valid_salary?(e.costototal) %>"><%= e.costototal %></p>

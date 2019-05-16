@@ -24,7 +24,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% sensores.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p ><%= e.id %></p>
+          <p ><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_estado_cajero?(e.estado) %>"><%= e.estado %></p>
           <p class="<%= 'wrong' if !valid_date?(e.fecha) %>"><%= e.fecha %></p>
           <p><%= e.id_pasillo %></p>

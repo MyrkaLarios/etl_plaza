@@ -25,7 +25,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% ordenes_servicio.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_date?(e.fecha) %>"><%= e.fecha %></p>
           <p class="<%= 'wrong' if !valid_prioridad?(e.prioridad.to_s) %>"><%= e.prioridad %></p>
           <p><%= e.id_tarea %></p>

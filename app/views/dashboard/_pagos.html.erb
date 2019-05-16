@@ -1,6 +1,6 @@
-<div class="card-header" id="heading12">
+<div class="card-header" id="heading012">
   <h2 class="mb-0 d-flex justify-content-between">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse012" aria-expanded="false" aria-controls="collapse012">
       + Pagos
     </button>
     <% if current_user.user_type != 1 %>
@@ -9,7 +9,7 @@
   </h2>
 </div>
 
-<div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#accordion">
+<div id="collapse012" class="collapse" aria-labelledby="heading012" data-parent="#accordion">
   <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
       <p class="border-bottom" id="top">Id</p>
@@ -25,7 +25,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% pagos.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_date?(e.fecha) %>"><%= e.fecha %></p>
           <p class="<%= 'wrong' if !valid_number?(e.monto) %>"><%= e.monto %></p>
           <p><%= e.id_empleado %></p>

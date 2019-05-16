@@ -31,7 +31,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% estancias.each do |e| %>
         <div class='my-2' style='display: flex; justify-content: space-between;'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_date?(e.fechainicio) %>"><%= e.fechainicio %></p>
           <p class="<%= 'wrong' if !valid_date?(e.fechafin) %>"><%= e.fechafin %></p>
           <p><%= e.horainicio %></p>

@@ -1,6 +1,6 @@
-<div class="card-header" id="heading9">
+<div class="card-header" id="heading09">
   <h2 class="mb-0 d-flex justify-content-between">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse09" aria-expanded="false" aria-controls="collapse09">
       + Ganancias
     </button>
     <% if current_user.user_type != 1 %>
@@ -9,7 +9,7 @@
   </h2>
 </div>
 
-<div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordion">
+<div id="collapse09" class="collapse" aria-labelledby="heading09" data-parent="#accordion">
   <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
       <p class="border-bottom" id="top">Id</p>
@@ -23,7 +23,7 @@
 
     <% ganancias.each do |e| %>
       <div style='display: flex; justify-content: space-between;' class='my-2'>
-        <p><%= e.id %></p>
+        <p><%= e.original_id %></p>
         <p class="<%= 'wrong' if !valid_number?(e.ingresos) %>"><%= e.ingresos %></p>
         <p class="<%= 'wrong' if !valid_number?(e.egresos) %>"><%= e.egresos %></p>
         <p class="<%= 'wrong' if !valid_date?(e.fechacorte) %>"><%= e.fechacorte %></p>

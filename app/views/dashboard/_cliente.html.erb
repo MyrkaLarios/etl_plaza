@@ -1,6 +1,6 @@
-<div class="card-header" id="heading6">
+<div class="card-header" id="heading06">
   <h2 class="mb-0 d-flex justify-content-between">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse06" aria-expanded="false" aria-controls="collapse06">
       + Cliente
     </button>
     <% if current_user.user_type != 1 %>
@@ -9,7 +9,7 @@
   </h2>
 </div>
 
-<div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion">
+<div id="collapse06" class="collapse" aria-labelledby="heading06" data-parent="#accordion">
   <div class="card-body">
     <div style='display: flex; justify-content: space-between;' class='my-2'>
       <p class="border-bottom" id="top">Id</p>
@@ -23,7 +23,7 @@
     <div style='display: flex; flex-direction: column;'>
       <% clientes.each do |e| %>
         <div style='display: flex; justify-content: space-between;' class='my-2'>
-          <p><%= e.id %></p>
+          <p><%= e.original_id %></p>
           <p class="<%= 'wrong' if !valid_name?(e.nombre) %>"><%= e.nombre %></p>
           <p class="<%= 'wrong' if !valid_RFC?(e.RFC) %>"><%= e.RFC %></p>
           <% if current_user.user_type != 1 %>
